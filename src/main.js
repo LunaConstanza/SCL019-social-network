@@ -1,15 +1,19 @@
 // Este es el punto de entrada de tu aplicacion
 
-import { myFunction, logo } from './lib/index.js';
+import { myFunction, headerLogo } from './lib/index.js';
 
 myFunction();
+// console.log(headerLogo());
 
-const headerLogo = logo();
 const root = document.getElementById('root');
+
+const spaceLogo = headerLogo();
+
 const containerRegister = document.createElement('main');
 const subTitle = document.createElement('h2');
-subTitle.innerHTML=`Registro`;
+subTitle.innerHTML=`Registro de usuario`;
 const formRegister = document.createElement('form');
+
 const inputNameAndLastName = document.createElement('input');
 inputNameAndLastName.setAttribute('type','text');
 inputNameAndLastName.setAttribute('placeholder','Nombre y Apellido');
@@ -41,8 +45,10 @@ inputDate.setAttribute('max','2007-12-31');
 
 const btnSend = document.createElement('input'); 
 btnSend.setAttribute('type','submit');
-btnSend.innerHTML = `Registrate`;
+btnSend.setAttribute('value','Registrate');
+btnSend.setAttribute('id','buttonRegis');
 
+root.appendChild(spaceLogo);
 root.appendChild(containerRegister);
 containerRegister.appendChild(subTitle);
 containerRegister.appendChild(formRegister);
