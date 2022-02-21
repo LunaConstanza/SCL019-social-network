@@ -13,10 +13,14 @@ body{
     display: grid;
     grid-template-columns: minmax(200px,1fr);
     grid-template-rows: 150px ;
+
 }
 header{
     padding-top: 70px;
     text-align: center;
+}
+button{
+    color: white;
 }
 h2{
     text-align: center;
@@ -28,20 +32,17 @@ form{
     justify-content: center;
     align-content: center;
     flex-wrap: wrap;
-
 }
 input{
     background-color: aliceblue;
-    width: 90%;
     padding: 10px;
     border-radius: 5px;
     margin: 5px;
 }
-#date{
-    margin: 5px;
-    text-align: center;
-}
-#buttonRegis{
+#submitRegister{
     margin-top: 20px;
 }
 
+#register{
+    color: white;
+}
