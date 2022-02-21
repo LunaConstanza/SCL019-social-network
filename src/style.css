@@ -1,0 +1,47 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #10133A;
+}
+
+body{
+    color: white;
+    font-size: 10px;
+}
+.root{
+    display: grid;
+    grid-template-columns: minmax(200px,1fr);
+    grid-template-rows: 150px ;
+}
+header{
+    padding-top: 70px;
+    text-align: center;
+}
+h2{
+    text-align: center;
+    padding-bottom: 10px;
+}
+form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+
+}
+input{
+    background-color: aliceblue;
+    width: 90%;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 5px;
+}
+#date{
+    margin: 5px;
+    text-align: center;
+}
+#buttonRegis{
+    margin-top: 20px;
+}
+

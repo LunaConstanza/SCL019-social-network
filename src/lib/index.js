@@ -5,7 +5,9 @@ export const myFunction = () => {
   console.log('Hola mundo!');
 };
 
-export const logo = () => {
-  const headerLogo = document.createElement('header');
-  headerLogo.innerHTML= `<img class="" src="" alt="logo proyecto">`;
-};
+export const headerLogo = () => {
+  const header = document.createElement('header');
+    header.innerHTML=`<h1>LOGO</h1>`; 
+    //`<img class="" src="" alt="logo proyecto">`;
+  return header;
+};  
