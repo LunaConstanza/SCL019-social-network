@@ -9,6 +9,7 @@ const root = document.getElementById('root');
 
 const spaceLogo = headerLogo();
 
+
 const containerRegister = document.createElement('main');
 const subTitle = document.createElement('h2');
 subTitle.innerHTML=`Registro de usuario`;
@@ -31,7 +32,7 @@ inputPassword2.setAttribute('type','password');
 inputPassword2.setAttribute('placeholder','Repetir contraseña');
 
 const inputMail = document.createElement('input');
-inputMail.setAttribute('type','mail');
+inputMail.setAttribute('type','email');
 inputMail.setAttribute('placeholder','Correo electrónico');
 
 const labelDate = document.createElement('label');
@@ -60,3 +61,7 @@ formRegister.appendChild(inputMail);
 formRegister.appendChild(labelDate);
 formRegister.appendChild(inputDate);
 formRegister.appendChild(btnSend);
+
+btnSend.addEventListener('click', e => {
+    history.pushState(null,'Perfil','/perfil');
+});
