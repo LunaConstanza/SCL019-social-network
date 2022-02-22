@@ -1,6 +1,15 @@
-export function register () {
+import { headerLogo } from './lib/index.js';
 
-    const containerRegister = document.createElement('main');
+const container2 = document.getElementById('container2');
+const container3 = document.getElementById('container3')
+const spaceLogo = headerLogo();
+
+export function register(e) {
+    console.log('ola k ase');
+    history.pushState(null, 'Registro', '/register')
+    container2.remove('main');
+
+    const containerRegister = document.createElement('div');
     const subTitle = document.createElement('h2');
     subTitle.innerHTML = `Registro de usuario`;
     const formRegister = document.createElement('form');
@@ -39,8 +48,8 @@ export function register () {
     btnSend.setAttribute('value', 'Registrate');
     btnSend.setAttribute('id', 'submitRegister');
 
-    root.appendChild(spaceLogo);
-    root.appendChild(containerRegister);
+    container3.appendChild(spaceLogo);
+    container3.appendChild(containerRegister);
     containerRegister.appendChild(subTitle);
     containerRegister.appendChild(formRegister);
     formRegister.appendChild(inputNameAndLastName);
@@ -51,5 +60,4 @@ export function register () {
     formRegister.appendChild(labelDate);
     formRegister.appendChild(inputDate);
     formRegister.appendChild(btnSend);
-
 }

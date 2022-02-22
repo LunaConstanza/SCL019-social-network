@@ -1,7 +1,7 @@
 // Este es el punto de entrada de tu aplicacion
 
 import { myFunction, headerLogo } from './lib/index.js';
-import {register} from './register.js';
+import { register } from './register.js';
 
 myFunction();
 
@@ -9,11 +9,9 @@ const spaceLogo = headerLogo();
 const logo = document.getElementById('photoLogo');
 const container = document.getElementById('container');
 const container2 = document.getElementById('container2');
-const buttonRegister = document.getElementById('btnRegistrar');
 
-logo.addEventListener('click', e => {
+logo.addEventListener('click', () => {
     console.log('hice click');
-
     container.remove('photoLogo');
 
     history.pushState(null, 'login', '/login');
@@ -28,7 +26,6 @@ logo.addEventListener('click', e => {
     UserLogin.setAttribute('placeholder', 'Ingresa tu usuario');
 
     const btnRegister = document.createElement('button');
-    btnRegister.setAttribute('id', 'btnRegistrar');
     btnRegister.innerHTML = `Registrate`;
 
     container2.appendChild(spaceLogo);
@@ -37,9 +34,8 @@ logo.addEventListener('click', e => {
     containerLogin.appendChild(formLogin);
     formLogin.appendChild(UserLogin);
     formLogin.appendChild(btnRegister);
-
-});
-
-buttonRegister.addEventListener('click', function (e){
-    register();
+    
+    btnRegister.addEventListener('click', () => {
+        register();
+    });
 });
