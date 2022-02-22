@@ -6,14 +6,13 @@ import { register } from './register.js';
 myFunction();
 
 const spaceLogo = headerLogo();
-const logo = document.getElementById('photoLogo');
-const container = document.getElementById('container');
-const container2 = document.getElementById('container2');
+const container = document.getElementById('root');
+const imgLogo = document.getElementById('imgLogo');
 
-logo.addEventListener('click', () => {
+
+imgLogo.addEventListener('click', () => {
     console.log('hice click');
-    container.remove('photoLogo');
-
+    imgLogo.remove();
     history.pushState(null, 'login', '/login');
 
     const containerLogin = document.createElement('main');
@@ -28,8 +27,8 @@ logo.addEventListener('click', () => {
     const btnRegister = document.createElement('button');
     btnRegister.innerHTML = `Registrate`;
 
-    container2.appendChild(spaceLogo);
-    container2.appendChild(containerLogin);
+    container.appendChild(spaceLogo);
+    container.appendChild(containerLogin);
     containerLogin.appendChild(subTitleLogin);
     containerLogin.appendChild(formLogin);
     formLogin.appendChild(UserLogin);
@@ -37,5 +36,6 @@ logo.addEventListener('click', () => {
     
     btnRegister.addEventListener('click', () => {
         register();
+        containerLogin.remove();
     });
 });

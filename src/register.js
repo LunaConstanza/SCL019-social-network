@@ -1,15 +1,14 @@
-import { headerLogo } from './lib/index.js';
 
-const container2 = document.getElementById('container2');
-const container3 = document.getElementById('container3')
-const spaceLogo = headerLogo();
-
-export function register(e) {
+const container = document.getElementById('root');
+export function register() {
+    
     console.log('ola k ase');
     history.pushState(null, 'Registro', '/register')
-    container2.remove('main');
+    // mainLogin.remove();
 
-    const containerRegister = document.createElement('div');
+    const containerRegister = document.createElement('main');
+    containerRegister.setAttribute('id','mainRegister');
+
     const subTitle = document.createElement('h2');
     subTitle.innerHTML = `Registro de usuario`;
     const formRegister = document.createElement('form');
@@ -48,8 +47,7 @@ export function register(e) {
     btnSend.setAttribute('value', 'Registrate');
     btnSend.setAttribute('id', 'submitRegister');
 
-    container3.appendChild(spaceLogo);
-    container3.appendChild(containerRegister);
+    container.appendChild(containerRegister);
     containerRegister.appendChild(subTitle);
     containerRegister.appendChild(formRegister);
     formRegister.appendChild(inputNameAndLastName);

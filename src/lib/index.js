@@ -1,5 +1,4 @@
 // aqui exportaras las funciones que necesites
-
 export const myFunction = () => {
   // aqui tu codigo
   console.log('Hola mundo!');
@@ -7,7 +6,13 @@ export const myFunction = () => {
 
 export const headerLogo = () => {
   const header = document.createElement('header');
-    header.innerHTML=`<h1>LOGO</h1>`; 
-    //`<img class="" src="" alt="logo proyecto">`;
+
+  const logo = document.createElement('img');
+  logo.setAttribute('class', 'logoRS');
+  logo.setAttribute('src', 'icono.png');
+  logo.setAttribute('alt', 'Lodo red social');
+  header.appendChild(logo);
+
+
   return header;
-};  
+}; 
