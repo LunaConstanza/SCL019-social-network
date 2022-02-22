@@ -7,12 +7,20 @@ myFunction();
 
 const spaceLogo = headerLogo();
 const container = document.getElementById('root');
-const imgLogo = document.getElementById('imgLogo');
 
+const mainCharge = document.createElement('main');
+mainCharge.setAttribute('class', 'mainLogo');
+
+const imgLogo = document.createElement('img');
+mainCharge.setAttribute('class','imgLogo');
+imgLogo.setAttribute('src', './img/en-construccion.png');
+imgLogo.setAttribute('alt', 'Logo Red Social Inicio');
+container.appendChild(mainCharge);
+mainCharge.appendChild(imgLogo);
 
 imgLogo.addEventListener('click', () => {
     console.log('hice click');
-    imgLogo.remove();
+    mainCharge.remove();
     history.pushState(null, 'login', '/login');
 
     const containerLogin = document.createElement('main');
