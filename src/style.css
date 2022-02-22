@@ -2,40 +2,62 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    background-color: #10133A;
+    background-color: var(--bluedark-color);
+    color: var(--white-color);
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    text-align: center;
 }
-
-body{
-    color: white;
-    font-size: 10px;
+:root { 
+    --white-color: white;
+    --bluedark-color: #10133a;
+    --bluelight-color: #1b96f3;
+    --yellow-color: #fcdf87;
+    --pink-color: #ef0195;
+    --orange-color: #f68741;
 }
 .root{
     display: grid;
     grid-template-columns: minmax(200px,1fr);
     grid-template-rows: 150px ;
 }   
-header{
-    padding-top: 70px;
-    text-align: center;
-    margin: 20px;
-    text-shadow: 0 0 5px #ef0195, 0 0 15px #ef0195, 0 0 25px #ef0195;
-}
-.imgLogo{
+.mainLogo{
+    position: fixed;
     display: flex;
     justify-content: center;
-    align-content: center;
-    margin: auto;
+    align-items: center;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+.imgLogo{
     width: 200px;
     height: 200px;
     cursor: pointer;
+    transition: .3s ease-in-out;
+/* box-shadow: 0 0 5px #ef0195, 0 0 15px #ef0195, 0 0 25px #ef0195;*/
 }
-button{
-    color: white;
-    width: 200px;
+.imgLogo:hover{
+    transform: scale(1.5);
+}
+header{
+    padding-top: 70px;
+    text-align: center;
+    margin: 20px;   
+}
+.mainLogin{
+    border: solid 1px var(--white-color);
+    box-shadow: 0 0 5px var(--pink-color), 0 0 15px var(--pink-color), 0 0 25px var(--pink-color);
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    margin: 50px 500px;
+    padding: 50px 0;
 }
 h2{
-    text-align: center;
-    padding-bottom: 10px;
+    font-size: 18px;
+    padding-bottom: 20px;
 }
 form{
     display: flex;
@@ -45,16 +67,35 @@ form{
     flex-wrap: wrap;
 }
 input{
+    color: black;
     background-color: aliceblue;
-    padding: 10px;
+    padding: 10px 45px;
     border-radius: 5px;
     margin: 5px;
 }
-#submitRegister{
+button{
+    background: var(--bluelight-color);
+    border: none;
+    border-radius: 10px;
+    padding: 10px 45px;
+}
+.mainRegister{
+    border: solid 1px var(--white-color);
+    box-shadow: 0 0 5px var(--pink-color), 0 0 15px var(--pink-color), 0 0 25px var(--pink-color);
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    margin: 50px 500px;
+    padding: 50px 0;
+}
+
+.submitRegister{
     margin-top: 20px;
+    background: var(--bluelight-color);
+    color: var(--white-color);
+    border: none;
+    border-radius: 10px;
 }
-
-#register{
-    color: white;
+footer{
+    margin: 50px 0;
 }
-

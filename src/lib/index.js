@@ -6,13 +6,24 @@ export const myFunction = () => {
 
 export const headerLogo = () => {
   const header = document.createElement('header');
-
   const logo = document.createElement('img');
-  logo.setAttribute('class', 'logoRS');
-  logo.setAttribute('src', 'icono.png');
+  logo.classList.add('logoRS');
+  logo.setAttribute('width', '50px');
+  logo.setAttribute('src', './img/icono.png');
   logo.setAttribute('alt', 'Lodo red social');
-  header.appendChild(logo);
 
+  header.appendChild(logo);
 
   return header;
 }; 
+
+export const footerCredits = () => {
+  const footer = document.createElement('footer');
+  const textFooter = document.createElement('p')
+  textFooter.classList.add('textFooter')
+  textFooter.innerHTML = `Copyright 2022`;
+
+  footer.appendChild(textFooter);
+
+  return footer;
+};

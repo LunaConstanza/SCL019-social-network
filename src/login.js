@@ -1,18 +1,19 @@
 // Este es el punto de entrada de tu aplicacion
 
-import { myFunction, headerLogo } from './lib/index.js';
+import { myFunction, headerLogo, footerCredits } from './lib/index.js';
 import { register } from './register.js';
 
 myFunction();
 
-const spaceLogo = headerLogo();
+const header = headerLogo();
+const footer = footerCredits();
 const container = document.getElementById('root');
 
 const mainCharge = document.createElement('main');
-mainCharge.setAttribute('class', 'mainLogo');
+mainCharge.classList.add('mainLogo');
 
 const imgLogo = document.createElement('img');
-mainCharge.setAttribute('class','imgLogo');
+imgLogo.classList.add('imgLogo');
 imgLogo.setAttribute('src', './img/en-construccion.png');
 imgLogo.setAttribute('alt', 'Logo Red Social Inicio');
 container.appendChild(mainCharge);
@@ -24,6 +25,7 @@ imgLogo.addEventListener('click', () => {
     history.pushState(null, 'login', '/login');
 
     const containerLogin = document.createElement('main');
+    containerLogin.classList.add('mainLogin');
     const subTitleLogin = document.createElement('h2');
     subTitleLogin.innerHTML = `Inicio de Sesión`;
     const formLogin = document.createElement('form');
@@ -35,15 +37,17 @@ imgLogo.addEventListener('click', () => {
     const btnRegister = document.createElement('button');
     btnRegister.innerHTML = `Registrate`;
 
-    container.appendChild(spaceLogo);
+    container.appendChild(header);
     container.appendChild(containerLogin);
     containerLogin.appendChild(subTitleLogin);
     containerLogin.appendChild(formLogin);
     formLogin.appendChild(UserLogin);
     formLogin.appendChild(btnRegister);
+    container.appendChild(footer);
     
     btnRegister.addEventListener('click', () => {
         register();
         containerLogin.remove();
+        footer.remove();
     });
 });

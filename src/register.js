@@ -1,13 +1,16 @@
+import { footerCredits } from './lib/index.js';
 
 const container = document.getElementById('root');
+const footer = footerCredits();
+
 export function register() {
     
     console.log('ola k ase');
     history.pushState(null, 'Registro', '/register')
-    // mainLogin.remove();
 
     const containerRegister = document.createElement('main');
     containerRegister.setAttribute('id','mainRegister');
+    containerRegister.classList.add('mainRegister');
 
     const subTitle = document.createElement('h2');
     subTitle.innerHTML = `Registro de usuario`;
@@ -46,6 +49,7 @@ export function register() {
     btnSend.setAttribute('type', 'submit');
     btnSend.setAttribute('value', 'Registrate');
     btnSend.setAttribute('id', 'submitRegister');
+    btnSend.classList.add('submitRegister')
 
     container.appendChild(containerRegister);
     containerRegister.appendChild(subTitle);
@@ -58,4 +62,5 @@ export function register() {
     formRegister.appendChild(labelDate);
     formRegister.appendChild(inputDate);
     formRegister.appendChild(btnSend);
+    container.appendChild(footer);
 }
