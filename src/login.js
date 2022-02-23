@@ -32,7 +32,7 @@ imgLogo.addEventListener('click', () => {
 
     const userLogin = document.createElement('input');
     userLogin.setAttribute('type', 'text');
-    userLogin.setAttribute('placeholder', 'Correo Electrónico');
+    userLogin.setAttribute('placeholder', 'Usuario');
 
     const passwordLogin = document.createElement('input');
     passwordLogin.setAttribute('type', 'password');
