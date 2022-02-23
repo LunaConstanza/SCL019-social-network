@@ -30,18 +30,27 @@ imgLogo.addEventListener('click', () => {
     subTitleLogin.innerHTML = `Inicio de Sesión`;
     const formLogin = document.createElement('form');
 
-    const UserLogin = document.createElement('input');
-    UserLogin.setAttribute('type', 'text');
-    UserLogin.setAttribute('placeholder', 'Ingresa tu usuario');
+    const userLogin = document.createElement('input');
+    userLogin.setAttribute('type', 'text');
+    userLogin.setAttribute('placeholder', 'Correo Electrónico');
+
+    const passwordLogin = document.createElement('input');
+    passwordLogin.setAttribute('type', 'password');
+    passwordLogin.setAttribute('placeholder', 'Contraseña');
+
+    const btnLogIn = document.createElement('button');
+    btnLogIn.innerHTML = `Iniciar Sesión`;
 
     const btnRegister = document.createElement('button');
-    btnRegister.innerHTML = `Registrate`;
-
+    btnRegister.innerHTML = `Regístrate`;
+ 
     container.appendChild(header);
     container.appendChild(containerLogin);
     containerLogin.appendChild(subTitleLogin);
     containerLogin.appendChild(formLogin);
-    formLogin.appendChild(UserLogin);
+    formLogin.appendChild(userLogin);
+    formLogin.appendChild(passwordLogin);
+    formLogin.appendChild(btnLogIn);
     formLogin.appendChild(btnRegister);
     container.appendChild(footer);
     
