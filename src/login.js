@@ -32,11 +32,11 @@ imgLogo.addEventListener('click', () => {
 
     const userLogin = document.createElement('input');
     userLogin.setAttribute('type', 'text');
-    userLogin.setAttribute('placeholder', 'Usuario');
+    userLogin.setAttribute('placeholder', 'Correo electrónico');
 
     const passwordLogin = document.createElement('input');
     passwordLogin.setAttribute('type', 'password');
-    passwordLogin.setAttribute('placeholder', 'Contraseña');
+    passwordLogin.setAttribute('placeholder', 'Ingresa tu contraseña');
 
     const btnLogIn = document.createElement('button');
     btnLogIn.innerHTML = `Iniciar Sesión`;

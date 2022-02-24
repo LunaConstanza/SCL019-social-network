@@ -1,4 +1,5 @@
 import { footerCredits } from './lib/index.js';
+import {registerUser} from './lib/firebase.js'
 
 const container = document.getElementById('root');
 const footer = footerCredits();
@@ -7,6 +8,7 @@ export function register() {
     
     console.log('ola k ase');
     history.pushState(null, 'Registro', '/register')
+
 
     const containerRegister = document.createElement('main');
     containerRegister.setAttribute('id','mainRegister');
@@ -20,21 +22,15 @@ export function register() {
     inputNameAndLastName.setAttribute('type', 'text');
     inputNameAndLastName.setAttribute('placeholder', 'Nombre y Apellido');
 
-    const inputUser = document.createElement('input');
-    inputUser.setAttribute('type', 'text');
-    inputUser.setAttribute('placeholder', 'Crear usuario');
-
-    const inputPassword = document.createElement('input');
-    inputPassword.setAttribute('type', 'password');
-    inputPassword.setAttribute('placeholder', 'Crear contraseña');
-
-    const inputPassword2 = document.createElement('input');
-    inputPassword2.setAttribute('type', 'password');
-    inputPassword2.setAttribute('placeholder', 'Repetir contraseña');
-
     const inputMail = document.createElement('input');
+    inputMail.setAttribute('id','email');
     inputMail.setAttribute('type', 'email');
     inputMail.setAttribute('placeholder', 'Correo electrónico');
+
+    const inputPassword = document.createElement('input');
+    inputPassword.setAttribute('id','password');
+    inputPassword.setAttribute('type', 'password');
+    inputPassword.setAttribute('placeholder', 'Crear contraseña');
 
     const labelDate = document.createElement('label');
     labelDate.setAttribute('for', 'date');
@@ -63,4 +59,16 @@ export function register() {
     formRegister.appendChild(inputDate);
     formRegister.appendChild(btnSend);
     container.appendChild(footer);
+
+    formRegister.addEventListener('submit', e => {
+        e.preventDefault();
+        console.log('ola k ace 2');
+
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        console.log(email);
+        console.log(password);
+        registerUser(email,password);
+    });
+
 }
