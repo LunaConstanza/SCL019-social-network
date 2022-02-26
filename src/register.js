@@ -1,5 +1,5 @@
 import { footerCredits } from './lib/index.js';
-import { registerUser, dataUser } from './lib/firebase.js';
+import { registerUser} from './lib/firebase.js';
 
 const container = document.getElementById('root');
 const footer = footerCredits();
@@ -46,7 +46,9 @@ export function register() {
     btnSend.setAttribute('type', 'submit');
     btnSend.setAttribute('value', 'Registrate');
     btnSend.setAttribute('id', 'submitRegister');
-    btnSend.classList.add('submitRegister')
+    btnSend.classList.add('submitRegister');
+
+
 
     container.appendChild(containerRegister);
     containerRegister.appendChild(subTitle);
@@ -61,7 +63,6 @@ export function register() {
 
     formRegister.addEventListener('submit', e => {
         e.preventDefault();
-        console.log('ola k ace 2');
         const nameLastname = document.getElementById('nameLastname').value;
         const dateOfBirth = document.getElementById('date').value;
         const email = document.getElementById('email').value;
@@ -71,8 +72,8 @@ export function register() {
         console.log(dateOfBirth);
         console.log(email);
         console.log(password);
-        
-        dataUser(nameLastname,dateOfBirth);
+
+        // dataUser(nameLastname,dateOfBirth);
         registerUser(email, password);
         
     });

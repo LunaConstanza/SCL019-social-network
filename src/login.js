@@ -2,6 +2,8 @@
 
 import { myFunction, headerLogo, footerCredits } from './lib/index.js';
 import { register } from './register.js';
+import { registerGoogle} from './lib/firebase.js'
+import { newContent } from './lib/newContent.js'
 
 myFunction();
 
@@ -41,9 +43,13 @@ imgLogo.addEventListener('click', () => {
     const btnLogIn = document.createElement('button');
     btnLogIn.innerHTML = `Iniciar Sesión`;
 
+    const btnGoogle = document.createElement('button');
+    btnGoogle.setAttribute('id','btnGoogle');
+    btnGoogle.innerHTML = `Ingresa con Google`;
+
     const btnRegister = document.createElement('button');
     btnRegister.innerHTML = `Regístrate`;
- 
+
     container.appendChild(header);
     container.appendChild(containerLogin);
     containerLogin.appendChild(subTitleLogin);
@@ -51,12 +57,21 @@ imgLogo.addEventListener('click', () => {
     formLogin.appendChild(userLogin);
     formLogin.appendChild(passwordLogin);
     formLogin.appendChild(btnLogIn);
+    formLogin.appendChild(btnGoogle);
     formLogin.appendChild(btnRegister);
+   
     container.appendChild(footer);
     
     btnRegister.addEventListener('click', () => {
         register();
         containerLogin.remove();
         footer.remove();
+    });
+
+    btnGoogle.addEventListener('click', (e) => {
+        e.preventDefault();
+        registerGoogle();
+        containerLogin.remove();
+        newContent();
     });
 });

@@ -1,19 +1,67 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-app.js";
-import { getDatabase } from "https://DATABASE_NAME.southamerica-east1.firebaseio.com";
+import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore.js";
+// import { getDatabase } from "https://datos_de_usuario.southamerica-east1.firebaseio.com";
 // import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-analytics.js";
-import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider,signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-auth.js";
 import {firebaseConfig} from "./config.js"
 
-
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-
-
+const auth = getAuth();
+const provider = new GoogleAuthProvider();
+const db = getFirestore();
 // const analytics = getAnalytics(app);
 
+//-----Login con Google ---------------
+export const registerGoogle = () => {
+   signInWithPopup(auth, provider)
+  .then((result) => {
+    // This gives you a Google Access Token. You can use it to access the Google API.
+    const credential = GoogleAuthProvider.credentialFromResult(result);
+    const token = credential.accessToken;
+    // The signed-in user info.
+    const user = result.user;
+    // ...
+  }).catch((error) => {
+    // Handle Errors here.
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    // The email of the user's account used.
+    const email = error.email;
+    // The AuthCredential type that was used.
+    const credential = GoogleAuthProvider.credentialFromError(error);
+    // ...
+  });
+};
 
-const auth = getAuth();
+// ------ Cerrar sesión ---------
+export const logOut = () => {
+  signOut(auth).then(() => {
+    console.log('Usuario Cerro Sesión');
+    
+  }).catch((error) => {
+    // An error happened.
+  });
+} 
+
+// ------Permite verificar si hay un usuario conectado 
+let currentUser;
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    currentUser = user;
+    console.log('usuario Logeado', currentUser.displayName);
+    // User is signed in, see docs for a list of available properties
+    // https://firebase.google.com/docs/reference/js/firebase.User
+    const uid = user.uid;
+    // ...
+  } else {
+      console.log('No hay Usuario logueado');
+    // User is signed out
+    // ...
+  }
+});
+
+ //-------- Se guarda el Email y el password del usuario ----------
 export const registerUser = (email, password) =>{
     createUserWithEmailAndPassword(auth, email, password)
   .then((userCredential) => {
@@ -30,30 +78,24 @@ export const registerUser = (email, password) =>{
   });
 }
 
-const database = getDatabase(app);
-export const dataUser = (nameLastname, dateOfbirth) =>{
-  // Constante original      const database = getDatabase(app);
-   getDatabase (database, nameLastname, dateOfbirth);
+// import { collection, addDoc } from "firebase/firestore";
+export async function insert (){
+  try {
+    const docRef = await addDoc(collection(db, "users"), {
+      first: "Ada",
+      last: "Lovelace",
+      born: 1815
+    });
+    console.log("Document written with ID: ", docRef.id);
+  } catch (e) {
+    console.error("Error adding document: ", e);
+  }
 }
 
 
 
-// import { getDatabase } from "firebase/database";
-
-// // TODO: Replace with your app's Firebase project configuration
-// const firebaseConfig = {
-//   apiKey: "API_KEY",
-//   authDomain: "PROJECT_ID.firebaseapp.com",
-//   // The value of `databaseURL` depends on the location of the database
-//   databaseURL: "https://DATABASE_NAME.firebaseio.com",
-//   projectId: "PROJECT_ID",
-//   storageBucket: "PROJECT_ID.appspot.com",
-//   messagingSenderId: "SENDER_ID",
-//   appId: "APP_ID",
-//   // For Firebase JavaScript SDK v7.20.0 and later, `measurementId` is an optional field
-//   measurementId: "G-MEASUREMENT_ID",
-// };
-
-// const app = initializeApp(firebaseConfig);
-
-// Get a reference to the database service
+// const database = getDatabase(app);
+// export const dataUser = (nameLastname, dateOfbirth) =>{
+//   // Constante original      const database = getDatabase(app);
+//   //  getDatabase (database, nameLastname, dateOfbirth);
+// }

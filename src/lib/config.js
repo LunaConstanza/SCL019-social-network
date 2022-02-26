@@ -1,7 +1,7 @@
 export const firebaseConfig = {
     apiKey: "AIzaSyCZSoXMjEy08joOnLIR2J8buKkMQNoqAuc",
     authDomain: "socialnetworkggs.firebaseapp.com",
-    databaseURL: "https://Datos_de_usuario.southamerica-east1.firebaseio.com",
+    databaseURL: "https://datos_de_usuario.southamerica-east1.firebaseio.com",
     projectId: "socialnetworkggs",
     storageBucket: "socialnetworkggs.appspot.com",
     messagingSenderId: "703878655859",
