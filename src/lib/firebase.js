@@ -91,11 +91,3 @@ export async function insert (){
     console.error("Error adding document: ", e);
   }
 }
-
-
-
-// const database = getDatabase(app);
-// export const dataUser = (nameLastname, dateOfbirth) =>{
-//   // Constante original      const database = getDatabase(app);
-//   //  getDatabase (database, nameLastname, dateOfbirth);
-// }
