@@ -74,7 +74,7 @@ export function register() {
         console.log(password);
 
         // dataUser(nameLastname,dateOfBirth);
-        registerUser(email, password);
+        registerUser(email, password, nameLastname, dateOfBirth);
         
     });
 
