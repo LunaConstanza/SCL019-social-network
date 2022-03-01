@@ -3,7 +3,7 @@
 import { myFunction, headerLogo, footerCredits } from './lib/index.js';
 import { register } from './register.js';
 import { registerGoogle} from './lib/firebase.js'
-import { newContent } from './lib/newContent.js'
+import { newContent } from './newContent.js'
 
 myFunction();
 
@@ -25,30 +25,42 @@ imgLogo.addEventListener('click', () => {
     console.log('hice click');
     mainCharge.remove();
     history.pushState(null, 'login', '/login');
-
     const containerLogin = document.createElement('main');
     containerLogin.classList.add('mainLogin');
     const subTitleLogin = document.createElement('h2');
     subTitleLogin.innerHTML = `Inicio de Sesión`;
     const formLogin = document.createElement('form');
+    formLogin.classList.add('formLogin');
 
     const userLogin = document.createElement('input');
-    userLogin.setAttribute('type', 'text');
-    userLogin.setAttribute('placeholder', 'Correo electrónico');
+    userLogin.setAttribute('type', 'email');
+    userLogin.setAttribute('placeholder', 'Ingresa tu correo electrónico');
+    userLogin.setAttribute('size', '25');
+    userLogin.setAttribute('maxlength', '40');
+    userLogin.setAttribute('required','');
 
     const passwordLogin = document.createElement('input');
     passwordLogin.setAttribute('type', 'password');
     passwordLogin.setAttribute('placeholder', 'Ingresa tu contraseña');
+    passwordLogin.setAttribute('minlength', '6');
+    passwordLogin.setAttribute('maxlength', '12');
+    passwordLogin.setAttribute('required','');
 
     const btnLogIn = document.createElement('button');
-    btnLogIn.innerHTML = `Iniciar Sesión`;
+    btnLogIn.setAttribute('type', 'submit');
+    btnLogIn.classList.add('btnLogIn');
+    btnLogIn.innerHTML = `<i class="fa-solid fa-right-to-bracket"></i> Iniciar Sesión`;
+
+    const textO = document.createElement('p');
+    textO.innerHTML = `ó`;
 
     const btnGoogle = document.createElement('button');
-    btnGoogle.setAttribute('id','btnGoogle');
-    btnGoogle.innerHTML = `Ingresa con Google`;
+    btnGoogle.classList.add('btnGoogle');
+    btnGoogle.innerHTML = `<i class="fa-brands fa-google"></i> Iniciar sesión con Google`;
 
-    const btnRegister = document.createElement('button');
-    btnRegister.innerHTML = `Regístrate`;
+    const linkRegister = document.createElement('p');
+    linkRegister.innerHTML = `¿No tienes cuenta? <a href="#" id="linkReg">Regístrate</a>`;
+
 
     container.appendChild(header);
     container.appendChild(containerLogin);
@@ -57,21 +69,29 @@ imgLogo.addEventListener('click', () => {
     formLogin.appendChild(userLogin);
     formLogin.appendChild(passwordLogin);
     formLogin.appendChild(btnLogIn);
+    formLogin.appendChild(textO);
     formLogin.appendChild(btnGoogle);
-    formLogin.appendChild(btnRegister);
-   
+    formLogin.appendChild(linkRegister);
     container.appendChild(footer);
-    
-    btnRegister.addEventListener('click', () => {
-        register();
+
+    btnLogIn.addEventListener('submit', (e) => {
+        e.preventDefault();
+        newContent()
         containerLogin.remove();
         footer.remove();
-    });
-
+    })
     btnGoogle.addEventListener('click', (e) => {
         e.preventDefault();
         registerGoogle();
         containerLogin.remove();
+        footer.remove();
         newContent();
+    });
+    const btnRegister = document.getElementById('linkReg');
+    btnRegister.addEventListener('click', (e) => {
+        e.preventDefault();
+        register();
+        containerLogin.remove();
+        footer.remove();
     });
 });

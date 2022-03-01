@@ -7,16 +7,16 @@ const footer = footerCredits();
 export function register() {
 
     console.log('ola k ase');
-    history.pushState(null, 'Registro', '/register')
-
+    history.pushState(null, 'Registro', '/register');
+    window.scroll(0,0);
 
     const containerRegister = document.createElement('main');
     containerRegister.setAttribute('id', 'mainRegister');
     containerRegister.classList.add('mainRegister');
-
     const subTitle = document.createElement('h2');
-    subTitle.innerHTML = `Registro de usuario`;
+    subTitle.innerHTML = `Registro de Usuario`;
     const formRegister = document.createElement('form');
+    formRegister.classList.add('formRegister');
 
     const inputNameAndLastName = document.createElement('input');
     inputNameAndLastName.setAttribute('id', 'nameLastname');
@@ -37,26 +37,28 @@ export function register() {
     inputPassword.setAttribute('type', 'password');
     inputPassword.setAttribute('placeholder', 'Crear contraseña');
     inputPassword.setAttribute('minlength', '6');
-    inputPassword.setAttribute('maxlength', '12');
+    inputPassword.setAttribute('maxlength', '14');
     inputPassword.setAttribute('required','');
 
     const labelDate = document.createElement('label');
     labelDate.setAttribute('for', 'date');
-    labelDate.innerHTML = `Fecha de nacimiento`;
+    labelDate.innerHTML = `Fecha de Nacim.`;
 
     const inputDate = document.createElement('input');
     inputDate.setAttribute('type', 'date');
     inputDate.setAttribute('id', 'date');
+    inputDate.classList.add('inputDate');
     inputDate.setAttribute('max', '2007-12-31');
     inputDate.setAttribute('required','')
 
     const btnSend = document.createElement('input');
     btnSend.setAttribute('type', 'submit');
-    btnSend.setAttribute('value', 'Registrate');
-    btnSend.setAttribute('id', 'submitRegister');
+    btnSend.setAttribute('value', 'Regístrate');
     btnSend.classList.add('submitRegister');
 
-
+    const linkBack = document.createElement('a');
+    linkBack.setAttribute('href','#');
+    linkBack.innerHTML = `volver`;
 
     container.appendChild(containerRegister);
     containerRegister.appendChild(subTitle);
@@ -67,6 +69,7 @@ export function register() {
     formRegister.appendChild(labelDate);
     formRegister.appendChild(inputDate);
     formRegister.appendChild(btnSend);
+    formRegister.appendChild(linkBack);
     container.appendChild(footer);
 
     formRegister.addEventListener('submit', e => {
@@ -82,7 +85,10 @@ export function register() {
         console.log(password);
 
         // dataUser(nameLastname,dateOfBirth);
-        registerUser(email, password);
-        
+        registerUser(email, password, nameLastname, dateOfBirth);
+    })
+
+    linkBack.addEventListener('click', () =>{
+        history.back();
     })
 }
