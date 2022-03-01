@@ -19,6 +19,8 @@
 body{
     background-image: url(./img/fondo-de-pantalla.png);
     background-size: cover;
+    background-repeat: no-repeat;
+    margin: 0 auto;
 }
 .root{
     display: grid;
@@ -101,11 +103,6 @@ a{
 a:hover{
     color: var(--pink-color);
 }
-@media only screen and (max-width: 600px) {
-    body {
-      background-color: black;
-    }
-  }
 /*****************REGISTER*************/
 .mainRegister{
     border: solid 1px var(--white-color);
@@ -125,11 +122,6 @@ a:hover{
 }
 .formRegister input{
     grid-column: 1/3;
-    color: black;
-    background-color: aliceblue;
-    padding: 10px 20px;
-    border-radius: 5px;
-    margin: 3px 0;
 }
 .formRegister label{
     grid-column: 1/2;
@@ -164,4 +156,47 @@ footer{
 }
 .textFooter a:hover{
     color: var(--orange-color);
+}
+/************RESPONSIVE***********/
+@media only screen and (max-width: 1330px) {
+    .mainLogin {
+        margin: 40px 200px;
+    }
+    .mainRegister{
+        margin: 40px 200px;
+    }
+  }
+@media only screen and (max-width: 750px) {
+    body {
+      background: linear-gradient(to bottom, var(--bluedark-color), var(--pink-color));
+    }
+    .mainLogin {
+        margin: 20px 100px;
+    }
+    .mainRegister{
+        margin: 20px 100px;
+    }
+    footer{
+        margin: 40px 20px;
+    }
+}
+@media only screen and (max-width: 550px) {
+    .mainLogin {
+        margin: 10px 10px;
+        padding-bottom: 10px;
+    }
+    .mainRegister{
+        margin: 10px 10px;
+        padding-bottom: 10px;
+    }
+    .formLogin{
+        width: 90%;
+    }
+    .formRegister{
+        width: 90%;
+        grid-template-columns: 40% 60%;
+    }
+    .btnGoogle{
+        margin: 0;
+    }
 }
