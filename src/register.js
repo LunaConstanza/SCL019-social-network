@@ -22,7 +22,7 @@ export function register() {
     inputNameAndLastName.setAttribute('id', 'nameLastname');
     inputNameAndLastName.setAttribute('type', 'text');
     inputNameAndLastName.setAttribute('placeholder', 'Nombre y Apellido');
-    inputNameAndLastName.setAttribute('pattern', '[A-Za-z]{1,25}');
+    inputNameAndLastName.setAttribute('pattern', '[A-Za-zÀ-ÿ ]{1,25}');
     inputNameAndLastName.setAttribute('title', '- Solo se pueden ingresar letras. Máx. 25 carácteres.');
     inputNameAndLastName.setAttribute('required','');
 
