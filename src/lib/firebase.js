@@ -3,7 +3,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.7/firebase
 import { getFirestore, collection, addDoc} from "https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore.js";
 // import { getDatabase } from "https://datos_de_usuario.southamerica-east1.firebaseio.com";
 // import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-analytics.js";
-import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged, sendPasswordResetEmail, sendEmailVerification } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-auth.js";
 import { firebaseConfig } from "./config.js";
 
 const app = initializeApp(firebaseConfig);
@@ -68,13 +68,13 @@ export const registerUser = (email, password, nameLastname, date) => {
     .then((userCredential) => {
       // Signed in 
       const user = userCredential.user;
-      console.log(user);
       console.log("Hola uid", user.uid);
       const userId= user.uid;
+      emailVerification(auth);
       return userId;
       // ...
     })
-    .then((userId) => addNewDocument(userId, nameLastname, date)) //insert(user.uid, nameLastname, date))
+    .then((userId) => addNewDocument(userId, nameLastname, date)) 
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
@@ -108,3 +108,13 @@ export const resetPass = (email) => {
       //..
     });
 }
+//----Enviar correo de validación de Google -----
+function emailVerification(auth){
+
+  sendEmailVerification(auth.currentUser)
+    .then(() => {
+      // Email verification sent!
+      // ...
+    });
+}
+

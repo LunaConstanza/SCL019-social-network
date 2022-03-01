@@ -74,7 +74,7 @@ export function register() {
     formRegister.appendChild(linkBack);
     container.appendChild(footer);
 
-    formRegister.addEventListener('submit', (e) => {
+    formRegister.addEventListener('submit', e => {
         e.preventDefault();
         const nameLastname = document.getElementById('nameLastname').value;
         const dateOfBirth = document.getElementById('date').value;
@@ -91,13 +91,11 @@ export function register() {
         footer.remove();
         // dataUser(nameLastname,dateOfBirth);
         registerUser(email, password, nameLastname, dateOfBirth);
-
     })
-
     linkBack.addEventListener('click', () =>{
         history.back();
         login();
         containerRegister.remove();
         footer.remove();
     })
-}
+};
