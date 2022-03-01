@@ -86,6 +86,7 @@ export function register() {
 
         // dataUser(nameLastname,dateOfBirth);
         registerUser(email, password, nameLastname, dateOfBirth);
+        
     })
 
     linkBack.addEventListener('click', () =>{
