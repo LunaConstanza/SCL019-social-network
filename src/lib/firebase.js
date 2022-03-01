@@ -3,7 +3,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.7/firebase
 import { getFirestore, collection, addDoc} from "https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore.js";
 // import { getDatabase } from "https://datos_de_usuario.southamerica-east1.firebaseio.com";
 // import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-analytics.js";
-import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-auth.js";
 import { firebaseConfig } from "./config.js";
 
 const app = initializeApp(firebaseConfig);
@@ -93,3 +93,18 @@ async function addNewDocument (userId, nameLastname, date){
   });
   console.log(`Tu cuenta ha sido creada en ${newDoc.path}`);
 };
+
+//---------Recuperar contraseña-------/
+export const resetPass = (email) => {
+  sendPasswordResetEmail(auth, email)
+    .then(() => {
+      // Password reset email sent!
+      // ..
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorCode, errorMessage);
+      //..
+    });
+}

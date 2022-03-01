@@ -1,5 +1,7 @@
 import { footerCredits } from './lib/index.js';
 import { registerUser} from './lib/firebase.js';
+import { login } from './login.js';
+import { newContent } from './newContent.js';
 
 const container = document.getElementById('root');
 const footer = footerCredits();
@@ -72,23 +74,30 @@ export function register() {
     formRegister.appendChild(linkBack);
     container.appendChild(footer);
 
-    formRegister.addEventListener('submit', e => {
+    formRegister.addEventListener('submit', (e) => {
         e.preventDefault();
         const nameLastname = document.getElementById('nameLastname').value;
         const dateOfBirth = document.getElementById('date').value;
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
-        
+
         console.log(nameLastname);
         console.log(dateOfBirth);
         console.log(email);
         console.log(password);
 
+        newContent();
+        containerRegister.remove();
+        footer.remove();
         // dataUser(nameLastname,dateOfBirth);
         registerUser(email, password, nameLastname, dateOfBirth);
+
     })
 
     linkBack.addEventListener('click', () =>{
         history.back();
+        login();
+        containerRegister.remove();
+        footer.remove();
     })
 }

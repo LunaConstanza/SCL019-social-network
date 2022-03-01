@@ -1,9 +1,7 @@
-// Este es el punto de entrada de tu aplicacion
-
 import { myFunction, headerLogo, footerCredits } from './lib/index.js';
 import { register } from './register.js';
-import { registerGoogle} from './lib/firebase.js'
-import { newContent } from './newContent.js'
+import { registerGoogle, resetPass} from './lib/firebase.js';
+import { newContent } from './newContent.js';
 
 myFunction();
 
@@ -11,20 +9,10 @@ const header = headerLogo();
 const footer = footerCredits();
 const container = document.getElementById('root');
 
-const mainCharge = document.createElement('main');
-mainCharge.classList.add('mainLogo');
-
-const imgLogo = document.createElement('img');
-imgLogo.classList.add('imgLogo');
-imgLogo.setAttribute('src', './img/en-construccion.png');
-imgLogo.setAttribute('alt', 'Logo Red Social Inicio');
-container.appendChild(mainCharge);
-mainCharge.appendChild(imgLogo);
-
-imgLogo.addEventListener('click', () => {
+export function login() {
     console.log('hice click');
-    mainCharge.remove();
     history.pushState(null, 'login', '/login');
+
     const containerLogin = document.createElement('main');
     containerLogin.classList.add('mainLogin');
     const subTitleLogin = document.createElement('h2');
@@ -51,8 +39,39 @@ imgLogo.addEventListener('click', () => {
     btnLogIn.classList.add('btnLogIn');
     btnLogIn.innerHTML = `<i class="fa-solid fa-right-to-bracket"></i> Iniciar Sesión`;
 
-    const textO = document.createElement('p');
-    textO.innerHTML = `ó`;
+
+
+
+    /*************POP UP************/
+    const textReset = document.createElement('p');
+    textReset.classList.add('resetPass');
+    textReset.innerHTML = `¿Olvidaste tu contraseña?`;
+
+    let divOverlay = document.createElement('div');
+    divOverlay.classList.add('overlay');
+    divOverlay.setAttribute('id', 'overlay');
+    let divPopup = document.createElement('div');
+    divPopup.classList.add('popup');
+    divPopup.setAttribute('id', 'popup');
+    const btnClose = document.createElement('i');
+    btnClose.classList.add('fa-solid');
+    btnClose.classList.add('fa-xmark');
+    const h3Popup = document.createElement('h3');
+    h3Popup.innerHTML = `No hay problema ¡nosotras te ayudamos!`;
+    const textPopup = document.createElement('p');
+    textPopup.innerHTML = `Enviaremos a tu email un correo para que recuperes tu contraseña.`
+    const inputEmail = document.createElement('input');
+    inputEmail.setAttribute('id', 'userEmail')
+    inputEmail.setAttribute('type', 'email');
+    inputEmail.setAttribute('placeholder', 'Ingresa aquí tu correo electrónico');
+    inputEmail.setAttribute('size', '30');
+    inputEmail.setAttribute('maxlength', '40');
+    inputEmail.setAttribute('required','');
+    const resetPassword = document.createElement('button');
+    resetPassword.innerHTML = `Recuperar Contraseña`;
+
+
+
 
     const btnGoogle = document.createElement('button');
     btnGoogle.classList.add('btnGoogle');
@@ -61,7 +80,6 @@ imgLogo.addEventListener('click', () => {
     const linkRegister = document.createElement('p');
     linkRegister.innerHTML = `¿No tienes cuenta? <a href="#" id="linkReg">Regístrate</a>`;
 
-
     container.appendChild(header);
     container.appendChild(containerLogin);
     containerLogin.appendChild(subTitleLogin);
@@ -69,7 +87,14 @@ imgLogo.addEventListener('click', () => {
     formLogin.appendChild(userLogin);
     formLogin.appendChild(passwordLogin);
     formLogin.appendChild(btnLogIn);
-    formLogin.appendChild(textO);
+    formLogin.appendChild(textReset);
+    formLogin.appendChild(divOverlay);
+    divOverlay.appendChild(divPopup);
+    divPopup.appendChild(btnClose);
+    divPopup.appendChild(h3Popup);
+    divPopup.appendChild(textPopup);
+    divPopup.appendChild(inputEmail);
+    divPopup.appendChild(resetPassword);
     formLogin.appendChild(btnGoogle);
     formLogin.appendChild(linkRegister);
     container.appendChild(footer);
@@ -80,6 +105,31 @@ imgLogo.addEventListener('click', () => {
         containerLogin.remove();
         footer.remove();
     })
+
+
+
+    /*Abrir y cerrar popup*/
+    textReset.addEventListener('click', (e) =>{
+        e.preventDefault();
+        divOverlay.classList.add("active");
+        divPopup.classList.add("active");
+    })
+    btnClose.addEventListener('click', (e) => {
+        e.preventDefault();
+        divOverlay.classList.remove("active");
+        divPopup.classList.remove("active");
+    })
+    resetPassword.addEventListener('click', (e) => {
+        e.preventDefault();
+        const saveEmail = document.getElementById('userEmail').value;
+        resetPass(saveEmail);
+        divOverlay.classList.remove("active");
+        divPopup.classList.remove("active");
+    })
+
+
+
+
     btnGoogle.addEventListener('click', (e) => {
         e.preventDefault();
         registerGoogle();
@@ -87,6 +137,7 @@ imgLogo.addEventListener('click', () => {
         footer.remove();
         newContent();
     });
+    
     const btnRegister = document.getElementById('linkReg');
     btnRegister.addEventListener('click', (e) => {
         e.preventDefault();
@@ -94,4 +145,4 @@ imgLogo.addEventListener('click', () => {
         containerLogin.remove();
         footer.remove();
     });
-});
+};

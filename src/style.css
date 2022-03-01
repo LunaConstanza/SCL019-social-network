@@ -10,7 +10,7 @@
 :root { 
     --white-color: white;
     --bluedark-color: #10133a;
-    --bluelight-color: #1b96f3;
+    --bluelight-color: #1289e4;
     --blueultralight-color: #39a5f7;
     --yellow-color: #fcdf87;
     --pink-color: #ef0195;
@@ -92,6 +92,49 @@ button{
 button:hover{
     background: var(--blueultralight-color);
 }
+.resetPass{
+    cursor: pointer;
+}
+.resetPass:hover{
+    color: var(--pink-color);
+}
+
+/*******POP UP*******/
+.overlay {
+    background: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    visibility: hidden;
+}
+.overlay.active {
+    visibility: visible;
+}
+.popup {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+    background: var(--bluedark-color);
+    box-shadow: 0 0 5px var(--yellow-color), 0 0 15px var(--yellow-color), 0 0 25px var(--yellow-color);
+    border-radius: 5px;
+    padding: 35px;
+    width: 40%;
+    height: 40%;
+    transition: .3s ease all;
+    transform: scale(0.7);
+    opacity: 0;
+}
+.fa-solid{
+    margin-right: 0;
+}
+.popup.active {opacity: 1; transform: scale(1); /*animacion*/
+}
+
 .btnGoogle{
     margin-bottom: 25px;
 }
@@ -168,7 +211,7 @@ footer{
   }
 @media only screen and (max-width: 750px) {
     body {
-      background: linear-gradient(to bottom, var(--bluedark-color), var(--pink-color));
+      background: linear-gradient(to bottom, var(--bluedark-color), #5a1d8b);
     }
     .mainLogin {
         margin: 20px 100px;

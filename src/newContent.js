@@ -1,4 +1,5 @@
 import { logOut } from './lib/firebase.js'
+import { login } from './login.js';
 
 const container = document.getElementById('root');
 
@@ -21,6 +22,6 @@ export function newContent() {
     btnLogOut.addEventListener('click', () => {
         logOut();
         containerDashboard.remove();
-        
+        login();
     });
 }
