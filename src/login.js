@@ -2,7 +2,7 @@
 
 import { myFunction, headerLogo, footerCredits } from './lib/index.js';
 import { register } from './register.js';
-import { registerGoogle} from './lib/firebase.js'
+import { registerGoogle, loginEmailPassword } from './lib/firebase.js'
 import { newContent } from './newContent.js'
 
 myFunction();
@@ -34,6 +34,7 @@ imgLogo.addEventListener('click', () => {
 
     const userLogin = document.createElement('input');
     userLogin.setAttribute('type', 'email');
+    userLogin.setAttribute('id', 'emailLogin');
     userLogin.setAttribute('placeholder', 'Ingresa tu correo electrónico');
     userLogin.setAttribute('size', '25');
     userLogin.setAttribute('maxlength', '40');
@@ -41,6 +42,7 @@ imgLogo.addEventListener('click', () => {
 
     const passwordLogin = document.createElement('input');
     passwordLogin.setAttribute('type', 'password');
+    passwordLogin.setAttribute('id', 'passwordLogin');
     passwordLogin.setAttribute('placeholder', 'Ingresa tu contraseña');
     passwordLogin.setAttribute('minlength', '6');
     passwordLogin.setAttribute('maxlength', '12');
@@ -74,12 +76,17 @@ imgLogo.addEventListener('click', () => {
     formLogin.appendChild(linkRegister);
     container.appendChild(footer);
 
-    btnLogIn.addEventListener('submit', (e) => {
+    btnLogIn.addEventListener('click', e => {
         e.preventDefault();
-        newContent()
-        containerLogin.remove();
-        footer.remove();
-    })
+        console.log('click en boton inicio de sesión');
+        const  valor = loginEmailPassword ();
+        if (valor === true){
+            containerLogin.remove();
+            footer.remove();
+            newContent();
+        }
+       
+    });
     btnGoogle.addEventListener('click', (e) => {
         e.preventDefault();
         registerGoogle();
