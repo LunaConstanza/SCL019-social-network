@@ -1,7 +1,7 @@
 import { myFunction, headerLogo, footerCredits } from './lib/index.js';
 import { register } from './register.js';
-import { registerGoogle, resetPass} from './lib/firebase.js';
-import { newContent } from './newContent.js';
+import { registerGoogle, loginEmailPassword, resetPass} from './lib/firebase.js'
+import { newContent } from './newContent.js'
 
 myFunction();
 
@@ -22,6 +22,7 @@ export function login() {
 
     const userLogin = document.createElement('input');
     userLogin.setAttribute('type', 'email');
+    userLogin.setAttribute('id', 'emailLogin');
     userLogin.setAttribute('placeholder', 'Ingresa tu correo electrónico');
     userLogin.setAttribute('size', '25');
     userLogin.setAttribute('maxlength', '40');
@@ -29,6 +30,7 @@ export function login() {
 
     const passwordLogin = document.createElement('input');
     passwordLogin.setAttribute('type', 'password');
+    passwordLogin.setAttribute('id', 'passwordLogin');
     passwordLogin.setAttribute('placeholder', 'Ingresa tu contraseña');
     passwordLogin.setAttribute('minlength', '6');
     passwordLogin.setAttribute('maxlength', '12');
@@ -97,12 +99,20 @@ export function login() {
     formLogin.appendChild(linkRegister);
     container.appendChild(footer);
 
-    formLogin.addEventListener('submit', (e) => {
+    formLogin.addEventListener('submit', e => {
         e.preventDefault();
-        newContent();
-        containerLogin.remove();
-        footer.remove();
+        console.log('click en boton inicio de sesión');
+        const  valor = loginEmailPassword ();
+        if (valor === true){
+            newContent();
+            containerLogin.remove();
+            footer.remove();
+        }
+       
     });
+     
+
+
 
     /*Abrir y cerrar popup*/
     textReset.addEventListener('click', (e) =>{
