@@ -15,6 +15,7 @@
     --yellow-color: #fcdf87;
     --pink-color: #ef0195;
     --orange-color: #f68741;
+    --purple-color: #5a1d8b;
 }
 body{
     background-image: url(./img/fondo-de-pantalla.png);
@@ -92,10 +93,10 @@ button{
 button:hover{
     background: var(--blueultralight-color);
 }
-.resetPass{
+.formLogin .resetPass{
     cursor: pointer;
 }
-.resetPass:hover{
+.formLogin .resetPass:hover{
     color: var(--pink-color);
 }
 
@@ -107,35 +108,62 @@ button:hover{
     bottom: 0;
     left: 0;
     right: 0;
-    display: flex;
+    display: grid;
     align-items: center;
-    justify-content: center;
+    justify-items: center;
     visibility: hidden;
 }
 .overlay.active {
     visibility: visible;
 }
 .popup {
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: space-between;
-    background: var(--bluedark-color);
+    display: grid;
+    grid-template-columns: 20% 60% 20%;
+    align-items: center;
+    background: var(--purple-color);
     box-shadow: 0 0 5px var(--yellow-color), 0 0 15px var(--yellow-color), 0 0 25px var(--yellow-color);
     border-radius: 5px;
-    padding: 35px;
-    width: 40%;
-    height: 40%;
+    padding: 20px 35px;
+    width: auto;
+    height: auto;
+    line-height: normal;
     transition: .3s ease all;
     transform: scale(0.7);
     opacity: 0;
 }
-.fa-solid{
-    margin-right: 0;
-}
 .popup.active {opacity: 1; transform: scale(1); /*animacion*/
 }
+.popup .fa-xmark{
+    grid-column: 3/4;
+    justify-self: end;
+    color: var(--white-color);
+}
+.popup .fa-solid:hover{
+    color: var(--bluedark-color);
+}
+.popup h3{
+    grid-column: 1/4;
+    font-size: 1.4rem;
+}
+.popup p{
+    grid-column: 1/4;
+    margin: 10px 0;
+}
+.popup form{
+    grid-column: 1/4;
+    display: grid;
+    grid-template-columns: 20% 60% 20%;
+}
+.popup form input{
+    grid-column: 1/4;
+    height: 40px;
+}
+.popup form button{
+    grid-column: 2/3;
+    height: 40px;
+}     /*FIN POPUP*/
 
-.btnGoogle{
+.formLogin .btnGoogle{
     margin-bottom: 25px;
 }
 a{
@@ -183,7 +211,7 @@ a:hover{
     cursor: pointer;
     margin-top: 8px;
 }
-.submitRegister:hover{
+.formRegister .submitRegister:hover{
     background: var(--blueultralight-color);
 }
 .formRegister a{
@@ -238,6 +266,14 @@ footer{
     .formRegister{
         width: 90%;
         grid-template-columns: 40% 60%;
+    }
+    .popup{
+        font-size: 1rem;
+        margin: 0 10px;
+        padding: 10px 10px;
+    }
+    .popup button{
+        grid-column: 1/4;
     }
     .btnGoogle{
         margin: 0;

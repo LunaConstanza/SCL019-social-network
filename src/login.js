@@ -36,17 +36,15 @@ export function login() {
 
     const btnLogIn = document.createElement('button');
     btnLogIn.setAttribute('type', 'submit');
-    btnLogIn.classList.add('btnLogIn');
     btnLogIn.innerHTML = `<i class="fa-solid fa-right-to-bracket"></i> Iniciar Sesión`;
 
-
-
-
-    /*************POP UP************/
     const textReset = document.createElement('p');
     textReset.classList.add('resetPass');
     textReset.innerHTML = `¿Olvidaste tu contraseña?`;
 
+
+    /*************POP UP***********/
+    
     let divOverlay = document.createElement('div');
     divOverlay.classList.add('overlay');
     divOverlay.setAttribute('id', 'overlay');
@@ -59,7 +57,8 @@ export function login() {
     const h3Popup = document.createElement('h3');
     h3Popup.innerHTML = `No hay problema ¡nosotras te ayudamos!`;
     const textPopup = document.createElement('p');
-    textPopup.innerHTML = `Enviaremos a tu email un correo para que recuperes tu contraseña.`
+    textPopup.innerHTML = `Enviaremos a tu email un correo para que recuperes tu contraseña rápidamente.`
+    const formResetPass = document.createElement('form');
     const inputEmail = document.createElement('input');
     inputEmail.setAttribute('id', 'userEmail')
     inputEmail.setAttribute('type', 'email');
@@ -68,9 +67,7 @@ export function login() {
     inputEmail.setAttribute('maxlength', '40');
     inputEmail.setAttribute('required','');
     const resetPassword = document.createElement('button');
-    resetPassword.innerHTML = `Recuperar Contraseña`;
-
-
+    resetPassword.innerHTML = `<i class="fa-solid fa-key"></i> Recuperar Contraseña`;
 
 
     const btnGoogle = document.createElement('button');
@@ -93,41 +90,39 @@ export function login() {
     divPopup.appendChild(btnClose);
     divPopup.appendChild(h3Popup);
     divPopup.appendChild(textPopup);
-    divPopup.appendChild(inputEmail);
-    divPopup.appendChild(resetPassword);
+    divPopup.appendChild(formResetPass);
+    formResetPass.appendChild(inputEmail);
+    formResetPass.appendChild(resetPassword);
     formLogin.appendChild(btnGoogle);
     formLogin.appendChild(linkRegister);
     container.appendChild(footer);
 
-    btnLogIn.addEventListener('submit', (e) => {
+    formLogin.addEventListener('submit', (e) => {
         e.preventDefault();
-        newContent()
+        newContent();
         containerLogin.remove();
         footer.remove();
-    })
-
-
+    });
 
     /*Abrir y cerrar popup*/
     textReset.addEventListener('click', (e) =>{
         e.preventDefault();
         divOverlay.classList.add("active");
         divPopup.classList.add("active");
-    })
+    });
     btnClose.addEventListener('click', (e) => {
         e.preventDefault();
         divOverlay.classList.remove("active");
         divPopup.classList.remove("active");
-    })
-    resetPassword.addEventListener('click', (e) => {
+    });
+    formResetPass.addEventListener('submit', (e) => {
         e.preventDefault();
-        const saveEmail = document.getElementById('userEmail').value;
-        resetPass(saveEmail);
         divOverlay.classList.remove("active");
         divPopup.classList.remove("active");
-    })
-
-
+        const saveEmail = document.getElementById('userEmail').value;
+        resetPass(saveEmail);
+    });
+    /*FIN abrir y cerrar popup*/
 
 
     btnGoogle.addEventListener('click', (e) => {
