@@ -95,7 +95,7 @@ async function addNewDocument(userId, nameLastname, date) {
   console.log(`Tu cuenta ha sido creada en ${newDoc.path}`);
 };
 
-//---------Recuperar contraseña-------/
+//---------Enviar correo para Recuperar contraseña-------/
 export const resetPass = (email) => {
   sendPasswordResetEmail(auth, email)
     .then(() => {
@@ -109,26 +109,24 @@ export const resetPass = (email) => {
       //..
     });
 }
+
 //----Enviar correo de validación de Google -----
 function emailVerification(auth) {
-
   sendEmailVerification(auth.currentUser)
     .then(() => {
       // Email verification sent!
       // ...
     });
 }
+
 //----- Hacer el Login con correo y contraseña 
-export const loginEmailPassword = () => {
-  const email = document.getElementById('emailLogin').value;
-  const password = document.getElementById('passwordLogin').value;
+export const loginEmailPassword = (email, password, callback) => {
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in
       const user = userCredential.user;
       console.log('Hola User!!!!! ', user);
-      return true;
-      // ...
+      callback(true);
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -140,6 +138,6 @@ export const loginEmailPassword = () => {
       } else if (errorCode === 'auth/wrong-password'){
         alert ('Contraseña incorrecta');
       }
-      return false;
+      callback(false);
     });
 }
