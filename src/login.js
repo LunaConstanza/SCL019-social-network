@@ -1,6 +1,6 @@
 import { myFunction, headerLogo, footerCredits } from './lib/index.js';
 import { register } from './register.js';
-import { registerGoogle, loginEmailPassword, resetPass} from './lib/firebase.js'
+import { registerGoogle, loginEmailPassword, resetPass } from './lib/firebase.js'
 import { newContent } from './newContent.js'
 
 myFunction();
@@ -59,7 +59,7 @@ export function login() {
     const h3Popup = document.createElement('h3');
     h3Popup.innerHTML = `No hay problema ¡nosotras te ayudamos!`;
     const textPopup = document.createElement('p');
-    textPopup.innerHTML = `Enviaremos a tu email un correo para que recuperes tu contraseña rápidamente.`
+    textPopup.innerHTML = `Enviaremos a tu email un correo para que recuperes tu contraseña.`
     const formResetPass = document.createElement('form');
     const inputEmail = document.createElement('input');
     inputEmail.setAttribute('id', 'userEmail')
@@ -69,6 +69,7 @@ export function login() {
     inputEmail.setAttribute('maxlength', '40');
     inputEmail.setAttribute('required','');
     const resetPassword = document.createElement('button');
+    resetPassword.classList.add('btnReset');
     resetPassword.innerHTML = `<i class="fa-solid fa-key"></i> Recuperar Contraseña`;
 
 
@@ -99,16 +100,24 @@ export function login() {
     formLogin.appendChild(linkRegister);
     container.appendChild(footer);
 
+    /*Hacer login para entrar al muro*/
     formLogin.addEventListener('submit', e => {
         e.preventDefault();
-        console.log('click en boton inicio de sesión');
-        const  valor = loginEmailPassword ();
-        if (valor === true){
-            newContent();
-            containerLogin.remove();
-            footer.remove();
+        console.log('apretaste iniciar sesion');
+        const email = document.getElementById('emailLogin').value;
+        const password = document.getElementById('passwordLogin').value;
+        const alertaLogin = (valid) => {
+            if (valid){
+                console.log('este es el if true');
+                containerLogin.remove();
+                footer.remove();
+                newContent();
+            }
+            else {
+                console.log('el if false');
+            }
         }
-       
+        loginEmailPassword(email, password, alertaLogin);
     });
      
 
