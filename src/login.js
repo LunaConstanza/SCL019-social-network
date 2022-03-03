@@ -36,6 +36,7 @@ export function login() {
     passwordLogin.setAttribute('maxlength', '12');
     passwordLogin.setAttribute('required','');
 
+
     const btnLogIn = document.createElement('button');
     btnLogIn.setAttribute('type', 'submit');
     btnLogIn.classList.add('btnLogIn');
@@ -62,8 +63,10 @@ export function login() {
     h3Popup.innerHTML = `No hay problema ¡nosotras te ayudamos!`;
     const textPopup = document.createElement('p');
     textPopup.innerHTML = `Enviaremos a tu email un correo para que recuperes tu contraseña.`
+    const formResetPass = document.createElement('form');
+
     const inputEmail = document.createElement('input');
-    inputEmail.setAttribute('id', 'userEmail')
+    inputEmail.setAttribute('id', 'userEmail');
     inputEmail.setAttribute('type', 'email');
     inputEmail.setAttribute('placeholder', 'Ingresa aquí tu correo electrónico');
     inputEmail.setAttribute('size', '30');
@@ -95,21 +98,22 @@ export function login() {
     divPopup.appendChild(btnClose);
     divPopup.appendChild(h3Popup);
     divPopup.appendChild(textPopup);
-    divPopup.appendChild(inputEmail);
-    divPopup.appendChild(resetPassword);
+    divPopup.appendChild(formResetPass);
+    formResetPass.appendChild(inputEmail);
+    formResetPass.appendChild(resetPassword);
     formLogin.appendChild(btnGoogle);
     formLogin.appendChild(linkRegister);
     container.appendChild(footer);
 
-    btnLogIn.addEventListener('click', e => {
+    formLogin.addEventListener('submit', e => {
         e.preventDefault();
         console.log('click en boton inicio de sesión');
         const  valor = loginEmailPassword ();
-        if (valor === true){
+        // if (valor === true){
             newContent();
             containerLogin.remove();
             footer.remove();
-        }
+        // }
        
     });
      
@@ -127,7 +131,7 @@ export function login() {
         divOverlay.classList.remove("active");
         divPopup.classList.remove("active");
     })
-    resetPassword.addEventListener('click', (e) => {
+    formResetPass.addEventListener('click', (e) => {
         e.preventDefault();
         const saveEmail = document.getElementById('userEmail').value;
         resetPass(saveEmail);
