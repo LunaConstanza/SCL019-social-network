@@ -1,10 +1,9 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-app.js";
 import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore.js";
-// import { getDatabase } from "https://datos_de_usuario.southamerica-east1.firebaseio.com";
 // import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-analytics.js";
-// import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged, sendEmailVerification, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-auth.js";
-import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged, sendPasswordResetEmail, sendEmailVerification, signInWithEmailAndPassword  } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged, sendPasswordResetEmail, sendEmailVerification, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-auth.js";
+// import { getDatabase, ref, set} from "https://www.gstatic.com/firebasejs/9.6.7/firebase-database.js"
 import { firebaseConfig } from "./config.js";
 
 const app = initializeApp(firebaseConfig);
@@ -12,6 +11,8 @@ const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 const db = getFirestore();
 let currentUser;
+const orderCollection = collection(db, 'user');
+
 // const analytics = getAnalytics(app);
 
 //-----Login con Google ---------------
@@ -23,6 +24,7 @@ export const registerGoogle = () => {
       const token = credential.accessToken;
       // The signed-in user info.
       const user = result.user;
+      userDataGoogle();
       // ...
     }).catch((error) => {
       // Handle Errors here.
@@ -35,6 +37,18 @@ export const registerGoogle = () => {
       // ...
     });
 };
+const userDataGoogle = async () => {
+
+  const user = auth.currentUser;
+  if (user !== null) {
+    const docRef = await addDoc(collection(db, "google"), {
+      name: user.displayName,
+      email: user.email,
+      uid: user.uid,
+    });
+  };
+}
+
 
 // ------ Cerrar sesión ---------
 export const logOut = () => {
@@ -85,7 +99,6 @@ export const registerUser = (email, password, nameLastname, date) => {
 }
 
 //------Se ingresan los valores Firestore Datebase ----------
-const orderCollection = collection(db, 'user');
 async function addNewDocument(userId, nameLastname, date) {
   const newDoc = await addDoc(orderCollection, {
     uid: userId,
@@ -131,12 +144,12 @@ export const loginEmailPassword = (email, password, callback) => {
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      
-      if (errorCode === 'auth/user-not-found'){
-        alert ('usuario no regristrado');
-        
-      } else if (errorCode === 'auth/wrong-password'){
-        alert ('Contraseña incorrecta');
+
+      if (errorCode === 'auth/user-not-found') {
+        alert('usuario no regristrado');
+
+      } else if (errorCode === 'auth/wrong-password') {
+        alert('Contraseña incorrecta');
       }
       callback(false);
     });

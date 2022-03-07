@@ -36,6 +36,7 @@ export function login() {
     passwordLogin.setAttribute('maxlength', '12');
     passwordLogin.setAttribute('required','');
 
+
     const btnLogIn = document.createElement('button');
     btnLogIn.setAttribute('type', 'submit');
     btnLogIn.innerHTML = `<i class="fa-solid fa-right-to-bracket"></i> Iniciar Sesión`;
@@ -62,7 +63,7 @@ export function login() {
     textPopup.innerHTML = `Enviaremos a tu email un correo para que recuperes tu contraseña.`
     const formResetPass = document.createElement('form');
     const inputEmail = document.createElement('input');
-    inputEmail.setAttribute('id', 'userEmail')
+    inputEmail.setAttribute('id', 'userEmail');
     inputEmail.setAttribute('type', 'email');
     inputEmail.setAttribute('placeholder', 'Ingresa aquí tu correo electrónico');
     inputEmail.setAttribute('size', '30');
@@ -119,9 +120,6 @@ export function login() {
         }
         loginEmailPassword(email, password, alertaLogin);
     });
-     
-
-
 
     /*Abrir y cerrar popup*/
     textReset.addEventListener('click', (e) =>{
@@ -142,7 +140,6 @@ export function login() {
         resetPass(saveEmail);
     });
     /*FIN abrir y cerrar popup*/
-
 
     btnGoogle.addEventListener('click', (e) => {
         e.preventDefault();
