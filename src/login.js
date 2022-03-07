@@ -120,9 +120,6 @@ export function login() {
         }
         loginEmailPassword(email, password, alertaLogin);
     });
-     
-
-
 
     /*Abrir y cerrar popup*/
     textReset.addEventListener('click', (e) =>{
@@ -143,7 +140,6 @@ export function login() {
         resetPass(saveEmail);
     });
     /*FIN abrir y cerrar popup*/
-
 
     btnGoogle.addEventListener('click', (e) => {
         e.preventDefault();
