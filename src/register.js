@@ -1,10 +1,8 @@
-import { footerCredits } from './lib/index.js';
 import { registerUser} from './lib/firebase.js';
 import { login } from './login.js';
 import { newContent } from './newContent.js';
 
 const container = document.getElementById('root');
-const footer = footerCredits();
 
 export function register() {
 
@@ -58,9 +56,9 @@ export function register() {
     btnSend.setAttribute('value', 'Regístrate');
     btnSend.classList.add('submitRegister');
 
-    const linkBack = document.createElement('a');
-    linkBack.setAttribute('href','#');
-    linkBack.innerHTML = `volver`;
+    const btnBack = document.createElement('button');
+    btnBack.classList.add('btnBack');
+    btnBack.innerHTML = `<i class="fa-solid fa-arrow-left"></i> VOLVER`;
 
     container.appendChild(containerRegister);
     containerRegister.appendChild(subTitle);
@@ -71,8 +69,7 @@ export function register() {
     formRegister.appendChild(labelDate);
     formRegister.appendChild(inputDate);
     formRegister.appendChild(btnSend);
-    formRegister.appendChild(linkBack);
-    container.appendChild(footer);
+    formRegister.appendChild(btnBack);
 
     formRegister.addEventListener('submit', e => {
         e.preventDefault();
@@ -88,14 +85,12 @@ export function register() {
 
         newContent();
         containerRegister.remove();
-        footer.remove();
         // dataUser(nameLastname,dateOfBirth);
         registerUser(email, password, nameLastname, dateOfBirth);
     })
-    linkBack.addEventListener('click', () =>{
+    btnBack.addEventListener('click', () =>{
         history.back();
         login();
         containerRegister.remove();
-        footer.remove();
     })
 };
