@@ -1,4 +1,4 @@
-import { myFunction, headerLogo, footerCredits } from './lib/index.js';
+import { myFunction, headerLogo } from './lib/index.js';
 import { register } from './register.js';
 import { registerGoogle, loginEmailPassword, resetPass } from './lib/firebase.js'
 import { newContent } from './newContent.js'
@@ -6,7 +6,6 @@ import { newContent } from './newContent.js'
 myFunction();
 
 const header = headerLogo();
-const footer = footerCredits();
 const container = document.getElementById('root');
 
 export function login() {
@@ -99,7 +98,6 @@ export function login() {
     formResetPass.appendChild(resetPassword);
     formLogin.appendChild(btnGoogle);
     formLogin.appendChild(linkRegister);
-    container.appendChild(footer);
 
     /*Hacer login para entrar al muro*/
     formLogin.addEventListener('submit', e => {
@@ -111,7 +109,6 @@ export function login() {
             if (valid){
                 console.log('este es el if true');
                 containerLogin.remove();
-                footer.remove();
                 newContent();
             }
             else {
@@ -146,7 +143,6 @@ let currentUser;
         e.preventDefault();
         currentUser = registerGoogle();
         containerLogin.remove();
-        footer.remove();
         newContent();
       }catch (error){}
       
@@ -157,6 +153,5 @@ let currentUser;
         e.preventDefault();
         register();
         containerLogin.remove();
-        footer.remove();
     });
 };
