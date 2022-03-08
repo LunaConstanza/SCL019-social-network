@@ -3,12 +3,16 @@ import { login } from './login.js';
 import { newContent } from './newContent.js';
 
 const container = document.getElementById('root');
+window.addEventListener('hashchange',register);
+
 
 export function register() {
 
     console.log('ola k ase');
-    history.pushState(null, 'Registro', '/register');
+    history.pushState(null, 'Registro', '#/register');
     window.scroll(0,0);
+    document.querySelector('main').remove();
+    
 
     const containerRegister = document.createElement('main');
     containerRegister.setAttribute('id', 'mainRegister');
@@ -89,6 +93,10 @@ export function register() {
         registerUser(email, password, nameLastname, dateOfBirth);
     })
     btnBack.addEventListener('click', () =>{
+
+        if(hash.includes('#/register')){
+            return register;}
+
         history.back();
         login();
         containerRegister.remove();
