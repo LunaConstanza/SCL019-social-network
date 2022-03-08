@@ -8,7 +8,6 @@ const footer = footerCredits();
 
 export function register() {
 
-    console.log('ola k ase');
     history.pushState(null, 'Registro', '/register');
     window.scroll(0,0);
 
