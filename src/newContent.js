@@ -41,18 +41,19 @@ export function newContent() {
     inputCreatePost.setAttribute('placeholder', 'Escribe aquí...');
     inputCreatePost.setAttribute('maxLength', '1500');
     inputCreatePost.setAttribute('required', '');
-    const btnCreatePost = document.createElement('button');
-    btnCreatePost.setAttribute('type', 'submit');
-    btnCreatePost.classList.add('mainDash_board_createPost_btn');
-    btnCreatePost.innerHTML = `Publicar`;
+    const submitPost = document.createElement('button');
+    submitPost.setAttribute('type', 'submit');
+    submitPost.classList.add('mainDash_board_createPost_submit');
+    submitPost.innerHTML = `Publicar`;
 
             /*Publicaciones*/
     const publications = document.createElement('div');
     publications.classList.add('mainDash_board_publications');
     const titlePublications = document.createElement('h5');
     titlePublications.classList.add('mainDash_board_publications_title')
-    titlePublications.innerHTML = `Publicaciones`;
-
+    titlePublications.innerHTML = `<i class="fa-solid fa-bomb"></i> Publicaciones`;
+    const scrollContent = document.createElement('div');
+    scrollContent.classList.add('mainDash_board_publications_scroll');
     const postUser = document.createElement('div');
     postUser.classList.add('mainDash_board_publications_content');
     const nameUser = document.createElement('h6');
@@ -76,7 +77,9 @@ export function newContent() {
         likePost.textContent = a + ' likes';
         });
 
-
+    const btnCreatePost = document.createElement('button');
+    btnCreatePost.classList.add('mainDash_board_createPost_btn');
+    btnCreatePost.innerHTML = `+`;
 
     /*APPENDCHILD*/
     container.appendChild(containerDashboard);
@@ -88,14 +91,17 @@ export function newContent() {
     createPost.appendChild(titleCreatePost);
     createPost.appendChild(formCreatePost);
     formCreatePost.appendChild(inputCreatePost);
-    formCreatePost.appendChild(btnCreatePost);
+    formCreatePost.appendChild(submitPost);
     board.appendChild(publications);
     publications.appendChild(titlePublications);
-    publications.appendChild(postUser);
+    publications.appendChild(scrollContent);
+    scrollContent.appendChild(postUser);
     postUser.appendChild(nameUser);
     postUser.appendChild(textUser);
     postUser.appendChild(starlike);
     postUser.appendChild(likePost);
+    containerDashboard.appendChild(btnCreatePost);
+
 
     btnLogOut.addEventListener('click', () => {
         logOut();
