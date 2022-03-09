@@ -1,4 +1,4 @@
-import { logOut, registerUser } from './lib/firebase.js'
+import { logOut, savePost, getPost} from './lib/firebase.js';
 import { login } from './login.js';
 
 const container = document.getElementById('root');
@@ -6,8 +6,11 @@ const container = document.getElementById('root');
 // const footer = footerCredits();
 
 
-export function newContent() {
+export const newContent =  () => {
 
+     const querySnapshot =  getPost();
+    //  console.log(querySnapshot);
+    
     console.log('entraste al muro');
     history.pushState(null, 'Dashboard', '/dashboard');
 
@@ -36,14 +39,19 @@ export function newContent() {
     createPost.classList.add('mainDash_board_createPost');
     const titleCreatePost = document.createElement('h5');
     titleCreatePost.classList.add('mainDash_board_createPost_title');
-    titleCreatePost.innerHTML = `¿Qué vas a jugar hoy ?`
+    titleCreatePost.innerHTML = `¿Qué vas a jugar hoy ?`;
+
     const formCreatePost = document.createElement('form');
-    formCreatePost.classList.add('mainDash_board_createPost_form')
+    formCreatePost.classList.add('mainDash_board_createPost_form');
+    formCreatePost.setAttribute('id', 'text-form');
+
     const inputCreatePost = document.createElement('textarea');
     inputCreatePost.classList.add('mainDash_board_createPost_textarea');
     inputCreatePost.setAttribute('placeholder', 'Escribe aquí...');
     inputCreatePost.setAttribute('maxLength', '1500');
     inputCreatePost.setAttribute('required', '');
+    inputCreatePost.setAttribute('id','text-description');
+
     const btnCreatePost = document.createElement('button');
     btnCreatePost.setAttribute('type', 'submit');
     btnCreatePost.classList.add('mainDash_board_createPost_btn');
@@ -100,6 +108,18 @@ export function newContent() {
     postUser.appendChild(starlike);
     postUser.appendChild(likePost);
 
+  const textPost = document.getElementById('text-form');
+
+    textPost.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const description = textPost['text-description'];
+        savePost(description.value);
+        textPost.reset();
+    });
+
+    
+
+    
     btnLogOut.addEventListener('click', () => {
         logOut();
         containerDashboard.remove();
