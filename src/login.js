@@ -140,12 +140,15 @@ export function login() {
         resetPass(saveEmail);
     });
     /*FIN abrir y cerrar popup*/
-
-    btnGoogle.addEventListener('click', (e) => {
+let currentUser;
+    btnGoogle.addEventListener('click', async (e) => {
+      try {
         e.preventDefault();
-        registerGoogle();
+        currentUser = registerGoogle();
         containerLogin.remove();
         newContent();
+      }catch (error){}
+      
     });
     
     const btnRegister = document.getElementById('linkReg');

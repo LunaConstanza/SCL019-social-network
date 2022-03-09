@@ -10,10 +10,9 @@ export function register() {
 
     console.log('ola k ase');
     history.pushState(null, 'Registro', '#/register');
-    window.scroll(0,0);
     document.querySelector('main').remove();
+    window.scroll(0,0);
     
-
     const containerRegister = document.createElement('main');
     containerRegister.setAttribute('id', 'mainRegister');
     containerRegister.classList.add('mainRegister');

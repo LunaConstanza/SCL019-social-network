@@ -24,8 +24,11 @@ export const registerGoogle = () => {
       const token = credential.accessToken;
       // The signed-in user info.
       const user = result.user;
+      const nameUser = user.displayName;
       userDataGoogle();
-      // ...
+      console.log('holaaaaa user ', nameUser);
+      return nameUser;
+
     }).catch((error) => {
       // Handle Errors here.
       const errorCode = error.code;
@@ -37,9 +40,10 @@ export const registerGoogle = () => {
       // ...
     });
 };
-const userDataGoogle = async () => {
-
+export const userDataGoogle = async () => {
+  
   const user = auth.currentUser;
+  const userName = user.displayName;
   if (user !== null) {
     const docRef = await addDoc(collection(db, "google"), {
       name: user.displayName,
@@ -61,22 +65,20 @@ export const logOut = () => {
 }
 
 // ------Permite verificar si hay un usuario conectado 
-
+export const verification = () =>{
 onAuthStateChanged(auth, (user) => {
   if (user) {
     currentUser = user;
     console.log('usuario Logeado', currentUser.displayName);
-    // User is signed in, see docs for a list of available properties
-    // https://firebase.google.com/docs/reference/js/firebase.User
     const uid = user.uid;
-    // ...
+    return currentUser;
   } else {
     console.log('No hay Usuario logueado');
     // User is signed out
     // ...
   }
 });
-
+}
 //-------- Se guarda el Email y el password del usuario ----------
 export const registerUser = (email, password, nameLastname, date) => {
   createUserWithEmailAndPassword(auth, email, password)
