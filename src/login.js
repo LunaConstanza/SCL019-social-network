@@ -7,10 +7,13 @@ myFunction();
 
 const header = headerLogo();
 const container = document.getElementById('root');
+window.addEventListener('hashchange',login);
+
 
 export function login() {
     console.log('hice click');
-    history.pushState(null, 'login', '/login');
+    history.pushState(null, 'login', '#/login');
+    document.querySelector('main').remove();
 
     const containerLogin = document.createElement('main');
     containerLogin.classList.add('mainLogin');
