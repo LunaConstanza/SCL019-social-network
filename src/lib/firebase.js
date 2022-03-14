@@ -2,7 +2,17 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-app.js";
 import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore.js";
 // import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-analytics.js";
-import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged, sendPasswordResetEmail, sendEmailVerification, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-auth.js";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+  signOut,
+  onAuthStateChanged,
+  sendPasswordResetEmail,
+  sendEmailVerification,
+  signInWithEmailAndPassword,
+} from "https://www.gstatic.com/firebasejs/9.6.7/firebase-auth.js";
 // import { getDatabase, ref, set} from "https://www.gstatic.com/firebasejs/9.6.7/firebase-database.js"
 import { firebaseConfig } from "./config.js";
 
@@ -12,7 +22,7 @@ const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 const db = getFirestore();
 let currentUser;
-const orderCollection = collection(db, 'user');
+const orderCollection = collection(db, "user");
 
 // const analytics = getAnalytics(app);
 
@@ -30,7 +40,7 @@ export const registerGoogle = async () => {
       const user = result.user;
       const nameUser = user.displayName;
       userDataGoogle();
-      console.log('holaaaaa user ', nameUser);
+      console.log("holaaaaa user ", nameUser);
       return nameUser;
 
     }).catch((error) => {
@@ -45,7 +55,6 @@ export const registerGoogle = async () => {
     });
 };
 export const userDataGoogle = async () => {
-
   const user = auth.currentUser;
   const userName = user.displayName;
   if (user !== null) {
@@ -54,9 +63,8 @@ export const userDataGoogle = async () => {
       email: user.email,
       uid: user.uid,
     });
-  };
-}
-
+  }
+};
 
 // ------ Cerrar sesión ---------
 export const logOut = () => {
@@ -163,29 +171,6 @@ export const loginEmailPassword = (email, password, callback) => {
 
 export const savePost = (description) =>
   addDoc(collection(db, 'Post'), { description });
-
-
-//  export const getPost = () => getDocs(collection(db,'Post'));
-// export const getPost = async () => {
-//     const querySnapshot = await getDocs(collection(db, "cities"));
-//   querySnapshot.forEach((doc) => {
-//   // doc.data() is never undefined for query doc snapshots
-//   console.log(doc.id, " => ", doc.data());
-// });
-// }
-
-// export const postOnTheWall = () =>{
-
-//   const q = query(collection(db, "Post"));
-//   // console.log(q);
-//   const querySnapshot = await getDocs(q);
-//   querySnapshot.forEach((doc) => {
-//     // doc.data() is never undefined for query doc snapshots
-//     console.log(doc.id, " => ", doc.data());
-//   });
-
-// } 
-//tasks-container
 
 export const postOnTheWall = async () => {
 
