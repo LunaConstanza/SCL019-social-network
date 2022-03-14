@@ -6,12 +6,14 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
+
   signInWithPopup,
   signOut,
   onAuthStateChanged,
   sendPasswordResetEmail,
   sendEmailVerification,
   signInWithEmailAndPassword,
+
 } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-auth.js";
 // import { getDatabase, ref, set} from "https://www.gstatic.com/firebasejs/9.6.7/firebase-database.js"
 import { firebaseConfig } from "./config.js";
@@ -118,6 +120,8 @@ async function addNewDocument(userId, nameLastname, date) {
     uid: userId,
     name: nameLastname,
     bithday: date,
+    datepost: Timestamp.fromDate(new Date()),
+
   });
   console.log(`Tu cuenta ha sido creada en ${newDoc.path}`);
 };
@@ -168,12 +172,16 @@ export const loginEmailPassword = (email, password, callback) => {
       callback(false);
     });
 }
+// -------------Almacenamos el post--------
+export const savePost = (description) =>
+  addDoc(collection(db, 'Post'), { description });
 
+//---------- Publicamos en el Dashboard
+export const postOnTheWall = async () => {
 export const savePost = (description) =>
   addDoc(collection(db, 'Post'), { description });
 
 export const postOnTheWall = async () => {
-
   const conteiner_posts = document.getElementById('conteiner_posts');
   const querySnapshot = await getDocs(collection(db, "Post"));
   
