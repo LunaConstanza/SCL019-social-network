@@ -144,15 +144,13 @@ export function login() {
     try {
       e.preventDefault();
       currentUser = registerGoogle();
-      containerLogin.remove();
       newContent();
-    } catch (error) {}
+    } catch (error) { }
   });
 
   const btnRegister = document.getElementById("linkReg");
   btnRegister.addEventListener("click", (e) => {
     e.preventDefault();
     register();
-    containerLogin.remove();
   });
 }

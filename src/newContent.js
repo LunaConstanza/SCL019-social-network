@@ -7,7 +7,7 @@ export const newContent = () => {
 
     console.log('entraste al muro');
     history.pushState(null, 'Dashboard', '/dashboard');
-    document.querySelector('main').remove();
+    // document.querySelector('main').remove();
 
     const containerDashboard = document.createElement('main');
     containerDashboard.setAttribute('id', 'mainDash');
@@ -120,9 +120,9 @@ export const newContent = () => {
 
     formCreatePost.addEventListener('submit', (e) => {
         e.preventDefault();
-        const description = formCreatePost['inputCreatePost'];
-        savePost(description.value);
+        savePost(inputCreatePost.value);
         formCreatePost.reset();
+        postOnTheWall();
     });
 
 

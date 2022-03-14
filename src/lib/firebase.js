@@ -30,7 +30,6 @@ const orderCollection = collection(db, "user");
 
 
 
-
 //-----Login con Google ---------------
 export const registerGoogle = async () => {
   signInWithPopup(auth, provider)
@@ -41,6 +40,7 @@ export const registerGoogle = async () => {
       // The signed-in user info.
       const user = result.user;
       const nameUser = user.displayName;
+      
       userDataGoogle();
       console.log("holaaaaa user ", nameUser);
       return nameUser;
@@ -156,8 +156,10 @@ export const loginEmailPassword = (email, password, callback) => {
     .then((userCredential) => {
       // Signed in
       const user = userCredential.user;
-      console.log('Hola User!!!!! ', user);
+      console.log('Hola User!!!!! ', user.email);
       callback(true);
+    
+      return 
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -178,18 +180,13 @@ export const savePost = (description) =>
 
 //---------- Publicamos en el Dashboard
 export const postOnTheWall = async () => {
-export const savePost = (description) =>
-  addDoc(collection(db, 'Post'), { description });
-
-export const postOnTheWall = async () => {
   const publicationContainer = document.getElementById('publication-container');
   const querySnapshot = await getDocs(collection(db, "Post"));
   let html = ''
 
   querySnapshot.forEach((doc) => {
     const post = doc.data();
-    const usuario = doc.data().displayName;
-    console.log('Hola usuario', usuario);
+    // const usuario = doc.data();
 
     html += `<div>
     <p>${post.description}</p>
@@ -199,3 +196,4 @@ export const postOnTheWall = async () => {
   });
   publicationContainer.innerHTML = html
 }
+
