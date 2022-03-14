@@ -174,20 +174,21 @@ export const savePost = (description) =>
 
 export const postOnTheWall = async () => {
 
-  const publicationContainer = document.getElementById('publication-container');
+  const conteiner_posts = document.getElementById('conteiner_posts');
   const querySnapshot = await getDocs(collection(db, "Post"));
+  
   let html = ''
-
   querySnapshot.forEach((doc) => {
     const post = doc.data();
-    const usuario = doc.data().displayName;
+    const usuario = doc.data();
     console.log('Hola usuario', usuario);
 
-    html += `<div>
-    <p>${post.description}</p>
+    html += `<div class="mainDash_board_publications_content">
+    <h6 class="mainDash_board_publications_content_user">${usuario.displayName}Name User</h6>
+    <p class="mainDash_board_publications_content_text">${post.description}</p>
     </div>`
     console.log('Holaaa div ', post);
     // // console.log(`${doc.id} => ${doc.data()}`);
   });
-  publicationContainer.innerHTML = html
+ conteiner_posts.innerHTML = html
 }
