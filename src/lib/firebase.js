@@ -176,10 +176,8 @@ export const loginEmailPassword = (email, password, callback) => {
 export const savePost = (description) =>
   addDoc(collection(db, 'Post'), { description });
 
+
 //---------- Publicamos en el Dashboard
-export const postOnTheWall = async () => {
-export const savePost = (description) =>
-  addDoc(collection(db, 'Post'), { description });
 
 export const postOnTheWall = async () => {
   const conteiner_posts = document.getElementById('conteiner_posts');
@@ -199,4 +197,4 @@ export const postOnTheWall = async () => {
     // // console.log(`${doc.id} => ${doc.data()}`);
   });
  conteiner_posts.innerHTML = html
-}
+};
