@@ -155,6 +155,5 @@ let currentUser;
     btnRegister.addEventListener('click', (e) => {
         e.preventDefault();
         register();
-        containerLogin.remove();
     });
 };

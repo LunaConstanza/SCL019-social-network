@@ -60,6 +60,7 @@ export function register() {
     btnSend.classList.add('submitRegister');
 
     const btnBack = document.createElement('button');
+    btnBack.setAttribute('type', 'btn');
     btnBack.classList.add('btnBack');
     btnBack.innerHTML = `<i class="fa-solid fa-arrow-left"></i> VOLVER`;
 
@@ -91,13 +92,10 @@ export function register() {
         // dataUser(nameLastname,dateOfBirth);
         registerUser(email, password, nameLastname, dateOfBirth);
     })
+    
     btnBack.addEventListener('click', () =>{
-
-        if(hash.includes('#/register')){
-            return register;}
 
         history.back();
         login();
-        containerRegister.remove();
     })
 };

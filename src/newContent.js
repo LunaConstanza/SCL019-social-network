@@ -108,7 +108,6 @@ export function newContent() {
 
     btnLogOut.addEventListener('click', () => {
         logOut();
-        containerDashboard.remove();
         login();
         
     });
