@@ -1,10 +1,11 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-app.js";
-import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore.js";
+import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore.js";
 // import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-analytics.js";
 import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged, sendPasswordResetEmail, sendEmailVerification, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-auth.js";
 // import { getDatabase, ref, set} from "https://www.gstatic.com/firebasejs/9.6.7/firebase-database.js"
 import { firebaseConfig } from "./config.js";
+
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
@@ -15,8 +16,11 @@ const orderCollection = collection(db, 'user');
 
 // const analytics = getAnalytics(app);
 
+
+
+
 //-----Login con Google ---------------
-export const registerGoogle = () => {
+export const registerGoogle = async () => {
   signInWithPopup(auth, provider)
     .then((result) => {
       // This gives you a Google Access Token. You can use it to access the Google API.
@@ -41,7 +45,7 @@ export const registerGoogle = () => {
     });
 };
 export const userDataGoogle = async () => {
-  
+
   const user = auth.currentUser;
   const userName = user.displayName;
   if (user !== null) {
@@ -65,19 +69,19 @@ export const logOut = () => {
 }
 
 // ------Permite verificar si hay un usuario conectado 
-export const verification = () =>{
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    currentUser = user;
-    console.log('usuario Logeado', currentUser.displayName);
-    const uid = user.uid;
-    return currentUser;
-  } else {
-    console.log('No hay Usuario logueado');
-    // User is signed out
-    // ...
-  }
-});
+export const verification = () => {
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      currentUser = user;
+      console.log('usuario Logeado', currentUser.displayName);
+      const uid = user.uid;
+      return currentUser;
+    } else {
+      console.log('No hay Usuario logueado');
+      // User is signed out
+      // ...
+    }
+  });
 }
 //-------- Se guarda el Email y el password del usuario ----------
 export const registerUser = (email, password, nameLastname, date) => {
@@ -155,4 +159,50 @@ export const loginEmailPassword = (email, password, callback) => {
       }
       callback(false);
     });
+}
+
+export const savePost = (description) =>
+  addDoc(collection(db, 'Post'), { description });
+
+
+//  export const getPost = () => getDocs(collection(db,'Post'));
+// export const getPost = async () => {
+//     const querySnapshot = await getDocs(collection(db, "cities"));
+//   querySnapshot.forEach((doc) => {
+//   // doc.data() is never undefined for query doc snapshots
+//   console.log(doc.id, " => ", doc.data());
+// });
+// }
+
+// export const postOnTheWall = () =>{
+
+//   const q = query(collection(db, "Post"));
+//   // console.log(q);
+//   const querySnapshot = await getDocs(q);
+//   querySnapshot.forEach((doc) => {
+//     // doc.data() is never undefined for query doc snapshots
+//     console.log(doc.id, " => ", doc.data());
+//   });
+
+// } 
+//tasks-container
+
+export const postOnTheWall = async () => {
+
+  const publicationContainer = document.getElementById('publication-container');
+  const querySnapshot = await getDocs(collection(db, "Post"));
+  let html = ''
+
+  querySnapshot.forEach((doc) => {
+    const post = doc.data();
+    const usuario = doc.data().displayName;
+    console.log('Hola usuario', usuario);
+
+    html += `<div>
+    <p>${post.description}</p>
+    </div>`
+    console.log('Holaaa div ', post);
+    // // console.log(`${doc.id} => ${doc.data()}`);
+  });
+  publicationContainer.innerHTML = html
 }
