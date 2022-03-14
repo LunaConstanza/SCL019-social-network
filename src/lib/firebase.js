@@ -6,7 +6,14 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
-  signInWithPopup, signOut, onAuthStateChanged, sendPasswordResetEmail, sendEmailVerification, signInWithEmailAndPassword
+
+  signInWithPopup,
+  signOut,
+  onAuthStateChanged,
+  sendPasswordResetEmail,
+  sendEmailVerification,
+  signInWithEmailAndPassword,
+
 } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-auth.js";
 // import { getDatabase, ref, set} from "https://www.gstatic.com/firebasejs/9.6.7/firebase-database.js"
 import { firebaseConfig } from "./config.js";
@@ -17,7 +24,7 @@ const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 const db = getFirestore();
 let currentUser;
-const orderCollection = collection(db, 'user');
+const orderCollection = collection(db, "user");
 
 // const analytics = getAnalytics(app);
 
@@ -25,7 +32,7 @@ const orderCollection = collection(db, 'user');
 
 
 //-----Login con Google ---------------
-export const registerGoogle = () => {
+export const registerGoogle = async () => {
   signInWithPopup(auth, provider)
     .then((result) => {
       // This gives you a Google Access Token. You can use it to access the Google API.
@@ -35,7 +42,7 @@ export const registerGoogle = () => {
       const user = result.user;
       const nameUser = user.displayName;
       userDataGoogle();
-      console.log('holaaaaa user ', nameUser);
+      console.log("holaaaaa user ", nameUser);
       return nameUser;
 
     }).catch((error) => {
@@ -50,7 +57,6 @@ export const registerGoogle = () => {
     });
 };
 export const userDataGoogle = async () => {
-
   const user = auth.currentUser;
   const userName = user.displayName;
   if (user !== null) {
@@ -59,9 +65,8 @@ export const userDataGoogle = async () => {
       email: user.email,
       uid: user.uid,
     });
-  };
-}
-
+  }
+};
 
 // ------ Cerrar sesión ---------
 export const logOut = () => {
@@ -116,6 +121,7 @@ async function addNewDocument(userId, nameLastname, date) {
     name: nameLastname,
     bithday: date,
     datepost: Timestamp.fromDate(new Date()),
+
   });
   console.log(`Tu cuenta ha sido creada en ${newDoc.path}`);
 };
@@ -172,7 +178,10 @@ export const savePost = (description) =>
 
 //---------- Publicamos en el Dashboard
 export const postOnTheWall = async () => {
+export const savePost = (description) =>
+  addDoc(collection(db, 'Post'), { description });
 
+export const postOnTheWall = async () => {
   const publicationContainer = document.getElementById('publication-container');
   const querySnapshot = await getDocs(collection(db, "Post"));
   let html = ''
