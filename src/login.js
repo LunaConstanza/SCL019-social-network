@@ -111,7 +111,6 @@ export function login() {
     const alertaLogin = (valid) => {
       if (valid) {
         console.log("este es el if true");
-        containerLogin.remove();
         newContent();
       } else {
         console.log("el if false");
@@ -139,12 +138,12 @@ export function login() {
     resetPass(saveEmail);
   });
   /*FIN abrir y cerrar popup*/
+  
   let currentUser;
   btnGoogle.addEventListener("click", async (e) => {
     try {
       e.preventDefault();
       currentUser = registerGoogle();
-      containerLogin.remove();
       newContent();
     } catch (error) {}
   });
@@ -153,6 +152,5 @@ export function login() {
   btnRegister.addEventListener("click", (e) => {
     e.preventDefault();
     register();
-    containerLogin.remove();
   });
 }
