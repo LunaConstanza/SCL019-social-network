@@ -1,10 +1,11 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-app.js";
-import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore.js";
+import { getFirestore, collection, addDoc, getDocs} from "https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore.js";
 // import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-analytics.js";
 import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged, sendPasswordResetEmail, sendEmailVerification, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-auth.js";
 // import { getDatabase, ref, set} from "https://www.gstatic.com/firebasejs/9.6.7/firebase-database.js"
 import { firebaseConfig } from "./config.js";
+
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
@@ -14,6 +15,9 @@ let currentUser;
 const orderCollection = collection(db, 'user');
 
 // const analytics = getAnalytics(app);
+
+
+
 
 //-----Login con Google ---------------
 export const registerGoogle = () => {
@@ -28,7 +32,7 @@ export const registerGoogle = () => {
       userDataGoogle();
       console.log('holaaaaa user ', nameUser);
       return nameUser;
-
+      
     }).catch((error) => {
       // Handle Errors here.
       const errorCode = error.code;
@@ -58,7 +62,7 @@ export const userDataGoogle = async () => {
 export const logOut = () => {
   signOut(auth).then(() => {
     console.log('Usuario Cerro Sesión');
-
+    
   }).catch((error) => {
     // An error happened.
   });
@@ -66,24 +70,24 @@ export const logOut = () => {
 
 // ------Permite verificar si hay un usuario conectado 
 export const verification = () =>{
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    currentUser = user;
-    console.log('usuario Logeado', currentUser.displayName);
-    const uid = user.uid;
-    return currentUser;
-  } else {
-    console.log('No hay Usuario logueado');
-    // User is signed out
-    // ...
-  }
-});
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      currentUser = user;
+      console.log('usuario Logeado', currentUser.displayName);
+      const uid = user.uid;
+      return currentUser;
+    } else {
+      console.log('No hay Usuario logueado');
+      // User is signed out
+      // ...
+    }
+  });
 }
 //-------- Se guarda el Email y el password del usuario ----------
 export const registerUser = (email, password, nameLastname, date) => {
   createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      // Signed in 
+  .then((userCredential) => {
+    // Signed in 
       const user = userCredential.user;
       console.log("Hola uid", user.uid);
       const userId = user.uid;
@@ -98,24 +102,24 @@ export const registerUser = (email, password, nameLastname, date) => {
       console.log(errorCode, errorMessage);
       // ..
     });
-}
-
-//------Se ingresan los valores Firestore Datebase ----------
-async function addNewDocument(userId, nameLastname, date) {
-  const newDoc = await addDoc(orderCollection, {
-    uid: userId,
-    name: nameLastname,
-    bithday: date,
-  });
-  console.log(`Tu cuenta ha sido creada en ${newDoc.path}`);
-};
-
-//---------Enviar correo para Recuperar contraseña-------/
-export const resetPass = (email) => {
+  }
+  
+  //------Se ingresan los valores Firestore Datebase ----------
+  async function addNewDocument(userId, nameLastname, date) {
+    const newDoc = await addDoc(orderCollection, {
+      uid: userId,
+      name: nameLastname,
+      bithday: date,
+    });
+    console.log(`Tu cuenta ha sido creada en ${newDoc.path}`);
+  };
+  
+  //---------Enviar correo para Recuperar contraseña-------/
+  export const resetPass = (email) => {
   sendPasswordResetEmail(auth, email)
-    .then(() => {
-      // Password reset email sent!
-      // ..
+  .then(() => {
+    // Password reset email sent!
+    // ..
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -123,54 +127,82 @@ export const resetPass = (email) => {
       console.log(errorCode, errorMessage);
       //..
     });
-}
-
-//----Enviar correo de validación de Google -----
-function emailVerification(auth) {
-  sendEmailVerification(auth.currentUser)
+  }
+  
+  //----Enviar correo de validación de Google -----
+  function emailVerification(auth) {
+    sendEmailVerification(auth.currentUser)
     .then(() => {
       // Email verification sent!
       // ...
     });
-}
-
+  }
+  
 //----- Hacer el Login con correo y contraseña 
 export const loginEmailPassword = (email, password, callback) => {
   signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      // Signed in
-      const user = userCredential.user;
-      console.log('Hola User!!!!! ', user);
-      callback(true);
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-
-      if (errorCode === 'auth/user-not-found') {
-        alert('usuario no regristrado');
-
-      } else if (errorCode === 'auth/wrong-password') {
-        alert('Contraseña incorrecta');
-      }
-      callback(false);
-    });
+  .then((userCredential) => {
+    // Signed in
+    const user = userCredential.user;
+    console.log('Hola User!!!!! ', user);
+    callback(true);
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    
+    if (errorCode === 'auth/user-not-found') {
+      alert('usuario no regristrado');
+      
+    } else if (errorCode === 'auth/wrong-password') {
+      alert('Contraseña incorrecta');
+    }
+    callback(false);
+  });
 }
 
+export const savePost = (description) => 
+addDoc(collection(db,'Post'), {description});
 
-/* OBTENER DATOS */
 
+//  export const getPost = () => getDocs(collection(db,'Post'));
+// export const getPost = async () => {
+  //     const querySnapshot = await getDocs(collection(db, "cities"));
+  //   querySnapshot.forEach((doc) => {
+    //   // doc.data() is never undefined for query doc snapshots
+    //   console.log(doc.id, " => ", doc.data());
+    // });
+    // }
+    
+    // export const postOnTheWall = () =>{
+      
+      //   const q = query(collection(db, "Post"));
+      //   // console.log(q);
+      //   const querySnapshot = await getDocs(q);
+      //   querySnapshot.forEach((doc) => {
+        //     // doc.data() is never undefined for query doc snapshots
+//     console.log(doc.id, " => ", doc.data());
+//   });
 
+// } 
+//tasks-container
 
-// var docRef = db.collection("users").doc("SF");
+export const postOnTheWall = async () =>{
+  
+  const publicationContainer = document.getElementById('publication-container');
+  const querySnapshot = await getDocs(collection(db, "Post"));
+  let html = ''
+  
+  querySnapshot.forEach((doc) => {
+    const post = doc.data();
+    const usuario = doc.data().displayName;
+     console.log('Hola usuario', usuario);
 
-// docRef.get().then((doc) => {
-//     if (doc.exists) {
-//         console.log("Document data:", doc.data());
-//     } else {
-//         // doc.data() will be undefined in this case
-//         console.log("No such document!");
-//     }
-// }).catch((error) => {
-//     console.log("Error getting document:", error);
-// });
+    html += `<div>
+    <p>${post.description}</p>
+    </div>`
+    console.log('Holaaa div ', post);
+    // // console.log(`${doc.id} => ${doc.data()}`);
+  });
+  publicationContainer.innerHTML = html
+}
