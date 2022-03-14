@@ -1,6 +1,15 @@
+<<<<<<< HEAD
 import { registerUser } from "./lib/firebase.js";
 import { login } from "./login.js";
 import { newContent } from "./newContent.js";
+=======
+import { registerUser} from './lib/firebase.js';
+import { login } from './login.js';
+ import { newContent } from './newContent.js';
+
+const container = document.getElementById('root');
+window.addEventListener('hashchange',register);
+>>>>>>> 48ef943208c7a07effecbe798ea9d134d8fcf389
 
 const container = document.getElementById("root");
 window.addEventListener("hashchange", register);

@@ -102,6 +102,7 @@ export function login() {
   formLogin.appendChild(btnGoogle);
   formLogin.appendChild(linkRegister);
 
+<<<<<<< HEAD
   /*Hacer login para entrar al muro*/
   formLogin.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -156,3 +157,82 @@ export function login() {
     containerLogin.remove();
   });
 }
+=======
+    const linkRegister = document.createElement('p');
+    linkRegister.innerHTML = `¿No tienes cuenta? <a href="#" id="linkReg">Regístrate</a>`;
+
+    container.appendChild(header);
+    container.appendChild(containerLogin);
+    containerLogin.appendChild(subTitleLogin);
+    containerLogin.appendChild(formLogin);
+    formLogin.appendChild(userLogin);
+    formLogin.appendChild(passwordLogin);
+    formLogin.appendChild(btnLogIn);
+    formLogin.appendChild(textReset);
+    formLogin.appendChild(divOverlay);
+    divOverlay.appendChild(divPopup);
+    divPopup.appendChild(btnClose);
+    divPopup.appendChild(h3Popup);
+    divPopup.appendChild(textPopup);
+    divPopup.appendChild(formResetPass);
+    formResetPass.appendChild(inputEmail);
+    formResetPass.appendChild(resetPassword);
+    formLogin.appendChild(btnGoogle);
+    formLogin.appendChild(linkRegister);
+
+    /*Hacer login para entrar al muro*/
+    formLogin.addEventListener('submit', e => {
+        e.preventDefault();
+        console.log('apretaste iniciar sesion');
+        const email = document.getElementById('emailLogin').value;
+        const password = document.getElementById('passwordLogin').value;
+        const alertaLogin = (valid) => {
+            if (valid){
+                console.log('este es el if true');
+                containerLogin.remove();
+                newContent();
+            }
+            else {
+                console.log('el if false');
+            }
+        }
+        loginEmailPassword(email, password, alertaLogin);
+    });
+
+    /*Abrir y cerrar popup*/
+    textReset.addEventListener('click', (e) =>{
+        e.preventDefault();
+        divOverlay.classList.add("active");
+        divPopup.classList.add("active");
+    });
+    btnClose.addEventListener('click', (e) => {
+        e.preventDefault();
+        divOverlay.classList.remove("active");
+        divPopup.classList.remove("active");
+    });
+    formResetPass.addEventListener('submit', (e) => {
+        e.preventDefault();
+        divOverlay.classList.remove("active");
+        divPopup.classList.remove("active");
+        const saveEmail = document.getElementById('userEmail').value;
+        resetPass(saveEmail);
+    });
+    /*FIN abrir y cerrar popup*/
+
+    btnGoogle.addEventListener('click', (e) => {
+        e.preventDefault();
+         registerGoogle();
+        containerLogin.remove();
+        newContent();
+      
+      
+    });
+    
+    const btnRegister = document.getElementById('linkReg');
+    btnRegister.addEventListener('click', (e) => {
+        e.preventDefault();
+        register();
+        containerLogin.remove();
+    });
+};
+>>>>>>> 48ef943208c7a07effecbe798ea9d134d8fcf389
