@@ -39,13 +39,11 @@ export const registerGoogle = (callback) => {
       // The signed-in user info.
       const user = result.user;
       const nameUser = user.displayName;
-      // const dataUser = document.getElementById('dataUser');
-      // dataUser.innerHTML = `<span class="h4bold">Hola!</span> ${nameUser}`;
-      
       userDataGoogle();
       console.log("holaaaaa user ", nameUser);
       callback(true);
-      return nameUser;
+      const dataUser = document.getElementById('dataUser');
+      dataUser.innerHTML = `<span class="h4bold">Hola!</span> ${nameUser}`;
     }).catch((error) => {
       // Handle Errors here.
       const errorCode = error.code;
@@ -98,7 +96,7 @@ export const verification = () => {
   });
 }
 //-------- Se guarda el Email y el password del usuario ----------
-export const registerUser = (email, password, nameLastname, date) => {
+export const registerUser = (email, password, displayName, date) => {
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in 
@@ -109,7 +107,7 @@ export const registerUser = (email, password, nameLastname, date) => {
       return userId;
       // ...
     })
-    .then((userId) => addNewDocument(userId, nameLastname, date))
+    .then((userId) => addNewDocument(userId, displayName, date))
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
@@ -119,13 +117,11 @@ export const registerUser = (email, password, nameLastname, date) => {
 }
 
 //------Se ingresan los valores Firestore Datebase ----------
-async function addNewDocument(userId, nameLastname, date, post) {
+async function addNewDocument(userId, displayName, date) {
   const newDoc = await addDoc(orderCollection, {
     uid: userId,
-    name: nameLastname,
+    displayName: displayName,
     bithday: date,
-    datepost: Timestamp.fromDate(new Date()),
-    postUser: post,
 
   });
   console.log(`Tu cuenta ha sido creada en ${newDoc.path}`);
@@ -193,12 +189,14 @@ export const postOnTheWall = async () => {
   let html = ''
   querySnapshot.forEach((doc) => {
     const post = doc.data();
-    const usuario = doc.data();
+    // const usuario = doc.data();
+    // console.log('Hola usuario', usuario);
+
     html += `<div class="mainDash_board_publications_content">
-    <h6 class="mainDash_board_publications_content_user">${usuario.name} dice:</h6>
+    <h6 class="mainDash_board_publications_content_user">${post} dice:</h6>
     <p class="mainDash_board_publications_content_text">${post.description}</p>
     </div>`
-    // console.log('Holaaa div ', post);
+    console.log('Holaaa div ', post);
     // // console.log(`${doc.id} => ${doc.data()}`);
   });
  conteiner_posts.innerHTML = html

@@ -1,4 +1,4 @@
-import { logOut, savePost, postOnTheWall } from './lib/firebase.js';
+import { logOut, savePost, postOnTheWall, verification } from './lib/firebase.js';
 import { login } from './login.js';
 
 const container = document.getElementById('root');
@@ -108,6 +108,7 @@ export const newContent = () => {
 
     formCreatePost.addEventListener('submit', (e) => {
         e.preventDefault();
+        verification();
         const post =inputCreatePost.value;
         savePost(post);
         formCreatePost.reset();
