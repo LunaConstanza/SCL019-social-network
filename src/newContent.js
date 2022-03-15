@@ -7,7 +7,7 @@ export const newContent = () => {
 
     console.log('entraste al muro');
     history.pushState(null, 'Dashboard', '/dashboard');
-    // document.querySelector('main').remove();
+    document.querySelector('main').remove();
 
     const containerDashboard = document.createElement('main');
     containerDashboard.setAttribute('id', 'mainDash');
@@ -18,7 +18,6 @@ export const newContent = () => {
     profile.classList.add('mainDash_profile');
     const dataUser = document.createElement('h4');
     dataUser.setAttribute('id', 'dataUser');
-    dataUser.innerHTML = `<span class="h4bold">Hola!</span> Juanita Perez`;
 
     const btnLogOut = document.createElement('button');
     btnLogOut.setAttribute('id', 'btnLogOut');
@@ -58,20 +57,13 @@ export const newContent = () => {
     //         /*Publicaciones*/
     const publications = document.createElement('div');
     publications.classList.add('mainDash_board_publications');
-    publications.setAttribute('id', 'publication-container');
-    // const titlePublications = document.createElement('h5');
-    // titlePublications.classList.add('mainDash_board_publications_title')
-    // titlePublications.innerHTML = `<i class="fa-solid fa-bomb"></i> Publicaciones`;
-    // const scrollContent = document.createElement('div');
-    // scrollContent.classList.add('mainDash_board_publications_scroll');
-    // const postUser = document.createElement('div');
-    // postUser.classList.add('mainDash_board_publications_content');
-    // const nameUser = document.createElement('h6');
-    // nameUser.classList.add('mainDash_board_publications_content_user')
-    // nameUser.innerHTML = `Juanita Perez`;
-    // const textUser = document.createElement('p');
-    // textUser.classList.add('mainDash_board_publications_content_text')
-    // textUser.innerHTML = `Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam rerum laboriosam magnam sint odio ratione velit harum nostrum! Accusantium optio consequuntur, ducimus quia perspiciatis aperiam eveniet inventore aut aliquid, quo maxime in laboriosam repellendus, quibusdam numquam neque ipsa dolor minus animi quae magnam sapiente natus error quos. Laboriosam, perferendis perspiciatis!`;
+    const titlePublications = document.createElement('h5');
+    titlePublications.classList.add('mainDash_board_publications_title')
+    titlePublications.innerHTML = `<i class="fa-solid fa-bomb"></i> Publicaciones`;
+    const scrollContent = document.createElement('div');
+    scrollContent.classList.add('mainDash_board_publications_scroll');
+    scrollContent.setAttribute('id', 'conteiner_posts');
+    
     // const starlike = document.createElement('button');
     // starlike.classList.add('mainDash_board_publications_content_starR');
     // starlike.innerHTML = `<i class="fa-regular fa-star"></i>`;
@@ -103,28 +95,24 @@ export const newContent = () => {
     formCreatePost.appendChild(inputCreatePost);
     formCreatePost.appendChild(submitPost);
     board.appendChild(publications);
-
-    // publications.appendChild(titlePublications);
-    // publications.appendChild(scrollContent);
-    // scrollContent.appendChild(postUser);
-    // postUser.appendChild(nameUser);
-    // postUser.appendChild(textUser);
+    publications.appendChild(titlePublications);
+    publications.appendChild(scrollContent);
     // postUser.appendChild(starlike);
     // postUser.appendChild(likePost);
-    // containerDashboard.appendChild(btnCreatePost);
+    containerDashboard.appendChild(btnCreatePost);
 
 
     const wallPost = postOnTheWall();
 
-    console.log(wallPost);
+    // console.log(wallPost);
 
     formCreatePost.addEventListener('submit', (e) => {
         e.preventDefault();
-        savePost(inputCreatePost.value);
+        const post =inputCreatePost.value;
+        savePost(post);
         formCreatePost.reset();
         postOnTheWall();
     });
-
 
     btnLogOut.addEventListener('click', () => {
         logOut();

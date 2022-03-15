@@ -25,7 +25,6 @@ const provider = new GoogleAuthProvider();
 const db = getFirestore();
 let currentUser;
 const orderCollection = collection(db, "user");
-
 // const analytics = getAnalytics(app);
 
 
@@ -40,6 +39,8 @@ export const registerGoogle = async () => {
       // The signed-in user info.
       const user = result.user;
       const nameUser = user.displayName;
+      const dataUser = document.getElementById('dataUser');
+      dataUser.innerHTML = `<span class="h4bold">Hola!</span> ${nameUser}`;
       
       userDataGoogle();
       console.log("holaaaaa user ", nameUser);
@@ -115,12 +116,13 @@ export const registerUser = (email, password, nameLastname, date) => {
 }
 
 //------Se ingresan los valores Firestore Datebase ----------
-async function addNewDocument(userId, nameLastname, date) {
+async function addNewDocument(userId, nameLastname, date, post) {
   const newDoc = await addDoc(orderCollection, {
     uid: userId,
     name: nameLastname,
     bithday: date,
     datepost: Timestamp.fromDate(new Date()),
+    postUser: post,
 
   });
   console.log(`Tu cuenta ha sido creada en ${newDoc.path}`);
@@ -158,8 +160,8 @@ export const loginEmailPassword = (email, password, callback) => {
       const user = userCredential.user;
       console.log('Hola User!!!!! ', user.email);
       callback(true);
-    
-      return 
+      const dataUser = document.getElementById('dataUser');
+      dataUser.innerHTML = `<span class="h4bold">Hola!</span> ${user.email}`;
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -180,20 +182,20 @@ export const savePost = (description) =>
 
 //---------- Publicamos en el Dashboard
 export const postOnTheWall = async () => {
-  const publicationContainer = document.getElementById('publication-container');
+  
+  const conteiner_posts = document.getElementById('conteiner_posts');
   const querySnapshot = await getDocs(collection(db, "Post"));
+  
   let html = ''
-
   querySnapshot.forEach((doc) => {
     const post = doc.data();
-    // const usuario = doc.data();
-
-    html += `<div>
-    <p>${post.description}</p>
+    const usuario = doc.data();
+    html += `<div class="mainDash_board_publications_content">
+    <h6 class="mainDash_board_publications_content_user">${usuario.displayName}Name User</h6>
+    <p class="mainDash_board_publications_content_text">${post.description}</p>
     </div>`
-    console.log('Holaaa div ', post);
+    // console.log('Holaaa div ', post);
     // // console.log(`${doc.id} => ${doc.data()}`);
   });
-  publicationContainer.innerHTML = html
+ conteiner_posts.innerHTML = html
 }
-
