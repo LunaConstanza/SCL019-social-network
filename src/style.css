@@ -333,11 +333,9 @@ a:hover {
     overflow-y: scroll;
 }
 .mainDash_board_publications_content{
-    border: 1px solid var(--pink-color);
     display: grid;
     grid-template-columns: 10% 90%;
     grid-template-rows: 30px auto 30px;
-    height: 150px;
 }
 .mainDash_board_publications_content_user{
     text-align: left;
@@ -351,7 +349,6 @@ a:hover {
     grid-column: 1/3;
     grid-row: 2/3;
     padding: 3px 10px;
-    overflow-y: scroll;
 }
 .mainDash_board_publications_content_starR{
     background:none;

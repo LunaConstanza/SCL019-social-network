@@ -45,7 +45,7 @@ export const newContent = () => {
     const inputCreatePost = document.createElement('textarea');
     inputCreatePost.classList.add('mainDash_board_createPost_textarea');
     inputCreatePost.setAttribute('placeholder', 'Escribe aquí...');
-    inputCreatePost.setAttribute('maxLength', '1500');
+    inputCreatePost.setAttribute('maxLength', '200');
     inputCreatePost.setAttribute('required', '');
     inputCreatePost.setAttribute('id', 'text-description');
 
