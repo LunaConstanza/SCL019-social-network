@@ -74,7 +74,7 @@ header {
     0 0 25px var(--pink-color);
   display: grid;
   grid-template-columns: auto;
-  margin: 50px 480px;
+  margin: 0px 480px;
   padding: 40px 0;
 }
 .formLogin {
@@ -193,7 +193,7 @@ a:hover {
     0 0 25px var(--yellow-color);
   display: grid;
   grid-template-columns: auto;
-  margin: 50px 480px;
+  margin: 0px 480px;
   padding: 40px 0;
 }
 .formRegister {
@@ -403,18 +403,18 @@ footer {
 /************RESPONSIVE***********/
 @media only screen and (max-width: 1330px) {
   .mainLogin {
-    margin: 40px 200px;
+    margin: 0px 200px;
   }
   .mainRegister {
-    margin: 40px 200px;
+    margin: 0px 200px;
   }
 }
 @media only screen and (max-width: 750px) {
     .mainLogin {
-        margin: 20px 100px;
+        margin: 0px 100px;
     }
     .mainRegister{
-        margin: 20px 100px;
+        margin: 0px 100px;
     }
     footer{
         margin: 40px 20px;
@@ -422,11 +422,11 @@ footer {
 }
 @media only screen and (max-width: 550px) {
   .mainLogin {
-    margin: 10px 10px;
+    margin: 0px 10px;
     padding-bottom: 10px;
   }
   .mainRegister {
-    margin: 10px 10px;
+    margin: 0px 10px;
     padding-bottom: 10px;
   }
   .formLogin {

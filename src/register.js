@@ -88,9 +88,14 @@ export function register() {
     console.log(email);
     console.log(password);
 
+    const validation = (valid) => {
+      if (valid) {
         newContent();
-        // dataUser(nameLastname,dateOfBirth);
-        registerUser(email, password, nameLastname, dateOfBirth);
+      } else {
+        console.log('invalidooo');
+      }
+    }
+    registerUser(email, password, nameLastname, dateOfBirth, validation);
     })
     
     btnBack.addEventListener('click', () =>{

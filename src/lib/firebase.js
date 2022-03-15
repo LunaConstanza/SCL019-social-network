@@ -98,12 +98,11 @@ export const verification = () => {
     } else {
       console.log('No hay Usuario logueado');
       // User is signed out
-      // ...
     }
   });
 }
 //-------- Se guarda el Email y el password del usuario ----------
-export const registerUser = (email, password, displayName, date) => {
+export const registerUser = (email, password, displayName, date, callback) => {
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in 
@@ -111,15 +110,14 @@ export const registerUser = (email, password, displayName, date) => {
       console.log("Hola uid", user.uid);
       const userId = user.uid;
       emailVerification(auth);
-      return userId;
-      // ...
+      callback(true);
     })
     .then((userId) => addNewDocument(userId, displayName, date))
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
+      callback(false);
       console.log(errorCode, errorMessage);
-      // ..
     });
 }
 
@@ -154,7 +152,7 @@ function emailVerification(auth) {
   sendEmailVerification(auth.currentUser)
     .then(() => {
       // Email verification sent!
-      // ...
+      alert('Se ha enviado un mensaje de verificación a tu correo electrónico, por favor revisalo y verifica tu registro');
     });
 }
 
@@ -164,7 +162,7 @@ export const loginEmailPassword = (email, password, callback) => {
     .then((userCredential) => {
       // Signed in
       const user = userCredential.user;
-      console.log('Hola User!!!!! ', user.email);
+      console.log('Hola User!!!!! ', user.uid);
       callback(true);
       const dataUser = document.getElementById('dataUser');
       dataUser.innerHTML = `<span class="h4bold">Hola!</span> ${user.email}`;
