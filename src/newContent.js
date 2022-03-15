@@ -18,7 +18,6 @@ export const newContent = () => {
     profile.classList.add('mainDash_profile');
     const dataUser = document.createElement('h4');
     dataUser.setAttribute('id', 'dataUser');
-    dataUser.innerHTML = `<span class="h4bold">Hola!</span> Juanita`;
 
     const btnLogOut = document.createElement('button');
     btnLogOut.setAttribute('id', 'btnLogOut');
@@ -105,11 +104,12 @@ export const newContent = () => {
 
     const wallPost = postOnTheWall();
 
-    console.log(wallPost);
+    // console.log(wallPost);
 
     formCreatePost.addEventListener('submit', (e) => {
         e.preventDefault();
-        savePost(inputCreatePost.value);
+        const post =inputCreatePost.value;
+        savePost(post);
         formCreatePost.reset();
         postOnTheWall();
     });

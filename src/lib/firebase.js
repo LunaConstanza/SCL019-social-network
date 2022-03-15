@@ -25,9 +25,7 @@ const provider = new GoogleAuthProvider();
 const db = getFirestore();
 let currentUser;
 const orderCollection = collection(db, "user");
-
 // const analytics = getAnalytics(app);
-
 
 
 
@@ -41,6 +39,9 @@ export const registerGoogle = (callback) => {
       // The signed-in user info.
       const user = result.user;
       const nameUser = user.displayName;
+      const dataUser = document.getElementById('dataUser');
+      dataUser.innerHTML = `<span class="h4bold">Hola!</span> ${nameUser}`;
+      
       userDataGoogle();
       console.log("holaaaaa user ", nameUser);
       callback(true);
@@ -51,8 +52,10 @@ export const registerGoogle = (callback) => {
       const errorMessage = error.message;
       // The email of the user's account used.
       const email = error.email;
+      console.log(email);
       // The AuthCredential type that was used.
       const credential = GoogleAuthProvider.credentialFromError(error);
+      console.log(credential);
       // ...
       callback(false);
     });
@@ -116,12 +119,13 @@ export const registerUser = (email, password, nameLastname, date) => {
 }
 
 //------Se ingresan los valores Firestore Datebase ----------
-async function addNewDocument(userId, nameLastname, date) {
+async function addNewDocument(userId, nameLastname, date, post) {
   const newDoc = await addDoc(orderCollection, {
     uid: userId,
     name: nameLastname,
     bithday: date,
     datepost: Timestamp.fromDate(new Date()),
+    postUser: post,
 
   });
   console.log(`Tu cuenta ha sido creada en ${newDoc.path}`);
@@ -157,8 +161,10 @@ export const loginEmailPassword = (email, password, callback) => {
     .then((userCredential) => {
       // Signed in
       const user = userCredential.user;
-      console.log('Hola User!!!!! ', user);
+      console.log('Hola User!!!!! ', user.email);
       callback(true);
+      const dataUser = document.getElementById('dataUser');
+      dataUser.innerHTML = `<span class="h4bold">Hola!</span> ${user.email}`;
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -188,13 +194,11 @@ export const postOnTheWall = async () => {
   querySnapshot.forEach((doc) => {
     const post = doc.data();
     const usuario = doc.data();
-    console.log('Hola usuario', usuario);
-
     html += `<div class="mainDash_board_publications_content">
     <h6 class="mainDash_board_publications_content_user">${usuario.name} dice:</h6>
     <p class="mainDash_board_publications_content_text">${post.description}</p>
     </div>`
-    console.log('Holaaa div ', post);
+    // console.log('Holaaa div ', post);
     // // console.log(`${doc.id} => ${doc.data()}`);
   });
  conteiner_posts.innerHTML = html
