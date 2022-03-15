@@ -1,12 +1,19 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-app.js";
-import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore.js";
+import { 
+  getFirestore, 
+  collection, 
+  addDoc, 
+  getDocs, 
+  orderBy,
+  Timestamp,
+  query,
+ } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore.js";
 // import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-analytics.js";
 import {
   getAuth,
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
-
   signInWithPopup,
   signOut,
   onAuthStateChanged,
@@ -175,15 +182,20 @@ export const loginEmailPassword = (email, password, callback) => {
 }
 // -------------Almacenamos el post--------
 export const savePost = (description) =>
-  addDoc(collection(db, 'Post'), { description });
+  addDoc(collection(db, 'Post'), { 
+    uid: auth.currentUser.uid,
+    name: auth.currentUser.displayName,
+    description: description,
+    datepost: Timestamp.fromDate(new Date()),
+     });
 
 
 //---------- Publicamos en el Dashboard
 
 export const postOnTheWall = async () => {
   const conteiner_posts = document.getElementById('conteiner_posts');
-  const querySnapshot = await getDocs(collection(db, "Post"));
-  
+  const allPost = query(collection(db, "Post"), orderBy('datepost', 'desc'));
+  const querySnapshot = await getDocs(allPost);
   let html = ''
   querySnapshot.forEach((doc) => {
     const post = doc.data();
@@ -191,7 +203,7 @@ export const postOnTheWall = async () => {
     // console.log('Hola usuario', usuario);
 
     html += `<div class="mainDash_board_publications_content">
-    <h6 id="userPost" class="mainDash_board_publications_content_user"> dice:</h6>
+    <h6 class="mainDash_board_publications_content_user">${post.name} dice:</h6>
     <p class="mainDash_board_publications_content_text">${post.description}</p>
     </div>`
     console.log('Holaaa div ', post);
