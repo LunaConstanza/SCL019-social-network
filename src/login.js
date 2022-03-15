@@ -138,12 +138,18 @@ export function login() {
     resetPass(saveEmail);
   });
   /*FIN abrir y cerrar popup*/
-  
-  
-  btnGoogle.addEventListener("click", async (e) => {
+
+  btnGoogle.addEventListener("click", (e) => {
       e.preventDefault();
-       registerGoogle();
-       newContent();
+      const trueUser = (valid) =>{
+        if (valid){
+          newContent();
+        }
+        else{
+          console.log('error');
+        }
+      }
+      registerGoogle(trueUser);
   });
 
   const btnRegister = document.getElementById("linkReg");
