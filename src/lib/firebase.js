@@ -204,7 +204,7 @@ export const postOnTheWall = async () => {
     // const usuario = doc.data();
     // console.log('Hola usuario', usuario);
 
-    html += `<div class="mainDash_board_publications_content">
+    html += `<div class="mainDash_board_pu  blications_content">
     <h6 class="mainDash_board_publications_content_user">${post.name} dice:</h6>
     <p class="mainDash_board_publications_content_text">${post.description}</p>
     </div>`
