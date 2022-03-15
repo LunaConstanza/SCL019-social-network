@@ -39,8 +39,8 @@ export const registerGoogle = (callback) => {
       // The signed-in user info.
       const user = result.user;
       const nameUser = user.displayName;
-      const dataUser = document.getElementById('dataUser');
-      dataUser.innerHTML = `<span class="h4bold">Hola!</span> ${nameUser}`;
+      // const dataUser = document.getElementById('dataUser');
+      // dataUser.innerHTML = `<span class="h4bold">Hola!</span> ${nameUser}`;
       
       userDataGoogle();
       console.log("holaaaaa user ", nameUser);
