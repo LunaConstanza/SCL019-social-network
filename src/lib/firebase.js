@@ -7,7 +7,9 @@ import {
   getDocs, 
   orderBy,
   Timestamp,
+  
   query,
+  
  } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore.js";
 // import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-analytics.js";
 import {
@@ -186,6 +188,7 @@ export const savePost = (description) =>
     uid: auth.currentUser.uid,
     name: auth.currentUser.displayName,
     description: description,
+    likes:[],
     datepost: Timestamp.fromDate(new Date()),
      });
 
@@ -211,3 +214,10 @@ export const postOnTheWall = async () => {
   });
  conteiner_posts.innerHTML = html
 };
+
+const likePost = () =>{
+
+  const increment = firebase.firestore.fielValue.increment(1);
+  const storyREf = db.collection('stories').doc('Hello world');
+  storyREf.update({count : increment});
+}
