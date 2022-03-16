@@ -7,6 +7,7 @@ import {
   getDocs,
   orderBy,
   Timestamp,
+  
   query,
   doc,
   onSnapshot,
@@ -194,6 +195,7 @@ export const savePost = (description) => {
     uid: auth.currentUser.uid,
     name: userName,
     description: description,
+    likes:[],
     datepost: Timestamp.fromDate(new Date()),
   });
 };
@@ -210,7 +212,7 @@ export const postOnTheWall = async () => {
     // const usuario = doc.data();
     // console.log('Hola usuario', usuario);
 
-    html += `<div class="mainDash_board_publications_content">
+    html += `<div class="mainDash_board_pu  blications_content">
     <h6 class="mainDash_board_publications_content_user">${post.name} dice:</h6>
     <p class="mainDash_board_publications_content_text">${post.description}</p>
     </div>`
@@ -219,7 +221,6 @@ export const postOnTheWall = async () => {
   });
   conteiner_posts.innerHTML = html
 };
-
 
 
 
