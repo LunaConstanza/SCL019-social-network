@@ -1,4 +1,4 @@
-import { logOut, savePost, postOnTheWall, verification } from './lib/firebase.js';
+import { logOut, savePost, postOnTheWall, verification, unsub } from './lib/firebase.js';
 import { login } from './login.js';
 
 const container = document.getElementById('root');
@@ -101,9 +101,8 @@ export const newContent = () => {
     // postUser.appendChild(likePost);
     containerDashboard.appendChild(btnCreatePost);
 
-
+    unsub();
     const wallPost = postOnTheWall();
-
     // console.log(wallPost);
 
     formCreatePost.addEventListener('submit', (e) => {
