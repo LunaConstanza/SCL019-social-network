@@ -1,16 +1,17 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-app.js";
-import { 
-  getFirestore, 
-  collection, 
-  addDoc, 
-  getDocs, 
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  getDocs,
   orderBy,
   Timestamp,
   
   query,
-  
- } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore.js";
+  doc,
+  onSnapshot,
+} from "https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore.js";
 // import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-analytics.js";
 import {
   getAuth,
@@ -22,7 +23,6 @@ import {
   sendPasswordResetEmail,
   sendEmailVerification,
   signInWithEmailAndPassword,
-
 } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-auth.js";
 // import { getDatabase, ref, set} from "https://www.gstatic.com/firebasejs/9.6.7/firebase-database.js"
 import { firebaseConfig } from "./config.js";
@@ -103,8 +103,8 @@ export const verification = () => {
     }
   });
 }
-//-------- Se guarda el Email y el password del usuario ----------
-export const registerUser = (email, password, displayName, date, callback) => {
+//-------- REGISTER Se guarda el Email y el password del usuario ----------
+export const registerUser = (email, password, displayName, date) => {
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in 
@@ -112,14 +112,13 @@ export const registerUser = (email, password, displayName, date, callback) => {
       console.log("Hola uid", user.uid);
       const userId = user.uid;
       emailVerification(auth);
-      callback(true);
+      addNewDocument(userId, displayName, date);
     })
-    .then((userId) => addNewDocument(userId, displayName, date))
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      callback(false);
       console.log(errorCode, errorMessage);
+      alert('Este correo electrónico ya existe.')
     });
 }
 
@@ -154,7 +153,7 @@ function emailVerification(auth) {
   sendEmailVerification(auth.currentUser)
     .then(() => {
       // Email verification sent!
-      alert('Se ha enviado un mensaje de verificación a tu correo electrónico, por favor revisalo y verifica tu registro');
+      alert('Se ha enviado un mensaje de verificación a tu correo electrónico, por favor revisalo y verifica tu registro. Luego inicia sesión.');
     });
 }
 
@@ -163,11 +162,12 @@ export const loginEmailPassword = (email, password, callback) => {
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in
-      const user = userCredential.user;
+      const user = userCredential.user.email.split('@');
+      const nameUser = user[0];
       console.log('Hola User!!!!! ', user.uid);
       callback(true);
       const dataUser = document.getElementById('dataUser');
-      dataUser.innerHTML = `<span class="h4bold">Hola!</span> ${user.email}`;
+      dataUser.innerHTML = `<span class="h4bold">Hola!</span> ${nameUser}`;
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -183,15 +183,22 @@ export const loginEmailPassword = (email, password, callback) => {
     });
 }
 // -------------Almacenamos el post--------
-export const savePost = (description) =>
-  addDoc(collection(db, 'Post'), { 
+export const savePost = (description) => {
+  let userName;
+  if (auth.currentUser.displayName == null) {
+    let separateEmail = auth.currentUser.email.split('@');
+    userName = separateEmail[0];
+  } else {
+    userName = auth.currentUser.displayName;
+  }
+  addDoc(collection(db, 'Post'), {
     uid: auth.currentUser.uid,
-    name: auth.currentUser.displayName,
+    name: userName,
     description: description,
     likes:[],
     datepost: Timestamp.fromDate(new Date()),
-     });
-
+  });
+};
 
 //---------- Publicamos en el Dashboard
 
@@ -212,12 +219,15 @@ export const postOnTheWall = async () => {
     console.log('Holaaa div ', post);
     // // console.log(`${doc.id} => ${doc.data()}`);
   });
- conteiner_posts.innerHTML = html
+  conteiner_posts.innerHTML = html
 };
 
-const likePost = () =>{
 
-  const increment = firebase.firestore.fielValue.increment(1);
-  const storyREf = db.collection('stories').doc('Hello world');
-  storyREf.update({count : increment});
-}
+
+// Actualización del dashboard
+export const unsub = onSnapshot(
+  doc(db, "Post", "description"),
+  { includeMetadataChanges: true },
+  (doc) => {
+    // ...
+  });
