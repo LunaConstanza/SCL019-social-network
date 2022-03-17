@@ -1,4 +1,4 @@
-import { logOut, savePost, postOnTheWall, verification, unsub } from './lib/firebase.js';
+import { logOut, savePost, postOnTheWall, verification} from './lib/firebase.js';
 import { login } from './login.js';
 
 const container = document.getElementById('root');
@@ -57,9 +57,14 @@ export const newContent = () => {
     //         /*Publicaciones*/
     const publications = document.createElement('div');
     publications.classList.add('mainDash_board_publications');
+    const topBar = document.createElement('div');
+    topBar.classList.add('mainDash_board_publications_topbar');
     const titlePublications = document.createElement('h5');
-    titlePublications.classList.add('mainDash_board_publications_title')
+    titlePublications.classList.add('mainDash_board_publications_topbar_title')
     titlePublications.innerHTML = `<i class="fa-solid fa-bomb"></i> Publicaciones`;
+    const btnRefresh = document.createElement('button');
+    btnRefresh.classList.add('mainDash_board_publications_topbar_refresh');
+    btnRefresh.innerHTML = `<i class="fa-solid fa-arrows-rotate"></i>`
     const scrollContent = document.createElement('div');
     scrollContent.classList.add('mainDash_board_publications_scroll');
     scrollContent.setAttribute('id', 'conteiner_posts');
@@ -95,13 +100,15 @@ export const newContent = () => {
     formCreatePost.appendChild(inputCreatePost);
     formCreatePost.appendChild(submitPost);
     board.appendChild(publications);
-    publications.appendChild(titlePublications);
+    publications.appendChild(topBar);
+    topBar.appendChild(titlePublications);
+    topBar.appendChild(btnRefresh);
     publications.appendChild(scrollContent);
     // postUser.appendChild(starlike);
     // postUser.appendChild(likePost);
     containerDashboard.appendChild(btnCreatePost);
 
-    unsub();
+
     const wallPost = postOnTheWall();
     // console.log(wallPost);
 
@@ -111,6 +118,10 @@ export const newContent = () => {
         const post =inputCreatePost.value;
         savePost(post);
         formCreatePost.reset();
+        postOnTheWall();
+    });
+
+    btnRefresh.addEventListener('click', () =>{
         postOnTheWall();
     });
 

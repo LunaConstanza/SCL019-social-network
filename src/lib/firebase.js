@@ -7,10 +7,7 @@ import {
   getDocs,
   orderBy,
   Timestamp,
-  
   query,
-  doc,
-  onSnapshot,
 } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore.js";
 // import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-analytics.js";
 import {
@@ -209,11 +206,9 @@ export const postOnTheWall = async () => {
   let html = ''
   querySnapshot.forEach((doc) => {
     const post = doc.data();
-    // const usuario = doc.data();
-    // console.log('Hola usuario', usuario);
 
     html += `<div class="mainDash_board_pu  blications_content">
-    <h6 class="mainDash_board_publications_content_user">${post.name} dice:</h6>
+    <h6 class="mainDash_board_publications_content_user">${post.name} publicó:</h6>
     <p class="mainDash_board_publications_content_text">${post.description}</p>
     </div>`
     console.log('Holaaa div ', post);
@@ -221,13 +216,3 @@ export const postOnTheWall = async () => {
   });
   conteiner_posts.innerHTML = html
 };
-
-
-
-// Actualización del dashboard
-export const unsub = onSnapshot(
-  doc(db, "Post", "description"),
-  { includeMetadataChanges: true },
-  (doc) => {
-    // ...
-  });

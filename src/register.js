@@ -1,6 +1,5 @@
 import { registerUser } from "./lib/firebase.js";
 import { login } from "./login.js";
-import { newContent } from "./newContent.js";
 
 const container = document.getElementById("root");
 window.addEventListener("hashchange", register);
