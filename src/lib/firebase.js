@@ -211,7 +211,6 @@ export const postOnTheWall = async () => {
     <p class="mainDash_board_publications_content_text">${post.description}</p>
     </div>`
     console.log('Holaaa div ', post);
-    // // console.log(`${doc.id} => ${doc.data()}`);
   });
   conteiner_posts.innerHTML = html
 };
