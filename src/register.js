@@ -23,10 +23,7 @@ export function register() {
   inputNameAndLastName.setAttribute("type", "text");
   inputNameAndLastName.setAttribute("placeholder", "Nombre y Apellido");
   inputNameAndLastName.setAttribute("pattern", "[A-Za-zÀ-ÿ .]{1,25}");
-  inputNameAndLastName.setAttribute(
-    "title",
-    "- Solo se pueden ingresar letras. Máx. 25 carácteres."
-  );
+  inputNameAndLastName.setAttribute("title","- Solo se pueden ingresar letras. Máx. 25 carácteres.");
   inputNameAndLastName.setAttribute("required", "");
 
   const inputMail = document.createElement("input");
@@ -88,11 +85,14 @@ export function register() {
     console.log(password);
 
     registerUser(email, password, nameLastname, dateOfBirth);
-    });
-    
-    btnBack.addEventListener('click', () =>{
+    alert('Se ha enviado un mensaje de verificación a tu correo electrónico, por favor revisalo y verifica tu registro. Luego inicia sesión.');
+    history.back();
+    login();
+  });
 
-        history.back();
-        login();
-    })
+  btnBack.addEventListener('click', () => {
+
+    history.back();
+    login();
+  })
 };

@@ -150,7 +150,6 @@ function emailVerification(auth) {
   sendEmailVerification(auth.currentUser)
     .then(() => {
       // Email verification sent!
-      alert('Se ha enviado un mensaje de verificación a tu correo electrónico, por favor revisalo y verifica tu registro. Luego inicia sesión.');
     });
 }
 
