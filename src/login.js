@@ -78,6 +78,7 @@ export function login() {
 
   const btnGoogle = document.createElement("button");
   btnGoogle.classList.add("btnGoogle");
+  btnGoogle.setAttribute('target','_blank');
   btnGoogle.innerHTML = `<i class="fa-brands fa-google"></i> Iniciar sesión con Google`;
 
   const linkRegister = document.createElement("p");
