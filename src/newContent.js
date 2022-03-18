@@ -84,9 +84,9 @@ export const newContent = () => {
     //     likePost.textContent = a + ' likes';
     //     });
 
-    const btnCreatePost = document.createElement('button');
-    btnCreatePost.classList.add('mainDash_board_createPost_btn');
-    btnCreatePost.innerHTML = `+`;
+    // const btnCreatePost = document.createElement('button');
+    // btnCreatePost.classList.add('mainDash_board_createPost_btn');
+    // btnCreatePost.innerHTML = `+`;
 
     // /*APPENDCHILD*/
     container.appendChild(containerDashboard);
@@ -106,7 +106,7 @@ export const newContent = () => {
     publications.appendChild(scrollContent);
     // postUser.appendChild(starlike);
     // postUser.appendChild(likePost);
-    containerDashboard.appendChild(btnCreatePost);
+    // containerDashboard.appendChild(btnCreatePost);
 
 
     const wallPost = postOnTheWall();
