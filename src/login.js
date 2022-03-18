@@ -46,8 +46,7 @@ export function login() {
   btnLogIn.innerHTML = `<i class="fa-solid fa-right-to-bracket"></i> Iniciar Sesión`;
 
   const textReset = document.createElement("p");
-  textReset.classList.add("resetPass");
-  textReset.innerHTML = `¿Olvidaste tu contraseña?`;
+  textReset.innerHTML = `¿Olvidaste tu contraseña? <a href="#">Recuperala</a>`;
 
   /*************POP UP***********/
 
