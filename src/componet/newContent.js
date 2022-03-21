@@ -1,13 +1,6 @@
-import { logOut, savePost, postOnTheWall, verification} from '../lib/firebase.js';
-import { login } from './login.js';
+import { logOut, savePost, postOnTheWall, verification } from '../lib/firebase.js';
 
-const container = document.getElementById('root');
-
-export const newContent = () => {
-
-    console.log('entraste al muro');
-    history.pushState(null, 'Dashboard', '/dashboard');
-    document.querySelector('main').remove();
+export const newContent = (getUserData) => {
 
     const containerDashboard = document.createElement('main');
     containerDashboard.setAttribute('id', 'mainDash');
@@ -18,6 +11,7 @@ export const newContent = () => {
     profile.classList.add('mainDash_profile');
     const dataUser = document.createElement('h4');
     dataUser.setAttribute('id', 'dataUser');
+    dataUser.textContent = `Hola, ${getUserData.displayName}`
 
     const btnLogOut = document.createElement('button');
     btnLogOut.setAttribute('id', 'btnLogOut');
@@ -70,7 +64,7 @@ export const newContent = () => {
     scrollContent.setAttribute('id', 'conteiner_posts');
 
     // /*APPENDCHILD*/
-    container.appendChild(containerDashboard);
+    // container.appendChild(containerDashboard);
     containerDashboard.appendChild(profile);
     profile.appendChild(dataUser);
     profile.appendChild(btnLogOut);
@@ -86,9 +80,7 @@ export const newContent = () => {
     topBar.appendChild(btnRefresh);
     publications.appendChild(scrollContent);
 
-
     const wallPost = postOnTheWall();
-    // console.log(wallPost);
 
     formCreatePost.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -105,6 +97,6 @@ export const newContent = () => {
 
     btnLogOut.addEventListener('click', () => {
         logOut();
-        login();
     });
+    return containerDashboard;
 }

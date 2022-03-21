@@ -7,7 +7,13 @@ import {
   getDocs,
   orderBy,
   Timestamp,
+  // updateDoc, 
+  // getDoc,
   query,
+  // doc,
+  // onSnapshot,
+  // arrayRemove,
+  // arrayUnion,
 } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore.js";
 // import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-analytics.js";
 import {
@@ -47,12 +53,15 @@ export const registerGoogle = (callback) => {
       const nameUser = user.displayName;
       userDataGoogle();
       console.log("holaaaaa user ", nameUser);
+     
       callback(true);
-      const dataUser = document.getElementById('dataUser');
-      dataUser.innerHTML = `<span class="h4bold">Hola!</span> ${nameUser}`;
+      
+      // const dataUser = document.getElementById('dataUser');
+   
     }).catch((error) => {
       // Handle Errors here.
       const errorCode = error.code;
+      console.log('Buenos dias', error);
       const errorMessage = error.message;
       // The email of the user's account used.
       const email = error.email;
@@ -63,6 +72,7 @@ export const registerGoogle = (callback) => {
       // ...
       callback(false);
     });
+   
 };
 export const userDataGoogle = async () => {
   const user = auth.currentUser;
@@ -73,14 +83,20 @@ export const userDataGoogle = async () => {
       email: user.email,
       uid: user.uid,
     });
+   
   }
+  // window.location.hash = '#/dashboard';
 };
+
+export const getUserData = () => {
+  return auth.currentUser;
+}
 
 // ------ Cerrar sesión ---------
 export const logOut = () => {
   signOut(auth).then(() => {
     console.log('Usuario Cerro Sesión');
-
+    window.location.hash = '#/login';
   }).catch((error) => {
     // An error happened.
   });
@@ -158,12 +174,14 @@ export const loginEmailPassword = (email, password, callback) => {
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in
+      
       const user = userCredential.user.email.split('@');
       const nameUser = user[0];
       console.log('Hola User!!!!! ', user.uid);
       callback(true);
-      const dataUser = document.getElementById('dataUser');
-      dataUser.innerHTML = `<span class="h4bold">Hola!</span> ${nameUser}`;
+      // const dataUser = document.getElementById('dataUser');
+      document.getElementById('dataUser').innerHTML = `<span class="h4bold">Hola!</span> ${nameUser}`;
+      // window.location.hash = '#/dashboard';
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -177,6 +195,7 @@ export const loginEmailPassword = (email, password, callback) => {
       }
       callback(false);
     });
+   
 }
 // -------------Almacenamos el post--------
 export const savePost = (description) => {
@@ -191,15 +210,17 @@ export const savePost = (description) => {
     uid: auth.currentUser.uid,
     name: userName,
     description: description,
-    likes:[],
+    likes:0,
     datepost: Timestamp.fromDate(new Date()),
   });
 };
 
 //---------- Publicamos en el Dashboard
 
-export const postOnTheWall = async () => {
-  const conteiner_posts = document.getElementById('conteiner_posts');
+
+ export const postOnTheWall = async () => {
+
+  // const conteiner_posts = document.getElementById('conteiner_posts');
   const allPost = query(collection(db, "Post"), orderBy('datepost', 'desc'));
   const querySnapshot = await getDocs(allPost);
   let html = ''
@@ -209,8 +230,45 @@ export const postOnTheWall = async () => {
     html += `<div class="mainDash_board_pu  blications_content">
     <h6 class="mainDash_board_publications_content_user">${post.name} publicó:</h6>
     <p class="mainDash_board_publications_content_text">${post.description}</p>
+    <button id="btnLikes"><i class="fa-regular fa-star"></i>Likes</button>
     </div>`
     console.log('Holaaa div ', post);
   });
-  conteiner_posts.innerHTML = html
+  document.getElementById('conteiner_posts').innerHTML = html;
+
 };
+
+
+// export const updateLikes = async (id) => {
+//   const userIdentifier = auth.currentUser.uid;
+//   const postRef = doc(db, 'post', id);
+//   const docSnap = await getDoc(postRef);
+//   const postData = docSnap.data();
+//   const likesCount = postData.likesCounter;
+
+//   if ((postData.likes).includes(userIdentifier)) {
+//     await updateDoc(postRef, {
+//       likes: arrayRemove(userIdentifier),
+//       likesCounter: likesCount - 1,
+//     });
+//   } else {
+//     await updateDoc(postRef, {
+//       likes: arrayUnion(userIdentifier),
+//       likesCounter: likesCount + 1,
+//     });
+//   }
+// };
+
+
+
+
+
+
+
+// // Actualización del dashboard
+// export const unsub = onSnapshot(
+//   doc(db, "Post", "description"),
+//   { includeMetadataChanges: true },
+//   (doc) => {
+//     // ...
+//   });

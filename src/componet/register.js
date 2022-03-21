@@ -1,14 +1,7 @@
 import { registerUser } from "../lib/firebase.js";
-import { login } from "./login.js";
-
-const container = document.getElementById("root");
-window.addEventListener("hashchange", register);
 
 export function register() {
-  console.log("ola k ase");
-  history.pushState(null, "Registro", "#/register");
   window.scroll(0, 0);
-  document.querySelector("main").remove();
 
   const containerRegister = document.createElement("main");
   containerRegister.setAttribute("id", "mainRegister");
@@ -53,15 +46,15 @@ export function register() {
 
   const btnSend = document.createElement("input");
   btnSend.setAttribute("type", "submit");
-  btnSend.setAttribute("value", "Regístrate");
+   btnSend.setAttribute("value", "Regístrate");
   btnSend.classList.add("submitRegister");
+  
 
   const btnBack = document.createElement('button');
   btnBack.setAttribute('type', 'btn');
   btnBack.classList.add('btnBack');
-  btnBack.innerHTML = `<i class="fa-solid fa-arrow-left"></i> VOLVER`;
+  btnBack.innerHTML = `<a href="#/login"class="fa-solid fa-arrow-left"> VOLVER</a>` ;
 
-  container.appendChild(containerRegister);
   containerRegister.appendChild(subTitle);
   containerRegister.appendChild(formRegister);
   formRegister.appendChild(inputNameAndLastName);
@@ -79,20 +72,17 @@ export function register() {
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
 
-    console.log(nameLastname);
-    console.log(dateOfBirth);
-    console.log(email);
-    console.log(password);
-
     registerUser(email, password, nameLastname, dateOfBirth);
     alert('Se ha enviado un mensaje de verificación a tu correo electrónico, por favor revisalo y verifica tu registro. Luego inicia sesión.');
-    history.back();
-    login();
+    window.location.hash = "#/login";
   });
 
   btnBack.addEventListener('click', () => {
 
-    history.back();
-    login();
-  })
-};
+    window.location.hash = "#/login";
+  });
+  return containerRegister;
+}
+
+
+

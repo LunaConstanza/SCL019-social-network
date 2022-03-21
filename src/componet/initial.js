@@ -1,17 +1,27 @@
-import { login } from "./login.js";
+// import { login } from "./componet/login.js";
 
-const container = document.getElementById("root");
+export const initial = () => {
 
-const mainCharge = document.createElement("main");
-mainCharge.classList.add("mainLogo");
-const imgLogo = document.createElement("img");
-imgLogo.classList.add("imgLogo");
-imgLogo.setAttribute("src", "./img/logo.png");
-imgLogo.setAttribute("alt", "Logo Red Social Inicio");
-container.appendChild(mainCharge);
-mainCharge.appendChild(imgLogo);
+  const mainCharge = document.createElement("main");
+  mainCharge.classList.add("mainLogo");
+  const imgLogo = document.createElement("img");
+  imgLogo.classList.add("imgLogo");
+  imgLogo.setAttribute("src", "./img/logo.png");
+  imgLogo.setAttribute("alt", "Logo Red Social Inicio");
+  // root.appendChild(mainCharge);
 
-imgLogo.addEventListener("click", () => {
-  login();
-  mainCharge.remove();
-});
+  const aLogin = document.createElement('a');
+  aLogin.classList.add('aLogin');
+  aLogin.setAttribute('href', '#/login');
+
+  mainCharge.appendChild(aLogin);
+  aLogin.appendChild(imgLogo);
+
+
+  //  imgLogo.addEventListener("click", () => {
+
+  //     // login();
+  //     // mainCharge.remove();
+  //   });
+  return mainCharge;
+}
