@@ -1,10 +1,10 @@
-import { myFunction, headerLogo } from "./lib/index.js";
-import { register } from "./register.js";
+import { myFunction, headerLogo } from "../lib/index.js";
 import {
   registerGoogle,
   loginEmailPassword,
   resetPass,
-} from "./lib/firebase.js";
+} from "../lib/firebase.js";
+import { register } from "./register.js";
 import { newContent } from "./newContent.js";
 
 myFunction();

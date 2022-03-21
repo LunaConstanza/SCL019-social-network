@@ -1,4 +1,4 @@
-import { registerUser } from "./lib/firebase.js";
+import { registerUser } from "../lib/firebase.js";
 import { login } from "./login.js";
 
 const container = document.getElementById("root");

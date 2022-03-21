@@ -1,4 +1,4 @@
-import { logOut, savePost, postOnTheWall, verification} from './lib/firebase.js';
+import { logOut, savePost, postOnTheWall, verification} from '../lib/firebase.js';
 import { login } from './login.js';
 
 const container = document.getElementById('root');
@@ -68,25 +68,6 @@ export const newContent = () => {
     const scrollContent = document.createElement('div');
     scrollContent.classList.add('mainDash_board_publications_scroll');
     scrollContent.setAttribute('id', 'conteiner_posts');
-    
-    // const starlike = document.createElement('button');
-    // starlike.classList.add('mainDash_board_publications_content_starR');
-    // starlike.innerHTML = `<i class="fa-regular fa-star"></i>`;
-    // const likePost = document.createElement('p');
-    // likePost.classList.add('mainDash_board_publications_content_likes')
-    // likePost.setAttribute('id', 'likePost');
-    // likePost.innerHTML = ` 0 likes`;
-
-    //     let a = 0;
-    //     starlike.addEventListener ('click', () => {
-    //     starlike.innerHTML = `<i class="fa-solid fa-star starS"></i>`;
-    //     a = a + 1;
-    //     likePost.textContent = a + ' likes';
-    //     });
-
-    // const btnCreatePost = document.createElement('button');
-    // btnCreatePost.classList.add('mainDash_board_createPost_btn');
-    // btnCreatePost.innerHTML = `+`;
 
     // /*APPENDCHILD*/
     container.appendChild(containerDashboard);
@@ -104,9 +85,6 @@ export const newContent = () => {
     topBar.appendChild(titlePublications);
     topBar.appendChild(btnRefresh);
     publications.appendChild(scrollContent);
-    // postUser.appendChild(starlike);
-    // postUser.appendChild(likePost);
-    // containerDashboard.appendChild(btnCreatePost);
 
 
     const wallPost = postOnTheWall();
