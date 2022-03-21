@@ -1,15 +1,14 @@
-import { registerUser } from "./lib/firebase.js";
-import { login } from "./login.js";
-import { newContent } from "./newContent.js";
+import { registerUser } from "../lib/firebase.js";
+// import { newContent } from "../componet/newContent.js";
 
-const container = document.getElementById("root");
-window.addEventListener("hashchange", register);
+// window.addEventListener("hashchange", register);
 
 export function register() {
   console.log("ola k ase");
-  history.pushState(null, "Registro", "#/register");
-  window.scroll(0, 0);
-  document.querySelector("main").remove();
+  // history.pushState(null, "Registro", "#/register");
+  // window.scroll(0, 0);
+  //  const container = document.getElementById("root");
+  // document.querySelector("main").remove();
 
   const containerRegister = document.createElement("main");
   containerRegister.setAttribute("id", "mainRegister");
@@ -57,15 +56,15 @@ export function register() {
 
   const btnSend = document.createElement("input");
   btnSend.setAttribute("type", "submit");
-  btnSend.setAttribute("value", "Regístrate");
+   btnSend.setAttribute("value", "Regístrate");
   btnSend.classList.add("submitRegister");
+  
 
   const btnBack = document.createElement('button');
   btnBack.setAttribute('type', 'btn');
   btnBack.classList.add('btnBack');
-  btnBack.innerHTML = `<i class="fa-solid fa-arrow-left"></i> VOLVER`;
+  btnBack.innerHTML = `<a href="#/login"class="fa-solid fa-arrow-left"> VOLVER</a>` ;
 
-  container.appendChild(containerRegister);
   containerRegister.appendChild(subTitle);
   containerRegister.appendChild(formRegister);
   formRegister.appendChild(inputNameAndLastName);
@@ -90,10 +89,5 @@ export function register() {
 
     registerUser(email, password, nameLastname, dateOfBirth);
     });
-    
-    btnBack.addEventListener('click', () =>{
-
-        history.back();
-        login();
-    })
+        return containerRegister;
 };

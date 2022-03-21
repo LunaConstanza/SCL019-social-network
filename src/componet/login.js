@@ -1,23 +1,20 @@
-import { myFunction, headerLogo } from "./lib/index.js";
-import { register } from "./register.js";
+// import { myFunction} from "../lib/index.js";
 import {
   registerGoogle,
   loginEmailPassword,
   resetPass,
-} from "./lib/firebase.js";
-import { newContent } from "./newContent.js";
+} from "../lib/firebase.js";
+import { newContent } from "../componet/newContent.js";
 
-myFunction();
+//  myFunction();
+// const header = headerLogo();
 
-const header = headerLogo();
-const container = document.getElementById("root");
-window.addEventListener("hashchange", login);
+// window.addEventListener("hashchange", login);
 
 export function login() {
-  console.log("hice click");
-  history.pushState(null, "login", "#/login");
-  document.querySelector("main").remove();
 
+  console.log("hice click");
+  // document.querySelector("main").remove();
   const containerLogin = document.createElement("main");
   containerLogin.classList.add("mainLogin");
   const subTitleLogin = document.createElement("h2");
@@ -81,10 +78,12 @@ export function login() {
   btnGoogle.innerHTML = `<i class="fa-brands fa-google"></i> Iniciar sesión con Google`;
 
   const linkRegister = document.createElement("p");
-  linkRegister.innerHTML = `¿No tienes cuenta? <a href="#" id="linkReg">Regístrate</a>`;
+  linkRegister.innerHTML = `¿No tienes cuenta? <a href="#/register" id="linkReg">Regístrate</a>`;
 
-  container.appendChild(header);
-  container.appendChild(containerLogin);
+  // const aDashboard = document.createElement('a');
+  // aDashboard.classList.add('aLogin');
+  // aDashboard.setAttribute('href', '#/dashboard');
+
   containerLogin.appendChild(subTitleLogin);
   containerLogin.appendChild(formLogin);
   formLogin.appendChild(userLogin);
@@ -111,12 +110,13 @@ export function login() {
     const alertaLogin = (valid) => {
       if (valid) {
         console.log("este es el if true");
-        newContent();
+        // window.location.hash = '#/dashboard';
       } else {
         console.log("el if false");
       }
     };
     loginEmailPassword(email, password, alertaLogin);
+    window.location.hash = '#/dashboard';
   });
 
   /*Abrir y cerrar popup*/
@@ -137,24 +137,21 @@ export function login() {
     const saveEmail = document.getElementById("userEmail").value;
     resetPass(saveEmail);
   });
-  /*FIN abrir y cerrar popup*/
+  /*Botón para ingresar con google*/
 
   btnGoogle.addEventListener("click", (e) => {
-      e.preventDefault();
-      const trueUser = (valid) =>{
-        if (valid){
-          newContent();
-        }
-        else{
-          console.log('error');
-        }
+    e.preventDefault();
+    const trueUser = (valid) => {
+      if (valid) {
+        window.location.hash = '#/dashboard';
       }
-      registerGoogle(trueUser);
+      else {
+        console.log('error');
+      }
+    }
+    registerGoogle(trueUser);
+  
   });
 
-  const btnRegister = document.getElementById("linkReg");
-  btnRegister.addEventListener("click", (e) => {
-    e.preventDefault();
-    register();
-  });
+  return containerLogin;
 }
