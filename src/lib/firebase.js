@@ -166,7 +166,6 @@ function emailVerification(auth) {
   sendEmailVerification(auth.currentUser)
     .then(() => {
       // Email verification sent!
-      alert('Se ha enviado un mensaje de verificación a tu correo electrónico, por favor revisalo y verifica tu registro. Luego inicia sesión.');
     });
 }
 
@@ -227,16 +226,13 @@ export const savePost = (description) => {
   let html = ''
   querySnapshot.forEach((doc) => {
     const post = doc.data();
-    // const usuario = doc.data();
-    // console.log('Hola usuario', usuario);
 
     html += `<div class="mainDash_board_pu  blications_content">
-    <h6 class="mainDash_board_publications_content_user">${post.name} dice:</h6>
+    <h6 class="mainDash_board_publications_content_user">${post.name} publicó:</h6>
     <p class="mainDash_board_publications_content_text">${post.description}</p>
     <button id="btnLikes"><i class="fa-regular fa-star"></i>Likes</button>
     </div>`
     console.log('Holaaa div ', post);
-    // // console.log(`${doc.id} => ${doc.data()}`);
   });
   document.getElementById('conteiner_posts').innerHTML = html;
 

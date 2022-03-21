@@ -1,13 +1,6 @@
 import { logOut, savePost, postOnTheWall, verification } from '../lib/firebase.js';
-// import { login } from './componet/login.js';
-
-// const container = document.getElementById('root');
 
 export const newContent = (getUserData) => {
-
-    console.log('entraste al muro');
-    // history.pushState(null, 'Dashboard', '/dashboard');
-    // document.querySelector('main').remove();
 
     const containerDashboard = document.createElement('main');
     containerDashboard.setAttribute('id', 'mainDash');
@@ -58,16 +51,17 @@ export const newContent = (getUserData) => {
     //         /*Publicaciones*/
     const publications = document.createElement('div');
     publications.classList.add('mainDash_board_publications');
+    const topBar = document.createElement('div');
+    topBar.classList.add('mainDash_board_publications_topbar');
     const titlePublications = document.createElement('h5');
-    titlePublications.classList.add('mainDash_board_publications_title')
+    titlePublications.classList.add('mainDash_board_publications_topbar_title')
     titlePublications.innerHTML = `<i class="fa-solid fa-bomb"></i> Publicaciones`;
+    const btnRefresh = document.createElement('button');
+    btnRefresh.classList.add('mainDash_board_publications_topbar_refresh');
+    btnRefresh.innerHTML = `<i class="fa-solid fa-arrows-rotate"></i>`
     const scrollContent = document.createElement('div');
     scrollContent.classList.add('mainDash_board_publications_scroll');
     scrollContent.setAttribute('id', 'conteiner_posts');
-
-    const btnCreatePost = document.createElement('button');
-    btnCreatePost.classList.add('mainDash_board_createPost_btn');
-    btnCreatePost.innerHTML = `+`;
 
     // /*APPENDCHILD*/
     // container.appendChild(containerDashboard);
@@ -81,15 +75,12 @@ export const newContent = (getUserData) => {
     formCreatePost.appendChild(inputCreatePost);
     formCreatePost.appendChild(submitPost);
     board.appendChild(publications);
-    publications.appendChild(titlePublications);
+    publications.appendChild(topBar);
+    topBar.appendChild(titlePublications);
+    topBar.appendChild(btnRefresh);
     publications.appendChild(scrollContent);
-    //  publications.appendChild(starlike);
-    // postUser.appendChild(likePost);
-    containerDashboard.appendChild(btnCreatePost);
 
-    // unsub();
-     postOnTheWall();
-    // console.log(wallPost);
+    const wallPost = postOnTheWall();
 
     formCreatePost.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -97,6 +88,10 @@ export const newContent = (getUserData) => {
         const post =inputCreatePost.value;
         savePost(post);
         formCreatePost.reset();
+        postOnTheWall();
+    });
+
+    btnRefresh.addEventListener('click', () =>{
         postOnTheWall();
     });
 

@@ -1,20 +1,12 @@
-// import { myFunction} from "../lib/index.js";
 import {
   registerGoogle,
   loginEmailPassword,
   resetPass,
 } from "../lib/firebase.js";
-import { newContent } from "../componet/newContent.js";
-
-//  myFunction();
-// const header = headerLogo();
-
-// window.addEventListener("hashchange", login);
 
 export function login() {
 
   console.log("hice click");
-  // document.querySelector("main").remove();
   const containerLogin = document.createElement("main");
   containerLogin.classList.add("mainLogin");
   const subTitleLogin = document.createElement("h2");
@@ -43,8 +35,7 @@ export function login() {
   btnLogIn.innerHTML = `<i class="fa-solid fa-right-to-bracket"></i> Iniciar Sesión`;
 
   const textReset = document.createElement("p");
-  textReset.classList.add("resetPass");
-  textReset.innerHTML = `¿Olvidaste tu contraseña?`;
+  textReset.innerHTML = `¿Olvidaste tu contraseña? <a href="#">Recuperala</a>`;
 
   /*************POP UP***********/
 
@@ -80,10 +71,6 @@ export function login() {
   const linkRegister = document.createElement("p");
   linkRegister.innerHTML = `¿No tienes cuenta? <a href="#/register" id="linkReg">Regístrate</a>`;
 
-  // const aDashboard = document.createElement('a');
-  // aDashboard.classList.add('aLogin');
-  // aDashboard.setAttribute('href', '#/dashboard');
-
   containerLogin.appendChild(subTitleLogin);
   containerLogin.appendChild(formLogin);
   formLogin.appendChild(userLogin);
@@ -110,7 +97,6 @@ export function login() {
     const alertaLogin = (valid) => {
       if (valid) {
         console.log("este es el if true");
-        // window.location.hash = '#/dashboard';
       } else {
         console.log("el if false");
       }

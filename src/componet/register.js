@@ -1,14 +1,7 @@
 import { registerUser } from "../lib/firebase.js";
-// import { newContent } from "../componet/newContent.js";
-
-// window.addEventListener("hashchange", register);
 
 export function register() {
-  console.log("ola k ase");
-  // history.pushState(null, "Registro", "#/register");
-  // window.scroll(0, 0);
-  //  const container = document.getElementById("root");
-  // document.querySelector("main").remove();
+  window.scroll(0, 0);
 
   const containerRegister = document.createElement("main");
   containerRegister.setAttribute("id", "mainRegister");
@@ -22,11 +15,8 @@ export function register() {
   inputNameAndLastName.setAttribute("id", "nameLastname");
   inputNameAndLastName.setAttribute("type", "text");
   inputNameAndLastName.setAttribute("placeholder", "Nombre y Apellido");
-  inputNameAndLastName.setAttribute("pattern", "[A-Za-zÀ-ÿ ]{1,25}");
-  inputNameAndLastName.setAttribute(
-    "title",
-    "- Solo se pueden ingresar letras. Máx. 25 carácteres."
-  );
+  inputNameAndLastName.setAttribute("pattern", "[A-Za-zÀ-ÿ .]{1,25}");
+  inputNameAndLastName.setAttribute("title","- Solo se pueden ingresar letras. Máx. 25 carácteres.");
   inputNameAndLastName.setAttribute("required", "");
 
   const inputMail = document.createElement("input");
@@ -82,12 +72,17 @@ export function register() {
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
 
-    console.log(nameLastname);
-    console.log(dateOfBirth);
-    console.log(email);
-    console.log(password);
-
     registerUser(email, password, nameLastname, dateOfBirth);
-    });
-        return containerRegister;
-};
+    alert('Se ha enviado un mensaje de verificación a tu correo electrónico, por favor revisalo y verifica tu registro. Luego inicia sesión.');
+    window.location.hash = "#/login";
+  });
+
+  btnBack.addEventListener('click', () => {
+
+    window.location.hash = "#/login";
+  });
+  return containerRegister;
+}
+
+
+
