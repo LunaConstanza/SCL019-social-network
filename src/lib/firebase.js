@@ -8,14 +8,13 @@ import {
   orderBy,
   Timestamp,
   deleteDoc,
-  // updateDoc, 
-  // getDoc,
+  updateDoc,
+  getDoc,
   query,
   doc,
-  // arrayRemove,
-  // arrayUnion,
+  arrayRemove,
+  arrayUnion,
 } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore.js";
-// import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-analytics.js";
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -27,7 +26,6 @@ import {
   sendEmailVerification,
   signInWithEmailAndPassword,
 } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-auth.js";
-// import { getDatabase, ref, set} from "https://www.gstatic.com/firebasejs/9.6.7/firebase-database.js"
 import { firebaseConfig } from "./config.js";
 
 
@@ -41,7 +39,7 @@ const orderCollection = collection(db, "user");
 
 
 
-//-----Login con Google ---------------
+//-------------------Login con Google ------------------------
 export const registerGoogle = (callback) => {
   signInWithPopup(auth, provider)
     .then((result) => {
@@ -84,14 +82,13 @@ export const userDataGoogle = async () => {
     });
 
   }
-  // window.location.hash = '#/dashboard';
 };
 
 export const getUserData = () => {
   return auth.currentUser;
 }
 
-// ------ Cerrar sesión ---------
+// --------- Cerrar sesión --------------
 export const logOut = () => {
   signOut(auth).then(() => {
     console.log('Usuario Cerro Sesión');
@@ -101,7 +98,7 @@ export const logOut = () => {
   });
 }
 
-// ------Permite verificar si hay un usuario conectado 
+// -------- Permite verificar si hay un usuario conectado -----------
 export const verification = () => {
   onAuthStateChanged(auth, (user) => {
     if (user) {
@@ -134,7 +131,7 @@ export const registerUser = (email, password, displayName, date) => {
     });
 }
 
-//------Se ingresan los valores Firestore Datebase ----------
+//------ Se ingresan los valores Firestore Datebase ----------
 async function addNewDocument(userId, displayName, date) {
   const newDoc = await addDoc(orderCollection, {
     uid: userId,
@@ -145,7 +142,7 @@ async function addNewDocument(userId, displayName, date) {
   console.log(`Tu cuenta ha sido creada en ${newDoc.path}`);
 };
 
-//---------Enviar correo para Recuperar contraseña-------/
+//--------- Enviar correo para Recuperar contraseña -------
 export const resetPass = (email) => {
   sendPasswordResetEmail(auth, email)
     .then(() => {
@@ -160,7 +157,7 @@ export const resetPass = (email) => {
     });
 }
 
-//----Enviar correo de validación de Google -----
+//------ Enviar correo de validación de Google -------
 function emailVerification(auth) {
   sendEmailVerification(auth.currentUser)
     .then(() => {
@@ -168,14 +165,14 @@ function emailVerification(auth) {
     });
 }
 
-//----- Hacer el Login con correo y contraseña 
+//------------ Hacer el Login con correo y contraseña ---------------
 export const loginEmailPassword = (email, password, callback) => {
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
+      callback(true);
       // const user = userCredential.user.email.split('@');
       // const nameUser = user[0];
       // console.log('Hola User!!!!! ', user.uid);
-      callback(true);
       // const dataUser = document.getElementById('dataUser');
       // dataUser.innerHTML = `<span class="h4bold">Hola!</span> ${nameUser}`;
     })
@@ -193,7 +190,7 @@ export const loginEmailPassword = (email, password, callback) => {
     });
 
 }
-// -------------Almacenamos el post--------
+// ------------- Almacenamos el post --------------------
 export const savePost = (description) => {
   let userName;
   if (auth.currentUser.displayName == null) {
@@ -211,7 +208,7 @@ export const savePost = (description) => {
   });
 };
 
-//---------- Publicamos en el Dashboard
+//---------- Publicamos en el Dashboard ----------------------
 export const postOnTheWall = async () => {
 
   const allPost = query(collection(db, "Post"), orderBy('datepost', 'desc'));
@@ -219,31 +216,34 @@ export const postOnTheWall = async () => {
   let html = '';
   querySnapshot.forEach((doc) => {
     const post = doc.data();
-    console.log('este es el id del post: ' + doc.id);
 
-    html += `<div class="mainDash_board_publications_content">
-    <div class="mainDash_board_publications_content_user">
-    <h6>${post.name} publicó:</h6>`;
-    console.log('y este su contenido: ', post);
+    html += `
+    <div class="mainDash_board_publications_content">
+      <div class="mainDash_board_publications_content_user">
+        <h6>${post.name} publicó:</h6>`;
 
     if (post.uid === auth.currentUser.uid) {
       html += `
-      <button type="btn" class="btnDelete" value="${doc.id}" data-id="myId"><i class="fa-solid fa-xmark"></i></button>
+        <button type="btn" class="btnDelete" value="${doc.id}" data-id="myId"><i class="fa-solid fa-xmark"></i></button>
       </div>
       <p class="mainDash_board_publications_content_text">${post.description}</p>
-      <button id="btnLikes"><i class="fa-regular fa-star"></i> Likes</button>
-      </div>`;
+      <button id="btn-Likes" class="btn-likes mainDash_board_publications_content_starR starLike" value="${doc.id}">
+      <i class="fa-regular fa-star"></i> ${post.likes} Likes</button>
+    </div>`;
 
     } else {
-      html += `</div>
+      html += `
+      </div>
       <p class="mainDash_board_publications_content_text">${post.description}</p>
-      <button id="btnLikes"><i class="fa-regular fa-star"></i> Likes</button>
-      </div>`;
+      <button id="btn-Likes" class="btn-likes mainDash_board_publications_content_starR starLike" value="${doc.id}">
+      <i class="fa-regular fa-star"></i> ${post.likes} Likes</button>
+    </div>`;
     }
   });
   document.getElementById('container_posts').innerHTML = html;
 
   const btnDelete = document.querySelectorAll('.btnDelete');
+  console.log(btnDelete);
   btnDelete.forEach((btn) => {
     btn.addEventListener('click', () => {
       if (confirm("¿Estás segura de eliminar esta publicación?")) {
@@ -251,32 +251,32 @@ export const postOnTheWall = async () => {
       }
     });
   });
-};
+  const btnLikes = document.querySelectorAll('.btn-likes');
+}
 
-
-// Delete post
+// -------------- DELETE POST---------------
 export const deletePost = async (id) => {
   await deleteDoc(doc(db, 'Post', id));
 };
 
 
+// ------------ LIKES & DISLIKE ----------------
+export const updateLikes = async (id) => {
+  const userIdentifier = auth.currentUser.uid;
+  const postRef = doc(db, 'post', id);
+  const docSnap = await getDoc(postRef);
+  const postData = docSnap.data();
+  const likesCount = postData.likesCounter;
 
-// export const updateLikes = async (id) => {
-//   const userIdentifier = auth.currentUser.uid;
-//   const postRef = doc(db, 'post', id);
-//   const docSnap = await getDoc(postRef);
-//   const postData = docSnap.data();
-//   const likesCount = postData.likesCounter;
-
-//   if ((postData.likes).includes(userIdentifier)) {
-//     await updateDoc(postRef, {
-//       likes: arrayRemove(userIdentifier),
-//       likesCounter: likesCount - 1,
-//     });
-//   } else {
-//     await updateDoc(postRef, {
-//       likes: arrayUnion(userIdentifier),
-//       likesCounter: likesCount + 1,
-//     });
-//   }
-// };
+  if ((postData.likes).includes(userIdentifier)) {
+    await updateDoc(postRef, {
+      likes: arrayRemove(userIdentifier),
+      likesCounter: likesCount - 1,
+    });
+  } else {
+    await updateDoc(postRef, {
+      likes: arrayUnion(userIdentifier),
+      likesCounter: likesCount + 1,
+    });
+  }
+};
