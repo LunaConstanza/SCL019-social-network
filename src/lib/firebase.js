@@ -231,17 +231,15 @@ export const postOnTheWall = async () => {
       </div>
       <p class="mainDash_board_publications_content_text">${post.description}</p>
       <button class="btn-like mainDash_board_publications_content_starR" id="btn-Like" value="${doc.id}">
-      <i class="fa-regular fa-star"></i> ${post.likesCounter} Likes</button>
+      <i id="star" class="fa-regular fa-star"></i> ${post.likesCounter} Likes</button>
     </div>`;
-
     } else {
       html += `
       </div>
       <p class="mainDash_board_publications_content_text">${post.description}</p>
       <button class="btn-like mainDash_board_publications_content_starR" id="btn-Like" value="${doc.id}">
-      <i class="fa-regular fa-star"></i> ${post.likesCounter} Likes</button>
-
-      </div>`;
+      <i id="star" class="fa-regular fa-star"></i> ${post.likesCounter} Likes</button>
+    </div>`;
     }
   });
   document.getElementById('container_posts').innerHTML = html;
@@ -255,14 +253,13 @@ export const postOnTheWall = async () => {
     });
   });
   const likeBtn = document.querySelectorAll('.btn-like');
-  console.log(likeBtn);
   likeBtn.forEach((btnL) => {
     btnL.addEventListener('click', () => {
       const postId = btnL.value;
       updateLikes(postId);
     });
-    });
-  }
+  });
+}
 
 
 // -------------- DELETE POST---------------

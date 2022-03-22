@@ -2,7 +2,6 @@ import {
     logOut, 
     savePost, 
     postOnTheWall, 
-    updateLikes,
     verification } from '../lib/firebase.js';
 
 export const newContent = (getUserData) => {
