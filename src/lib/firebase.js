@@ -7,6 +7,7 @@ import {
   getDocs,
   orderBy,
   Timestamp,
+  // deleteDoc,
   // updateDoc, 
   // getDoc,
   query,
@@ -53,11 +54,10 @@ export const registerGoogle = (callback) => {
       const nameUser = user.displayName;
       userDataGoogle();
       console.log("holaaaaa user ", nameUser);
-     
       callback(true);
-      
+
       // const dataUser = document.getElementById('dataUser');
-   
+      // dataUser.innerHTML = `<span class="h4bold">Hola!</span> ${getUserData.displayName}`;
     }).catch((error) => {
       // Handle Errors here.
       const errorCode = error.code;
@@ -72,7 +72,7 @@ export const registerGoogle = (callback) => {
       // ...
       callback(false);
     });
-   
+
 };
 export const userDataGoogle = async () => {
   const user = auth.currentUser;
@@ -83,7 +83,7 @@ export const userDataGoogle = async () => {
       email: user.email,
       uid: user.uid,
     });
-   
+
   }
   // window.location.hash = '#/dashboard';
 };
@@ -165,7 +165,7 @@ export const resetPass = (email) => {
 function emailVerification(auth) {
   sendEmailVerification(auth.currentUser)
     .then(() => {
-      // Email verification sent!
+      alert('Se ha enviado un mensaje de verificación a tu correo electrónico, por favor revisalo y verifica tu registro. Luego inicia sesión.');
     });
 }
 
@@ -173,15 +173,12 @@ function emailVerification(auth) {
 export const loginEmailPassword = (email, password, callback) => {
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-      // Signed in
-      
-      const user = userCredential.user.email.split('@');
-      const nameUser = user[0];
-      console.log('Hola User!!!!! ', user.uid);
+      // const user = userCredential.user.email.split('@');
+      // const nameUser = user[0];
+      // console.log('Hola User!!!!! ', user.uid);
       callback(true);
       // const dataUser = document.getElementById('dataUser');
-      document.getElementById('dataUser').innerHTML = `<span class="h4bold">Hola!</span> ${nameUser}`;
-      // window.location.hash = '#/dashboard';
+      // dataUser.innerHTML = `<span class="h4bold">Hola!</span> ${nameUser}`;
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -195,7 +192,7 @@ export const loginEmailPassword = (email, password, callback) => {
       }
       callback(false);
     });
-   
+
 }
 // -------------Almacenamos el post--------
 export const savePost = (description) => {
@@ -210,33 +207,61 @@ export const savePost = (description) => {
     uid: auth.currentUser.uid,
     name: userName,
     description: description,
-    likes:0,
+    likes: 0,
     datepost: Timestamp.fromDate(new Date()),
   });
 };
 
 //---------- Publicamos en el Dashboard
+export const postOnTheWall = async () => {
 
-
- export const postOnTheWall = async () => {
-
-  // const conteiner_posts = document.getElementById('conteiner_posts');
   const allPost = query(collection(db, "Post"), orderBy('datepost', 'desc'));
   const querySnapshot = await getDocs(allPost);
-  let html = ''
+  let html = '';
   querySnapshot.forEach((doc) => {
     const post = doc.data();
+    console.log('este es el id del post: ' + doc.id);
 
-    html += `<div class="mainDash_board_pu  blications_content">
-    <h6 class="mainDash_board_publications_content_user">${post.name} publicó:</h6>
-    <p class="mainDash_board_publications_content_text">${post.description}</p>
-    <button id="btnLikes"><i class="fa-regular fa-star"></i>Likes</button>
-    </div>`
-    console.log('Holaaa div ', post);
+    html += `<div class="mainDash_board_publications_content">
+    <div class="mainDash_board_publications_content_user">
+    <h6>${post.name} publicó:</h6>`;
+    console.log('y este su contenido: ', post); 
+    
+    if (post.uid === auth.currentUser.uid) {
+      html += `
+      <button type="btn" id="btn" class="btnDelete" value="${doc.id}" data-id="myId">X</button>
+      </div>
+      <p class="mainDash_board_publications_content_text">${post.description}</p>
+      <button id="btnLikes"><i class="fa-regular fa-star"></i> Likes</button>
+      </div>`;
+      
+    } else {
+      html += `</div>
+      <p class="mainDash_board_publications_content_text">${post.description}</p>
+      <button id="btnLikes"><i class="fa-regular fa-star"></i> Likes</button>
+      </div>`;
+    }
   });
-  document.getElementById('conteiner_posts').innerHTML = html;
 
+  const btnDelete = document.querySelectorAll('.btnDelete');
+  btnDelete.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      if (confirm("¿Estás segura de eliminar esta publicación?")) {
+        deletePost(btn.value);
+      }
+    });
+});
+
+
+  document.getElementById('conteiner_posts').innerHTML = html;
 };
+
+
+// Delete post
+export const deletePost = async (id) => {
+  await deleteDoc(doc(db, 'Post', id));
+};
+
 
 
 // export const updateLikes = async (id) => {
@@ -258,17 +283,3 @@ export const savePost = (description) => {
 //     });
 //   }
 // };
-
-
-
-
-
-
-
-// // Actualización del dashboard
-// export const unsub = onSnapshot(
-//   doc(db, "Post", "description"),
-//   { includeMetadataChanges: true },
-//   (doc) => {
-//     // ...
-//   });

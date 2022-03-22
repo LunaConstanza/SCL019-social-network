@@ -35,7 +35,7 @@ export function login() {
   btnLogIn.innerHTML = `<i class="fa-solid fa-right-to-bracket"></i> Iniciar Sesión`;
 
   const textReset = document.createElement("p");
-  textReset.innerHTML = `¿Olvidaste tu contraseña? <a href="#">Recuperala</a>`;
+  textReset.innerHTML = `¿Olvidaste tu contraseña? <a href="#">Recupérala</a>`;
 
   /*************POP UP***********/
 
@@ -97,12 +97,12 @@ export function login() {
     const alertaLogin = (valid) => {
       if (valid) {
         console.log("este es el if true");
+        window.location.hash = '#/dashboard';
       } else {
         console.log("el if false");
       }
     };
     loginEmailPassword(email, password, alertaLogin);
-    window.location.hash = '#/dashboard';
   });
 
   /*Abrir y cerrar popup*/
