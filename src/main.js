@@ -4,6 +4,8 @@ import {initial} from '../componet/initial.js'
  
  
  const iniciar = () => {
+    console.log(window.location.hash);
+    
     document.getElementById('root').appendChild(initial());
  }
  

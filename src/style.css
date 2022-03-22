@@ -348,11 +348,10 @@ a:hover {
 }
 .mainDash_board_publications_content{
   display: grid;
-  grid-template-columns: 10% 90%;
+  grid-template-columns: auto;
   grid-template-rows: 30px auto 30px;
 }
 .mainDash_board_publications_content_user{
-  grid-column: 1/3;
   grid-row: 1/2;
   background: var(--pink-color);
   padding: 3px 10px 0 10px;
@@ -376,13 +375,11 @@ a:hover {
 }
 .mainDash_board_publications_content_text{
   text-align: left;
-  grid-column: 1/3;
   grid-row: 2/3;
   padding: 3px 10px;
 }
 .mainDash_board_publications_content_starR{
   background:none;
-  grid-column: 1/2;
   justify-self: start;
   align-self: center;
   margin: 0 ;
@@ -391,14 +388,13 @@ a:hover {
 .mainDash_board_publications_content_starR:hover {
   background: none;
 }
-.mainDash_board_publications_content .starS {
+/* .mainDash_board_publications_content .starS {
   color: var(--yellow-color);
 }
 .mainDash_board_publications_content_likes{
-  grid-column: 2/3;
   justify-self: start;
   align-self: center;
-}
+} */
 /***btn crear post***/
 .mainDash_board_createPost_btn{
   background: var(--white-color);
