@@ -228,7 +228,7 @@ export const postOnTheWall = async () => {
 
     if (post.uid === auth.currentUser.uid) {
       html += `
-      <button type="btn" id="btn" class="btnDelete" value="${doc.id}" data-id="myId">X</button>
+      <button type="btn" class="btnDelete" value="${doc.id}" data-id="myId"><i class="fa-solid fa-xmark"></i></button>
       </div>
       <p class="mainDash_board_publications_content_text">${post.description}</p>
       <button id="btnLikes"><i class="fa-regular fa-star"></i> Likes</button>
@@ -241,6 +241,7 @@ export const postOnTheWall = async () => {
       </div>`;
     }
   });
+  document.getElementById('container_posts').innerHTML = html;
 
   const btnDelete = document.querySelectorAll('.btnDelete');
   btnDelete.forEach((btn) => {
@@ -250,9 +251,6 @@ export const postOnTheWall = async () => {
       }
     });
   });
-
-
-  document.getElementById('container_posts').innerHTML = html;
 };
 
 
