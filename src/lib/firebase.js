@@ -7,10 +7,11 @@ import {
   getDocs,
   orderBy,
   Timestamp,
-  updateDoc, 
+  deleteDoc,
+  // updateDoc, 
   // getDoc,
   query,
-  // onSnapshot,
+  doc,
   // arrayRemove,
   increment,
   arrayUnion,
@@ -53,11 +54,10 @@ export const registerGoogle = (callback) => {
       const nameUser = user.displayName;
       userDataGoogle();
       console.log("holaaaaa user ", nameUser);
-     
       callback(true);
-      
+
       // const dataUser = document.getElementById('dataUser');
-   
+      // dataUser.innerHTML = `<span class="h4bold">Hola!</span> ${getUserData.displayName}`;
     }).catch((error) => {
       // Handle Errors here.
       const errorCode = error.code;
@@ -72,7 +72,7 @@ export const registerGoogle = (callback) => {
       // ...
       callback(false);
     });
-   
+
 };
 export const userDataGoogle = async () => {
   const user = auth.currentUser;
@@ -83,7 +83,7 @@ export const userDataGoogle = async () => {
       email: user.email,
       uid: user.uid,
     });
-   
+
   }
   // window.location.hash = '#/dashboard';
 };
@@ -111,7 +111,7 @@ export const verification = () => {
       const uid = user.uid;
       return currentUser;
       
-    } else {
+    } else if (window.location.hash = "#/Dashboard") {
       console.log('No hay Usuario logueado');
       logOut();
       // User is signed out
@@ -167,7 +167,7 @@ export const resetPass = (email) => {
 function emailVerification(auth) {
   sendEmailVerification(auth.currentUser)
     .then(() => {
-      // Email verification sent!
+      //...
     });
 }
 
@@ -175,15 +175,12 @@ function emailVerification(auth) {
 export const loginEmailPassword = (email, password, callback) => {
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-      // Signed in
-      
-      const user = userCredential.user.email.split('@');
-      const nameUser = user[0];
-      console.log('Hola User!!!!! ', user.uid);
+      // const user = userCredential.user.email.split('@');
+      // const nameUser = user[0];
+      // console.log('Hola User!!!!! ', user.uid);
       callback(true);
       // const dataUser = document.getElementById('dataUser');
-      document.getElementById('dataUser').innerHTML = `<span class="h4bold">Hola!</span> ${nameUser}`;
-      // window.location.hash = '#/dashboard';
+      // dataUser.innerHTML = `<span class="h4bold">Hola!</span> ${nameUser}`;
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -197,7 +194,7 @@ export const loginEmailPassword = (email, password, callback) => {
       }
       callback(false);
     });
-   
+
 }
 // -------------Almacenamos el post--------
 export const savePost = (description) => {
@@ -219,43 +216,72 @@ export const savePost = (description) => {
 };
 
 //---------- Publicamos en el Dashboard
-
-
  export const postOnTheWall = async () => {
 
   const conteiner_posts = document.getElementById('conteiner_posts');
   const allPost = query(collection(db, "Post"), orderBy('datepost', 'desc'));
   const querySnapshot = await getDocs(allPost);
-  let html = ''
+  let html = '';
   querySnapshot.forEach((doc) => {
     const post = doc.data();
+    console.log('este es el id del post: ' + doc.id);
 
-    html += `<div class="mainDash_board_pu  blications_content">
-    <h6 class="mainDash_board_publications_content_user">${post.name} publicó:</h6>
-    <p class="mainDash_board_publications_content_text">${post.description}</p>
-    <button class="btn-like" id="btn-Like" value="${post.id}"><i class="fa-regular fa-star"></i>Likes</button>
-            <p class="counter-likes" id="counterLikes">${post.likesCounter} Me gusta</p>
-          </div>
-    `
-    console.log('Holaaa div ', post);
-    console.log("hola pos ID", post.id);
+    html += `<div class="mainDash_board_publications_content">
+    <div class="mainDash_board_publications_content_user">
+    <h6>${post.name} publicó:</h6>`;
+    console.log('y este su contenido: ', post);
+
+    if (post.uid === auth.currentUser.uid) {
+      html += `
+      <button type="btn" id="btn" class="btnDelete" value="${doc.id}" data-id="myId">X</button>
+      </div>
+      <p class="mainDash_board_publications_content_text">${post.description}</p>
+      <button class="btn-like" id="btn-Like" value="${doc.id}"><i class="fa-regular fa-star"></i>${post.likesCounter}Likes</button>
+      </div>`;
+
+    } else {
+      html += `</div>
+      <p class="mainDash_board_publications_content_text">${post.description}</p>
+      <button class="btn-like" id="btn-Like" value="${doc.id}"><i class="fa-regular fa-star"></i>${post.likesCounter}Likes</button>
+
+      </div>`;
+    }
+  });
+  document.getElementById('container_posts').innerHTML = html;
+
+  const btnDelete = document.querySelectorAll('.btnDelete');
+  btnDelete.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      if (confirm("¿Estás segura de eliminar esta publicación?")) {
+        deletePost(btn.value);
+      }
+    });
   });
 
-  const likeBtn = container_Post.querySelectorAll('.btn-like');
-  likeBtn.forEach((btnL) => {
-   btnL.addEventListener('click', () => {
-   const postId = btnL.value;
-   updateLikes(postId);
-});
-});
-  conteiner_posts.innerHTML = html;
-  
+    const likeBtn = document.querySelectorAll('.btn-like');
+    console.log(likeBtn);
+    likeBtn.forEach((btnL) => {
+     btnL.addEventListener('click', () => {
+       const postId = btnL.value;
+       updateLikes(postId);
+    });
+    });
+
+
+};
+
+// Delete post
+export const deletePost = async (id) => {
+  await deleteDoc(doc(db, 'Post', id));
 };
 
 export const updateLikes = async (id) => {
+  console.log('click');
   const userIdentifier = auth.currentUser.uid;
+  console.log('Hola postData', userIdentifier);
+
   const postRef = doc(db, 'Post', id);
-  const docSnap = await getDoc(postRef);
+  const docSnap = await getDocs(postRef);
   const postData = docSnap.data();
   const likesCount = postData.likesCounter;
 

@@ -323,6 +323,7 @@ a:hover {
   padding: 0 10px;
   display: grid;
   grid-template-columns: 80% 20%;
+  border-bottom: 1px solid var(--white-color);
 }
 .mainDash_board_publications_topbar_title{
   grid-column: 1/2;
@@ -351,11 +352,27 @@ a:hover {
   grid-template-rows: 30px auto 30px;
 }
 .mainDash_board_publications_content_user{
-  text-align: left;
   grid-column: 1/3;
   grid-row: 1/2;
   background: var(--pink-color);
   padding: 3px 10px 0 10px;
+  align-items: center;
+  display: grid;
+  grid-template-columns: auto auto;
+}
+.mainDash_board_publications_content_user h6{
+  text-align: left;
+  grid-column: 1/2;
+}
+.mainDash_board_publications_content_user button{
+  grid-column: 2/3;
+  text-align: right;
+  background: none;
+  margin: 0;
+  padding: 0;
+}
+.mainDash_board_publications_content_user button:hover{
+  color: var(--bluedark-color);
 }
 .mainDash_board_publications_content_text{
   text-align: left;

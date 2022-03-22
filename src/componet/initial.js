@@ -1,5 +1,3 @@
-// import { login } from "./componet/login.js";
-
 export const initial = () => {
 
   const mainCharge = document.createElement("main");

@@ -16,14 +16,12 @@ export const newContent = (getUserData) => {
     profile.classList.add('mainDash_profile');
     const dataUser = document.createElement('h4');
     dataUser.setAttribute('id', 'dataUser');
-    dataUser.textContent = `Hola, ${getUserData.displayName}`
+    dataUser.innerHTML = `<span class="h4bold">Hola!</span> ${getUserData.displayName}`;
 
     const btnLogOut = document.createElement('button');
     btnLogOut.setAttribute('id', 'btnLogOut');
     btnLogOut.classList.add('btnLogOut');
     btnLogOut.innerHTML = `Cerrar sesión <i class="fa-solid fa-right-from-bracket"></i>`;
-
-
 
     // /*PUBLICACIONES Y CREAR POST*/
     const board = document.createElement('div');
@@ -52,7 +50,6 @@ export const newContent = (getUserData) => {
     submitPost.classList.add('mainDash_board_createPost_submit');
     submitPost.innerHTML = `Publicar`;
 
-
     //         /*Publicaciones*/
     const publications = document.createElement('div');
     publications.classList.add('mainDash_board_publications');
@@ -66,10 +63,9 @@ export const newContent = (getUserData) => {
     btnRefresh.innerHTML = `<i class="fa-solid fa-arrows-rotate"></i>`
     const scrollContent = document.createElement('div');
     scrollContent.classList.add('mainDash_board_publications_scroll');
-    scrollContent.setAttribute('id', 'conteiner_posts');
+    scrollContent.setAttribute('id', 'container_posts');
 
     // /*APPENDCHILD*/
-    // container.appendChild(containerDashboard);
     containerDashboard.appendChild(profile);
     profile.appendChild(dataUser);
     profile.appendChild(btnLogOut);
@@ -90,15 +86,13 @@ export const newContent = (getUserData) => {
     formCreatePost.addEventListener('submit', (e) => {
         e.preventDefault();
         verification();
-        const post =inputCreatePost.value;
+        const post = inputCreatePost.value;
         savePost(post);
         formCreatePost.reset();
         postOnTheWall();
     });
 
-     
-
-    btnRefresh.addEventListener('click', () =>{
+    btnRefresh.addEventListener('click', () => {
         postOnTheWall();
     });
 

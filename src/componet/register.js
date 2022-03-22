@@ -48,12 +48,11 @@ export function register() {
   btnSend.setAttribute("type", "submit");
    btnSend.setAttribute("value", "Regístrate");
   btnSend.classList.add("submitRegister");
-  
 
-  const btnBack = document.createElement('button');
-  btnBack.setAttribute('type', 'btn');
+  const btnBack = document.createElement('a');
+  btnBack.setAttribute('href', '#/login');
   btnBack.classList.add('btnBack');
-  btnBack.innerHTML = `<a href="#/login"class="fa-solid fa-arrow-left"> VOLVER</a>` ;
+  btnBack.innerHTML = `<i class="fa-solid fa-arrow-left"></i> VOLVER`;
 
   containerRegister.appendChild(subTitle);
   containerRegister.appendChild(formRegister);
@@ -77,12 +76,5 @@ export function register() {
     window.location.hash = "#/login";
   });
 
-  btnBack.addEventListener('click', () => {
-
-    window.location.hash = "#/login";
-  });
   return containerRegister;
 }
-
-
-
