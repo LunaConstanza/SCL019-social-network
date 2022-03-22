@@ -6,7 +6,7 @@ export const initial = () => {
   imgLogo.classList.add("imgLogo");
   imgLogo.setAttribute("src", "./img/logo.png");
   imgLogo.setAttribute("alt", "Logo Red Social Inicio");
-
+ 
   const aLogin = document.createElement('a');
   aLogin.classList.add('aLogin');
   aLogin.setAttribute('href', '#/login');

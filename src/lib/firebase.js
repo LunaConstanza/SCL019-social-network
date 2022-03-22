@@ -106,8 +106,10 @@ export const verification = () => {
       console.log('usuario Logeado', currentUser.displayName);
       const uid = user.uid;
       return currentUser;
-    } else {
+      
+    } else if (window.location.hash = "#/Dashboard") {
       console.log('No hay Usuario logueado');
+      logOut();
       // User is signed out
     }
   });
@@ -203,7 +205,8 @@ export const savePost = (description) => {
     uid: auth.currentUser.uid,
     name: userName,
     description: description,
-    likes: 0,
+    likes:[],
+    likesCounter: 0,
     datepost: Timestamp.fromDate(new Date()),
   });
 };
@@ -211,6 +214,7 @@ export const savePost = (description) => {
 //---------- Publicamos en el Dashboard ----------------------
 export const postOnTheWall = async () => {
 
+  const conteiner_posts = document.getElementById('conteiner_posts');
   const allPost = query(collection(db, "Post"), orderBy('datepost', 'desc'));
   const querySnapshot = await getDocs(allPost);
   let html = '';
@@ -227,17 +231,16 @@ export const postOnTheWall = async () => {
         <button type="btn" class="btnDelete" value="${doc.id}" data-id="myId"><i class="fa-solid fa-xmark"></i></button>
       </div>
       <p class="mainDash_board_publications_content_text">${post.description}</p>
-      <button id="btn-Likes" class="btn-likes mainDash_board_publications_content_starR starLike" value="${doc.id}">
-      <i class="fa-regular fa-star"></i> ${post.likes} Likes</button>
-    </div>`;
+      <button class="btn-like" id="btn-Like" value="${doc.id}"><i class="fa-regular fa-star"></i>${post.likesCounter}Likes</button>
+      </div>`;
 
     } else {
       html += `
       </div>
       <p class="mainDash_board_publications_content_text">${post.description}</p>
-      <button id="btn-Likes" class="btn-likes mainDash_board_publications_content_starR starLike" value="${doc.id}">
-      <i class="fa-regular fa-star"></i> ${post.likes} Likes</button>
-    </div>`;
+      <button class="btn-like" id="btn-Like" value="${doc.id}"><i class="fa-regular fa-star"></i>${post.likesCounter}Likes</button>
+
+      </div>`;
     }
   });
   document.getElementById('container_posts').innerHTML = html;
@@ -252,19 +255,29 @@ export const postOnTheWall = async () => {
     });
   });
   const btnLikes = document.querySelectorAll('.btn-likes');
-}
 
-// -------------- DELETE POST---------------
+
+    const likeBtn = document.querySelectorAll('.btn-like');
+    console.log(likeBtn);
+    likeBtn.forEach((btnL) => {
+     btnL.addEventListener('click', () => {
+       const postId = btnL.value;
+       updateLikes(postId);
+    });
+    });
+  }
+// Delete post
 export const deletePost = async (id) => {
   await deleteDoc(doc(db, 'Post', id));
 };
 
-
-// ------------ LIKES & DISLIKE ----------------
 export const updateLikes = async (id) => {
+  console.log('click');
   const userIdentifier = auth.currentUser.uid;
-  const postRef = doc(db, 'post', id);
-  const docSnap = await getDoc(postRef);
+  console.log('Hola postData', userIdentifier);
+
+  const postRef = doc(db, 'Post', id);
+  const docSnap = await getDocs(postRef);
   const postData = docSnap.data();
   const likesCount = postData.likesCounter;
 
