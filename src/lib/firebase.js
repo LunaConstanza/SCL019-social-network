@@ -214,7 +214,6 @@ export const savePost = (description) => {
 //---------- Publicamos en el Dashboard ----------------------
 export const postOnTheWall = async () => {
 
-  const conteiner_posts = document.getElementById('conteiner_posts');
   const allPost = query(collection(db, "Post"), orderBy('datepost', 'desc'));
   const querySnapshot = await getDocs(allPost);
   let html = '';
@@ -231,14 +230,16 @@ export const postOnTheWall = async () => {
         <button type="btn" class="btnDelete" value="${doc.id}" data-id="myId"><i class="fa-solid fa-xmark"></i></button>
       </div>
       <p class="mainDash_board_publications_content_text">${post.description}</p>
-      <button class="btn-like" id="btn-Like" value="${doc.id}"><i class="fa-regular fa-star"></i>${post.likesCounter}Likes</button>
-      </div>`;
+      <button class="btn-like mainDash_board_publications_content_starR" id="btn-Like" value="${doc.id}">
+      <i class="fa-regular fa-star"></i> ${post.likesCounter} Likes</button>
+    </div>`;
 
     } else {
       html += `
       </div>
       <p class="mainDash_board_publications_content_text">${post.description}</p>
-      <button class="btn-like" id="btn-Like" value="${doc.id}"><i class="fa-regular fa-star"></i>${post.likesCounter}Likes</button>
+      <button class="btn-like mainDash_board_publications_content_starR" id="btn-Like" value="${doc.id}">
+      <i class="fa-regular fa-star"></i> ${post.likesCounter} Likes</button>
 
       </div>`;
     }
@@ -246,7 +247,6 @@ export const postOnTheWall = async () => {
   document.getElementById('container_posts').innerHTML = html;
 
   const btnDelete = document.querySelectorAll('.btnDelete');
-  console.log(btnDelete);
   btnDelete.forEach((btn) => {
     btn.addEventListener('click', () => {
       if (confirm("¿Estás segura de eliminar esta publicación?")) {
@@ -254,23 +254,24 @@ export const postOnTheWall = async () => {
       }
     });
   });
-  const btnLikes = document.querySelectorAll('.btn-likes');
-
-
-    const likeBtn = document.querySelectorAll('.btn-like');
-    console.log(likeBtn);
-    likeBtn.forEach((btnL) => {
-     btnL.addEventListener('click', () => {
-       const postId = btnL.value;
-       updateLikes(postId);
+  const likeBtn = document.querySelectorAll('.btn-like');
+  console.log(likeBtn);
+  likeBtn.forEach((btnL) => {
+    btnL.addEventListener('click', () => {
+      const postId = btnL.value;
+      updateLikes(postId);
     });
     });
   }
-// Delete post
+
+
+// -------------- DELETE POST---------------
 export const deletePost = async (id) => {
   await deleteDoc(doc(db, 'Post', id));
 };
 
+
+// ------------ LIKES & DISLIKE ----------------
 export const updateLikes = async (id) => {
   console.log('click');
   const userIdentifier = auth.currentUser.uid;
