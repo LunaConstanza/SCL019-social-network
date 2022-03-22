@@ -11,7 +11,7 @@ export const router = (hash) => {
   const rootBox = document.getElementById('root');
 
   switch (hash) {
-    case '#/':
+    case '':
       document.getElementById('root').innerHTML = '';
       rootBox.appendChild(initial());
       break;
