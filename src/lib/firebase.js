@@ -230,7 +230,7 @@ export const postOnTheWall = async () => {
         <button type="btn" class="btnDelete" value="${doc.id}" data-id="myId"><i class="fa-solid fa-xmark"></i></button>
       </div>
       <p class="mainDash_board_publications_content_text">${post.description}</p>
-      <button class="btn-like mainDash_board_publications_content_starR" id="btn-Like" value="${doc.id}">
+      <button class="btn-like mainDash_board_publications_content_starR"  value="${doc.id}">
       <i class="fa-regular fa-star"></i> ${post.likesCounter} Likes</button>
     </div>`;
 
@@ -238,7 +238,7 @@ export const postOnTheWall = async () => {
       html += `
       </div>
       <p class="mainDash_board_publications_content_text">${post.description}</p>
-      <button class="btn-like mainDash_board_publications_content_starR" id="btn-Like" value="${doc.id}">
+      <button class="btn-like mainDash_board_publications_content_starR" value="${doc.id}">
       <i class="fa-regular fa-star"></i> ${post.likesCounter} Likes</button>
 
       </div>`;
@@ -278,7 +278,7 @@ export const updateLikes = async (id) => {
   console.log('Hola postData', userIdentifier);
 
   const postRef = doc(db, 'Post', id);
-  const docSnap = await getDocs(postRef);
+  const docSnap = await getDoc(postRef);
   const postData = docSnap.data();
   const likesCount = postData.likesCounter;
 
