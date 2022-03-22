@@ -1,5 +1,5 @@
-import { router } from './lib/router.js';
-import {initial} from './componet/initial.js'
+import { router } from '../lib/router.js';
+import {initial} from '../componet/initial.js'
   // evento load: se dispara cuando un recurso y sus recursos dependientes han terminado de cargar.
  
  

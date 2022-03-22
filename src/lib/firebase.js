@@ -7,13 +7,13 @@ import {
   getDocs,
   orderBy,
   Timestamp,
-  // updateDoc, 
+  updateDoc, 
   // getDoc,
   query,
-  // doc,
   // onSnapshot,
   // arrayRemove,
-  // arrayUnion,
+  increment,
+  arrayUnion,
 } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore.js";
 // import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-analytics.js";
 import {
@@ -110,8 +110,10 @@ export const verification = () => {
       console.log('usuario Logeado', currentUser.displayName);
       const uid = user.uid;
       return currentUser;
+      
     } else {
       console.log('No hay Usuario logueado');
+      logOut();
       // User is signed out
     }
   });
@@ -210,7 +212,8 @@ export const savePost = (description) => {
     uid: auth.currentUser.uid,
     name: userName,
     description: description,
-    likes:0,
+    likes:[],
+    likesCounter: 0,
     datepost: Timestamp.fromDate(new Date()),
   });
 };
@@ -220,7 +223,7 @@ export const savePost = (description) => {
 
  export const postOnTheWall = async () => {
 
-  // const conteiner_posts = document.getElementById('conteiner_posts');
+  const conteiner_posts = document.getElementById('conteiner_posts');
   const allPost = query(collection(db, "Post"), orderBy('datepost', 'desc'));
   const querySnapshot = await getDocs(allPost);
   let html = ''
@@ -230,45 +233,41 @@ export const savePost = (description) => {
     html += `<div class="mainDash_board_pu  blications_content">
     <h6 class="mainDash_board_publications_content_user">${post.name} publicó:</h6>
     <p class="mainDash_board_publications_content_text">${post.description}</p>
-    <button id="btnLikes"><i class="fa-regular fa-star"></i>Likes</button>
-    </div>`
+    <button class="btn-like" id="btn-Like" value="${post.id}"><i class="fa-regular fa-star"></i>Likes</button>
+            <p class="counter-likes" id="counterLikes">${post.likesCounter} Me gusta</p>
+          </div>
+    `
     console.log('Holaaa div ', post);
+    console.log("hola pos ID", post.id);
   });
-  document.getElementById('conteiner_posts').innerHTML = html;
 
+  const likeBtn = container_Post.querySelectorAll('.btn-like');
+  likeBtn.forEach((btnL) => {
+   btnL.addEventListener('click', () => {
+   const postId = btnL.value;
+   updateLikes(postId);
+});
+});
+  conteiner_posts.innerHTML = html;
+  
 };
 
+export const updateLikes = async (id) => {
+  const userIdentifier = auth.currentUser.uid;
+  const postRef = doc(db, 'Post', id);
+  const docSnap = await getDoc(postRef);
+  const postData = docSnap.data();
+  const likesCount = postData.likesCounter;
 
-// export const updateLikes = async (id) => {
-//   const userIdentifier = auth.currentUser.uid;
-//   const postRef = doc(db, 'post', id);
-//   const docSnap = await getDoc(postRef);
-//   const postData = docSnap.data();
-//   const likesCount = postData.likesCounter;
-
-//   if ((postData.likes).includes(userIdentifier)) {
-//     await updateDoc(postRef, {
-//       likes: arrayRemove(userIdentifier),
-//       likesCounter: likesCount - 1,
-//     });
-//   } else {
-//     await updateDoc(postRef, {
-//       likes: arrayUnion(userIdentifier),
-//       likesCounter: likesCount + 1,
-//     });
-//   }
-// };
-
-
-
-
-
-
-
-// // Actualización del dashboard
-// export const unsub = onSnapshot(
-//   doc(db, "Post", "description"),
-//   { includeMetadataChanges: true },
-//   (doc) => {
-//     // ...
-//   });
+  if ((postData.likes).includes(userIdentifier)) {
+    await updateDoc(postRef, {
+      likes: arrayRemove(userIdentifier),
+      likesCounter: likesCount - 1,
+    });
+  } else {
+    await updateDoc(postRef, {
+      likes: arrayUnion(userIdentifier),
+      likesCounter: likesCount + 1,
+    });
+  }
+};

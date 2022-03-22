@@ -1,4 +1,9 @@
-import { logOut, savePost, postOnTheWall, verification } from '../lib/firebase.js';
+import { 
+    logOut, 
+    savePost, 
+    postOnTheWall, 
+    updateLikes,
+    verification } from '../lib/firebase.js';
 
 export const newContent = (getUserData) => {
 
@@ -91,6 +96,8 @@ export const newContent = (getUserData) => {
         postOnTheWall();
     });
 
+     
+
     btnRefresh.addEventListener('click', () =>{
         postOnTheWall();
     });
@@ -98,5 +105,7 @@ export const newContent = (getUserData) => {
     btnLogOut.addEventListener('click', () => {
         logOut();
     });
+
+  
     return containerDashboard;
 }
