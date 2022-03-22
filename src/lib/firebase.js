@@ -7,12 +7,11 @@ import {
   getDocs,
   orderBy,
   Timestamp,
-  // deleteDoc,
+  deleteDoc,
   // updateDoc, 
   // getDoc,
   query,
-  // doc,
-  // onSnapshot,
+  doc,
   // arrayRemove,
   // arrayUnion,
 } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore.js";
@@ -165,7 +164,7 @@ export const resetPass = (email) => {
 function emailVerification(auth) {
   sendEmailVerification(auth.currentUser)
     .then(() => {
-      alert('Se ha enviado un mensaje de verificación a tu correo electrónico, por favor revisalo y verifica tu registro. Luego inicia sesión.');
+      //...
     });
 }
 
@@ -225,8 +224,8 @@ export const postOnTheWall = async () => {
     html += `<div class="mainDash_board_publications_content">
     <div class="mainDash_board_publications_content_user">
     <h6>${post.name} publicó:</h6>`;
-    console.log('y este su contenido: ', post); 
-    
+    console.log('y este su contenido: ', post);
+
     if (post.uid === auth.currentUser.uid) {
       html += `
       <button type="btn" id="btn" class="btnDelete" value="${doc.id}" data-id="myId">X</button>
@@ -234,7 +233,7 @@ export const postOnTheWall = async () => {
       <p class="mainDash_board_publications_content_text">${post.description}</p>
       <button id="btnLikes"><i class="fa-regular fa-star"></i> Likes</button>
       </div>`;
-      
+
     } else {
       html += `</div>
       <p class="mainDash_board_publications_content_text">${post.description}</p>
@@ -250,10 +249,10 @@ export const postOnTheWall = async () => {
         deletePost(btn.value);
       }
     });
-});
+  });
 
 
-  document.getElementById('conteiner_posts').innerHTML = html;
+  document.getElementById('container_posts').innerHTML = html;
 };
 
 
