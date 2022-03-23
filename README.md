@@ -41,11 +41,9 @@ En las siguientes imagenes mostraremos nuestro sitio.
 * El diseño es responsive por lo cual se adapta a diferentes tamaños de pantallas.
 
 _Para tableta digital_
-
 ![Responsive](images/IFS6.PNG)
 
-_Para computador_
-
+_Para móvil_
 ![Responsive](images/IFS7.PNG)
 
 
@@ -74,7 +72,8 @@ Para lograr un buen resultado durante el transcurso de creación de nuestro proy
 ### 3.3 Prototipo de alta fidelidad
 Por medio de la aplicación [_Figma_](https://www.figma.com/community) preparamos nuestro prototipo de alta fidelidad.
 
-![AFidelidad](falta subirlo con logo)
+![Alta_Fidelidad](images/PAF1.png)![Alta_Fidelidad](images/PAF2.png)
+![Alta_Fidelidad](images/PAF3.png)
 
 ### 3.4 Historias de Usuarios
 En este proyecto detallamos 7 "historias de usuarios" con el fin de visualizar y reducir todas las necesidades que la creaccion de esta redsocial pudiera necesitar, lo realizamos de forma colaborativa con la herramienta Project que provee Github.
