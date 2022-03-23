@@ -61,7 +61,7 @@ export function login() {
   inputEmail.setAttribute("maxlength", "40");
   inputEmail.setAttribute("required", "");
   const resetPassword = document.createElement("button");
-  resetPassword.classList.add("btnReset");
+  resetPassword.classList.add("btnResetPassword");
   resetPassword.innerHTML = `<i class="fa-solid fa-key"></i> Recuperar Contraseña`;
 
   const btnGoogle = document.createElement("button");
@@ -91,15 +91,12 @@ export function login() {
   /*Hacer login para entrar al muro*/
   formLogin.addEventListener("submit", (e) => {
     e.preventDefault();
-    console.log("apretaste iniciar sesion");
     const email = document.getElementById("emailLogin").value;
     const password = document.getElementById("passwordLogin").value;
     const alertaLogin = (valid) => {
       if (valid) {
-        console.log("este es el if true");
         window.location.hash = '#/dashboard';
       } else {
-        console.log("el if false");
       }
     };
     loginEmailPassword(email, password, alertaLogin);
@@ -123,8 +120,8 @@ export function login() {
     const saveEmail = document.getElementById("userEmail").value;
     resetPass(saveEmail);
   });
-  /*Botón para ingresar con google*/
 
+  /*Botón para ingresar con google*/
   btnGoogle.addEventListener("click", (e) => {
     e.preventDefault();
     const trueUser = (valid) => {
@@ -132,12 +129,10 @@ export function login() {
         window.location.hash = '#/dashboard';
       }
       else {
-        console.log('error');
+        //..
       }
     }
     registerGoogle(trueUser);
-  
   });
-
   return containerLogin;
 }

@@ -388,29 +388,6 @@ a:hover {
 .mainDash_board_publications_content_starR:hover {
   background: none;
 }
-/* .mainDash_board_publications_content .starS {
-  color: var(--yellow-color);
-}
-} */
-/***btn crear post***/
-.mainDash_board_createPost_btn{
-  background: var(--white-color);
-  color: var(--purple-color);
-  border: 3px solid var(--purple-color);
-  width: 90px;
-  height: 90px;
-  -moz-border-radius: 50%;
-  -webkit-border-radius: 50%;
-  border-radius: 50%;
-  font-size: 4.5rem;
-  font-weight: bold;
-  justify-self: center;
-  padding: 0;
-}
-.mainDash_board_createPost_btn:hover{
-  background: var(--purple-color);
-  color: var(--white-color);
-}
 
 /*************FOOTER*************/
 footer {
@@ -483,7 +460,7 @@ footer {
     margin: 0 10px;
     padding: 10px 10px;
   }
-  .popup form .btnReset {
+  .popup form .btnResetPassword {
     grid-column: 1/4;
     margin-bottom: 10px;
   }

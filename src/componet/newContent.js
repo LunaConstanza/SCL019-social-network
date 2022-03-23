@@ -10,7 +10,7 @@ export const newContent = (getUserData) => {
     containerDashboard.setAttribute('id', 'mainDash');
     containerDashboard.classList.add('mainDash');
 
-    // /*PERFIL*/
+    // ------- PERFIL-----------
     const profile = document.createElement('div');
     profile.classList.add('mainDash_profile');
     const dataUser = document.createElement('h4');
@@ -22,11 +22,11 @@ export const newContent = (getUserData) => {
     btnLogOut.classList.add('btnLogOut');
     btnLogOut.innerHTML = `Cerrar sesión <i class="fa-solid fa-right-from-bracket"></i>`;
 
-    // /*PUBLICACIONES Y CREAR POST*/
+    // -----------PUBLICACIONES Y CREAR POST --------------
     const board = document.createElement('div');
     board.classList.add('mainDash_board');
 
-    //         /*Crear Post*/
+    // ------ CREAR POST ---------
     const createPost = document.createElement('div');
     createPost.classList.add('mainDash_board_createPost');
     const titleCreatePost = document.createElement('h5');
@@ -49,7 +49,7 @@ export const newContent = (getUserData) => {
     submitPost.classList.add('mainDash_board_createPost_submit');
     submitPost.innerHTML = `Publicar`;
 
-    //         /*Publicaciones*/
+    // ------------- PUBLICACIONES -----------
     const publications = document.createElement('div');
     publications.classList.add('mainDash_board_publications');
     const topBar = document.createElement('div');
@@ -64,7 +64,7 @@ export const newContent = (getUserData) => {
     scrollContent.classList.add('mainDash_board_publications_scroll');
     scrollContent.setAttribute('id', 'container_posts');
 
-    // /*APPENDCHILD*/
+    // ------- APPENDCHILD -------------
     containerDashboard.appendChild(profile);
     profile.appendChild(dataUser);
     profile.appendChild(btnLogOut);
@@ -82,6 +82,7 @@ export const newContent = (getUserData) => {
 
     const wallPost = postOnTheWall();
 
+    // ----- PUBLICAR POST -----------
     formCreatePost.addEventListener('submit', (e) => {
         e.preventDefault();
         verification();
@@ -91,14 +92,15 @@ export const newContent = (getUserData) => {
         postOnTheWall();
     });
 
+    // ----- REFRESCAR POST -----------
     btnRefresh.addEventListener('click', () => {
         postOnTheWall();
     });
 
+    // ----- CERRAR SESIÓN -----------
     btnLogOut.addEventListener('click', () => {
         logOut();
     });
 
-  
     return containerDashboard;
 }

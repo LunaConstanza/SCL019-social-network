@@ -2,16 +2,15 @@ import { register } from '../componet/register.js';
 import { newContent } from '../componet/newContent.js';
 import { initial } from '../componet/initial.js';
 import { login } from '../componet/login.js';
-import { /*myFunction,*/ headerLogo } from "../lib/index.js";
+import { headerLogo } from "../lib/index.js";
 import { getUserData, verification } from './firebase.js';
 
 export const router = (hash) => {
-  console.log('Hola router');
   // Llamamos al div del html
   const rootBox = document.getElementById('root');
 
   switch (hash) {
-    case '#/':
+    case '':
       document.getElementById('root').innerHTML = '';
       rootBox.appendChild(initial());
       break;
@@ -34,6 +33,5 @@ export const router = (hash) => {
     default:
       root.innerHTML = 'mantenimiento'
   }
-
 };
 
