@@ -237,19 +237,19 @@ export const postOnTheWall = async () => {
     btnL.addEventListener('click', async () => {
 
   //------------- ESTO NO ESTA FUNCIONANDO BIEN ----------
-      // const star = document.getElementById('star');
-      // console.log('star', star);
-      // const alerta = (valid) => {
-      //   if (valid) {
-      //     star.innerHTML = `<i class="fa-solid fa-star"></i>`;
-      //     console.log('like');
-      //   } else {
-      //     star.innerHTML = `<i class="fa-regular fa-star"></i>`;
-      //     console.log('dislike');
-      //   }
-      // }
+      const star = btnL.querySelector('span');
+      console.log('star', star);
+      const alerta = (valid) => {
+        if (valid) {
+          star.innerHTML = `<i class="fa-solid fa-star"></i>`;
+          console.log('like');
+        } else {
+          star.innerHTML = `<i class="fa-regular fa-star"></i>`;
+          console.log('dislike');
+        }
+      }
   //------------- ESTO NO ESTA FUNCIONANDO BIEN ----------
-      updateLikes(btnL.value, /*alerta*/);
+      updateLikes(btnL.value, alerta);
     });
   });
 };
@@ -258,11 +258,12 @@ export const postOnTheWall = async () => {
 // -------------- DELETE POST---------------
 export const deletePost = async (id) => {
   await deleteDoc(doc(db, 'Post', id));
+  postOnTheWall();
 };
 
 
 // ------------ LIKES & DISLIKE ----------------
-export const updateLikes = async (id, /*callback*/) => {
+export const updateLikes = async (id, callback) => {
   const userIdentifier = auth.currentUser.uid;
 
   const postRef = doc(db, 'Post', id);
@@ -275,14 +276,14 @@ export const updateLikes = async (id, /*callback*/) => {
       likes: arrayRemove(userIdentifier),
       likesCounter: likesCount - 1,
     });
-    // callback(false);
-    postOnTheWall();
+    callback(false);
+    // postOnTheWall();
   } else {
     await updateDoc(postRef, {
       likes: arrayUnion(userIdentifier),
       likesCounter: likesCount + 1,
     });
-    // callback(true);
-    postOnTheWall();
+    callback(true);
+    // postOnTheWall();
   }
 };

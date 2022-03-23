@@ -350,6 +350,7 @@ a:hover {
   display: grid;
   grid-template-columns: auto;
   grid-template-rows: 30px auto 30px;
+  border-top: 1px solid;
 }
 .mainDash_board_publications_content_user{
   grid-row: 1/2;

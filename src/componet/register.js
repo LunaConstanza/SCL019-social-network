@@ -1,7 +1,6 @@
 import { registerUser } from "../lib/firebase.js";
 
 export function register() {
-  window.scroll(0, 0);
 
   const containerRegister = document.createElement("main");
   containerRegister.setAttribute("id", "mainRegister");
