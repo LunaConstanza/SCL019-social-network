@@ -38,11 +38,7 @@ En las siguientes imagenes mostraremos nuestro sitio.
 
 ![muro](images/IFS5.PNG)
 
-* El diseño es responsive por lo cual se adapta a diferentes tamaños de pantallas.
-
-_Para tableta digital_
-
-![Responsive](images/IFS6.PNG)
+* El diseño es responsive por lo cual se adapta a diferentes tamaños de pantalla.
 
 _Para móvil_
 
