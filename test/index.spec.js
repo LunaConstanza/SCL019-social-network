@@ -7,7 +7,6 @@
 // });
 // });
 
-import { login } from "../src/login.js";
 import { headerLogo } from "../lib/index.js";
 
 describe("headerLogo", () => {
@@ -24,4 +23,4 @@ describe("headerLogo", () => {
 //     expect(() => login(0)).toThrow(TypeError);
 //     expect(() => login(null, [])).toThrow(TypeError);
 //     expect(() => login(0, 0)).toThrow(TypeError);
-//   });
+});

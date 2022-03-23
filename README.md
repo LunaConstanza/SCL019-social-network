@@ -46,7 +46,7 @@ _Para tableta digital_
 
 _Para móvil_
 
-![Responsive](images/IFS8.PNG)![Responsive](images/IFS9.PNG)![Responsive](images/IFS7.PNG)
+![Responsive](images/IFS8.PNG) ![Responsive](images/IFS9.PNG) ![Responsive](images/IFS7.PNG)
 
 
 ## 2. Investigación UX
