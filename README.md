@@ -22,34 +22,31 @@ Nuestro proyecto se hizo basado en SPA (Single Page Aplication) y HTML dinámico
 En las siguientes imagenes mostraremos nuestro sitio.
 
 * Comenzamos por la pantalla de inicio en la que usamos nuestro logo para la bienvenida de la usuaria.
-##
-![inicio](imagen de incio, mobile first)
-##
-* Pasa a la pagina de login en el cual la usuaria puede ingresar a su cuenta, si no rellena bien los datos tendra unos avisos con los cuales debera corregir lo que se indique o puede crear una nueva cuenta.
-##
-![login](imagen login)
-![login](imagen login con error)
-##
-* Pagina de registro, esta mostrara los datos necesarios para ingresar y al igual que en login se le avisara a la futura usuaria cuando los campos esten vacios.
 
-![register](imagen resgister)
-![register](imagen resgister con error)
-![register](imagen resgister mensaje de envio de contrase;a al correo)
+![inicio](images/IFS1.PNG)
 
-* Una vez los datos han sido bien ingresados y se ha confirmado la creacion de cuenta desde el correo, ingresamos al muro. Donde podemos publicar post, eliminarlos, dar/quitar like y editar nuestros post.
+* Pasa a la pagina de login en el cual la usuaria puede ingresar a su cuenta, en la cual tambien puede recuperar su contraseña o crear una nueva cuenta.
 
-![muro](imagen de muro)
-![muro](imagen de muro con eliminacion de post)
-![muro](imagen de muro editar post)
-![muro](imagen de muro dar/quitar like)
-![muro](imagen de muro creacion de post)
+![login](images/IFS2.PNG)
+![login](images/IFS3.PNG)
+
+* Pagina de registro, esta solicitara los datos necesarios para autenticarse en nuestro sitio.
+
+![register](images/IFS4.PNG)
+
+* Una vez los datos han sido bien ingresados y se ha confirmado la creacion de cuenta desde el correo, ingresamos al muro; donde podremos publicar post, eliminarlos y dar/quitar like.
+
+![muro](images/IFS5.PNG)
 
 * El diseño es responsive por lo cual se adapta a diferentes tamaños de pantallas.
 
-![Responsive](tama;o para tablet)
 _Para tableta digital_
-![Responsive](pantalla de pc)
+
+![Responsive](images/IFS6.PNG)
+
 _Para computador_
+
+![Responsive](images/IFS7.PNG)
 
 
 ## 2. Investigación UX
@@ -65,7 +62,9 @@ Este es el formulario con los resultados obtenidos para nuestra investigación.
 ### 3.1 Prototipo baja fidelidad
 En nuestro diseño de baja fidelidad, lo hicimos colaborativamente desde zoom y hecho directamente en Abode Ilustrator. A conticuacion imagenes del resultado de nuestro trabajo.
 
-![Sketch](ruta imagen)
+![Sketch](images/ProtBajaFidelidad1.png)
+![Sketch](images/ProtBajaFidelidad2.png)
+![Sketch](images/ProtBajaFidelidad3.png)
 
 ### 3.2 Testeo de Usabilidad
 Para lograr un buen resultado durante el transcurso de creación de nuestro proyecto realizamos dos testeos a traves de encuestas de [_Forms_Google_](https://workspace.google.com/intl/es-419/products/forms/?utm_source=google&utm_medium=cpc&utm_campaign=latam-CL-all-es-dr-bkws-all-all-trial-e-dr-1011272-LUAC0011982&utm_content=text-ad-none-any-DEV_c-CRE_479425067880-ADGP_Hybrid%20%7C%20BKWS%20-%20MIX%20%7C%20Txt%20~%20Forms-KWID_43700057707270852-kwd-868999111187&utm_term=KW_crear%20google%20forms-ST_crear%20google%20forms&gclsrc=ds&gclsrc=ds) con los cuales logramos iterar lo necesario.
@@ -73,7 +72,7 @@ Para lograr un buen resultado durante el transcurso de creación de nuestro proy
 * He aquí el [_link_](agregar link) del segundo testeo.
 
 ### 3.3 Prototipo de alta fidelidad
-Por medio de la aplicación [_Figma_](https://www.figma.com/community) preparamos nuestro [_prototipo de alta fidelidad_](https://www.figma.com/proto/tO5EpUkGR69jbBKQWEEHsR/Red-Social-SGG?node-id=0%3A1&scaling=scale-down&page-id=0%3A1) 
+Por medio de la aplicación [_Figma_](https://www.figma.com/community) preparamos nuestro prototipo de alta fidelidad.
 
 ![AFidelidad](falta subirlo con logo)
 

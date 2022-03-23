@@ -3,7 +3,6 @@ import { router } from '../lib/router.js';
  
  
  const iniciar = () => {
-    console.log(window.location.hash);
       router(window.location.hash); 
  }
  
