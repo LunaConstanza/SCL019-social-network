@@ -6,7 +6,6 @@ import {
 
 export function login() {
 
-  console.log("hice click");
   const containerLogin = document.createElement("main");
   containerLogin.classList.add("mainLogin");
   const subTitleLogin = document.createElement("h2");

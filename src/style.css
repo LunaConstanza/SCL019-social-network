@@ -167,7 +167,7 @@ button:hover {
   grid-column: 1/4;
   height: 40px;
 }
-.popup form .btnReset {
+.popup form .btnResetPassword {
   grid-column: 2/3;
   height: 40px;
 } /*FIN POPUP*/

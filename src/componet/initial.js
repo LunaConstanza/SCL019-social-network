@@ -4,7 +4,7 @@ export const initial = () => {
   mainCharge.classList.add("mainLogo");
   const imgLogo = document.createElement("img");
   imgLogo.classList.add("imgLogo");
-  imgLogo.setAttribute("src", "./img/logo.png");
+  imgLogo.setAttribute("src", "./img/logo_inicial.png");
   imgLogo.setAttribute("alt", "Logo Red Social Inicio");
  
   const aLogin = document.createElement('a');
