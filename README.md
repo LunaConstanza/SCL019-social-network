@@ -41,10 +41,12 @@ En las siguientes imagenes mostraremos nuestro sitio.
 * El diseño es responsive por lo cual se adapta a diferentes tamaños de pantallas.
 
 _Para tableta digital_
+
 ![Responsive](images/IFS6.PNG)
 
 _Para móvil_
-![Responsive](images/IFS7.PNG)
+
+![Responsive](images/IFS8.PNG)![Responsive](images/IFS9.PNG)![Responsive](images/IFS7.PNG)
 
 
 ## 2. Investigación UX
