@@ -65,7 +65,7 @@ En nuestro diseño de baja fidelidad, lo hicimos colaborativamente desde zoom y 
 ### 3.2 Testeo de Usabilidad
 Para lograr un buen resultado durante el transcurso de creación de nuestro proyecto realizamos dos testeos a traves de encuestas de [_Forms_Google_](https://workspace.google.com/intl/es-419/products/forms/?utm_source=google&utm_medium=cpc&utm_campaign=latam-CL-all-es-dr-bkws-all-all-trial-e-dr-1011272-LUAC0011982&utm_content=text-ad-none-any-DEV_c-CRE_479425067880-ADGP_Hybrid%20%7C%20BKWS%20-%20MIX%20%7C%20Txt%20~%20Forms-KWID_43700057707270852-kwd-868999111187&utm_term=KW_crear%20google%20forms-ST_crear%20google%20forms&gclsrc=ds&gclsrc=ds) con los cuales logramos iterar lo necesario.
 * He aquí el [_link_](https://docs.google.com/forms/d/1eWEE1zufOlCosedHUvRuLKqEhddaAe9Z6QJA9rgfFIk/viewanalytics) del primer testeo.
-* He aquí el [_link_](agregar link) del segundo testeo.
+* He aquí el [_link_](https://docs.google.com/forms/d/1Q9Ahe0J-bQMYLSgVT_lyPp5_bH9G6k9t4Wa6DxD7XFk/viewanalytics) del segundo testeo.
 
 ### 3.3 Prototipo de alta fidelidad
 Por medio de la aplicación [_Figma_](https://www.figma.com/community) preparamos nuestro prototipo de alta fidelidad.
