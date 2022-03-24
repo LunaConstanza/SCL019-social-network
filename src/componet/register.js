@@ -71,7 +71,6 @@ export function register() {
     const password = document.getElementById("password").value;
 
     registerUser(email, password, nameLastname, dateOfBirth);
-    alert('Se ha enviado un mensaje de verificación a tu correo electrónico, por favor revisalo y verifica tu registro. Luego inicia sesión.');
     window.location.hash = "#/login";
   });
 
